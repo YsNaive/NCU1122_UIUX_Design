@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f84ab4ec20274e86f91d6e2a30257, type: 3}
+  m_Name: Matrix
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 2800000, guid: 7c96eb4a8f2b4ba48a012519285cd6ab, type: 3}
+  SubPages: []
+  Components:
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Matrix
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - The Matrix can show in any n*m, and can fix its contents or screen width.
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 0
+    JsonData: 
+    TextData: []
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Settings
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 5
+    JsonData: '{"scale":-1.0,"url":"https://hackmd.io/_uploads/HyV4-ovjn.png","mode":0}'
+    TextData: []
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - Type number in row/col can change martix size directly, you can also is green/red
+      button to add/remove line. For the fixed mode, fixed text to resize matrix
+      with its contents, fixed width to current screen width. Finaly, the text anchor
+      can be change by col major.
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 0
+    JsonData: 
+    TextData: []
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Show Case
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 3
+    JsonData: '{"row":2,"col":3,"anchors":[3,3,3],"mode":1}'
+    TextData:
+    - Fix
+    - with
+    - text
+    - And
+    - No
+    - Anchor
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  - VisualID: 3
+    JsonData: '{"row":2,"col":3,"anchors":[3,4,5],"mode":0}'
+    TextData:
+    - Fix
+    - with
+    - width
+    - Left
+    - 'Mid
+
+      Also Newline'
+    - Right
+    ObjsData: []
+    AniSettings: 01000000fa00000001000000fa000000
+    VisualVersion: 0
+  IntroMode: 1
+  OuttroMode: 1
+  IntroDuration: 200
+  OuttroDuration: 200

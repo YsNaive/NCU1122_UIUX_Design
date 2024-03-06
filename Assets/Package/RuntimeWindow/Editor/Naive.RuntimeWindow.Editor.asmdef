@@ -1,0 +1,20 @@
+{
+    "name": "Naive.RuntimeWindow.Editor",
+    "rootNamespace": "NaiveAPI_Editor.RuntimeWindowUtils",
+    "references": [
+        "GUID:39998dbcc539eae4599a6b2e71b42b8c",
+        "GUID:45db4eb6f2823c3428607863a9078e0c",
+        "GUID:801bd926f561cf44496d68a1f87000cd"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

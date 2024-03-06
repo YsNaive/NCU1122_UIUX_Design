@@ -1,0 +1,246 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f84ab4ec20274e86f91d6e2a30257, type: 3}
+  m_Name: Setup
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 2800000, guid: 3543eaffc785cee4a879a77c6b51fede, type: 3}
+  SubPages: []
+  Components:
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Setup
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - 'Before using RuntimeWindow, you need to make some configurations.
+
+      you
+      can also check the script and components in sample scene.'
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 0
+    JsonData: 
+    TextData: []
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Create Window
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - 'First you need to extend RuntimeWindow or DSRuntimeWindow
+
+      The difference
+      is that DSRuntimeWindow applies DocStyle referenced from DocumentBuilder. RuntimeWindow
+      not, you need to do it your self.'
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 7
+    JsonData: '{"MaxHeight":300,"LineHeightPercent":125}'
+    TextData:
+    - "class SampleWindow : DSRuntimeWindow\r\n{\r\n    public SampleWindow()\r\n   
+      {\r\n        MinSize = new Vector2(250, 200);\r\n        Add(new DSTextElement(\"You
+      can Drag / Resize this window\"));\r\n        Add(new DSTextElement(\"Modify
+      and try properties on Inspector!\"));\r\n    }\r\n}"
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - 'And now you can add your content and modify properties in Constructor.
+
+      Just
+      implement it as a VisualElement, below is the layout of a window.
+
+      and
+      some pre processed element.
+
+
+      window below is create by code above. (without
+      button)'
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 5
+    JsonData: '{"scale":1.0,"url":"","base64":"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mM/mzVvcnj37EtOqCnPnzneXLl1OTMsqqVuGVJwHDx7Ki2vVqp27cOGC+9vfbsqLr0r88ccfrnPnbp6+ffu7bdu2+Wu6++77E/NXFG3adHBLly5LTPvyy6/ciy9OiMqJtH///Xd3zz3VE/OXlr///Z9u8OChiWlpePfdme61196IwrfdVs399ttv7n//9x95+YwhQ4a5GjUeTEwrDzp06OJq166fmHYtKPuvv/6ak+KdiemFRCHIsCyCu1Ze0hANwgnjV65c7Y4fP5kXV9FwPsoSQnxllCHlid+z8iS1DBHezp273PDho6K4tWvXJbYKH398oBdLPL5Wrbp5FSLhsAWRxJNPPuV69eqbmNa//5M5Bua9tVPODh06++3HHx/g2rbtEKUlgQxvvvmOvLhXXnnNrVixMgp37NjV53n44R65luOjUXyNGrXdsGEjfGVrcQYtnn79nnC9ez/mwxwjnidk1qzZueM/kpiGDOP3+f33Z1/R2uEcgwcPc3fddW9ePDz0UEtf1nr1GkVxt99+l2vZsq3fprJ/4IHaV2B5gR6Cp59+xrVu3S4vPqRt245uwYJv3Geffe66dy+6V6EMu3Xr6dq3L3o+RtOmLfNkc9NNt/mXL55tSS9ayBOZW5jPQPhyQJqVn2tv0KDJf7Zb+Wu+7ba73MCBg12zZi2jfYw777zbC5r7mSRDyvfEE0/mnm//vJb8v/51f67FXnzv77vvgVzcfVH4xhtvcfffX3WHJCTDfEorw7hs/ioZct54vGQYfJBLK0OoX7+xr9SoSJ5+epTbuHGTu+GGm/PST58+41sGM2fOcidOnMidr1WUfvr06VxFXVw5fP/9al95WjiEiujixV98F+Enn3zmW6VWuXXv3it3wy656dNn+HS6F5s0aeHTHnigTu5DuMetXv2Dmzr1bbdr12739dff5B07JEmGdPPROrz11ju91M6fP+82bNiUO85CLxTyfPrp5/68L7/8qvvmm2/dzz9vifanVXn06FGf5+233819CL93//73TlezZp0oTwjnIH9SGiTJ8IUXXvblYRvJbNu23X311dfurbcmub1797nnnhsX5V28eKkvA13aGzZszOWZ7OPp9l67dq3fRlDr1q2PWL9+o3/WN954q0+fMOE1/zxfffWNXAt2ub9e7pOdwxg4cIj76af1btWq1bmXitd9nMlwzZo1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DEWhIhkKISIkQ1GoSIZCiAjJUBQqkqEQIkIyFIWKZCiEiJAMRaEiGQohIiRDUahIhkKICMlQFCqSoRAiQjIUhYpkKISIkAxFoVIhMhw6dLgQogoyfPgIyVAUJOUuwy5dugkhqjhJ3+2SkAxFFih3GQohCgvJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGQByVAIkQrJUGSBEmUohBBpCOsWISo7kqEQokII6xYhKjuSoRCiQgjrFiEqO3kyFEIIIQoRyVAIIUTBIxkKIYQocDq4/wfxM5BcVti78QAAAABJRU5ErkJggg==","mode":2}'
+    TextData: []
+    ObjsData:
+    - {fileID: 0}
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - Here are some common properties that you can modify.
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 3
+    JsonData: '{"row":13,"col":3,"anchors":[3,3,3],"mode":1}'
+    TextData:
+    - Type
+    - Name
+    - Usage
+    - string
+    - TabName
+    - 
+    - bool
+    - EnableTab
+    - show/hide the tab
+    - bool
+    - EnableContextMenu
+    - menu open by mouse right
+    - bool
+    - LimitInParent
+    - can it move out of parent bound
+    - bool
+    - LimitSize
+    - "can it resize out of \n[MinSize, MaxSize]]"
+    - bool
+    - Dragable
+    - 
+    - bool
+    - Resizable
+    - 
+    - bool
+    - SnapLayout
+    - "dose it auto snap when it \ndrag close to border"
+    - TextAnchor
+    - SnapBorder
+    - dose it snap on border
+    - bool
+    - PopupOnClick
+    - dose it popup when pointer down
+    - Vector2
+    - MinSize
+    - 
+    - Vector2
+    - MaxSize
+    - 
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 0
+    JsonData: 
+    TextData: []
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Open on Runtime
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - 'There are 2 ways to use RuntimeWindow. The first is to use it as a normal
+      VisualElement, but it''s recommended to call it from a handler like EditorWindow.
+
+
+      First,
+      set up the ScreenElement. It can be changed in any time.
+
+      below is a
+      simple setup using panel root directly in a GameObject Awake().'
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 7
+    JsonData: '{"MaxHeight":300,"LineHeightPercent":125}'
+    TextData:
+    - "public UIDocument UIDocument;\r\n\r\nprivate void Awake()\r\n{\r\n    RuntimeWindow.ScreenElement
+      = UIDocument.rootVisualElement;\r\n}"
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - Than get window from RuntimeWindow.GetWindow() / CreateWindow()
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 7
+    JsonData: '{"MaxHeight":300,"LineHeightPercent":125}'
+    TextData:
+    - 'var sampleWindow = RuntimeWindow.GetWindow<SampleWindow>("Default Window");
+
+      var
+      inspector = RuntimeWindow.GetWindow<RuntimeInspector>();
+
+      var sceneHierarchy
+      = RuntimeWindow.GetWindow<RuntimeSceneHierarchy>();'
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: '{"Type":4}'
+    TextData:
+    - 'GetWindow() will try to find exist instance first, if not exist than create
+
+      CreateWindow()
+      will just create a new one
+
+
+      both method will put Window in the ScreenElement'
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: '{"Type":2}'
+    TextData:
+    - Use RuntimeWindow.Destory() to delete a window to ensure there are no more
+      reference from RuntimeWindowDict.
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 0
+    JsonData: 
+    TextData: []
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Init Layout
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - You may want to set a default layout for your window, best way is to use unity
+      build-in GeometryChangedEvent to set it , but here are a little trick to set
+      it
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - 'use IEnumerator and yield can let code execute in next unity loop.
+
+      so
+      the element layout is solved after yield return.
+
+
+      check ScriptAPI for
+      RuntimeWindow for more details.'
+    ObjsData: []
+    VisualVersion: 0
+  - VisualID: 7
+    JsonData: '{"MaxHeight":300,"LineHeightPercent":125}'
+    TextData:
+    - "IEnumerator Start()\r\n{\r\n    var sampleWindow = RuntimeWindow.GetWindow<SampleWindow>(\"Default
+      Window\");\r\n    var inspector = RuntimeWindow.GetWindow<RuntimeInspector>();\r\n   
+      var sceneHierarchy = RuntimeWindow.GetWindow<RuntimeSceneHierarchy>();\r\n\r\n   
+      yield return null;\r\n    sampleWindow.SetLayoutPercent(new Rect(0.4f, 0.1f,
+      0.25f, 0.4f));\r\n    inspector.SetLayoutPercentAnyway(RuntimeWindow.LayoutPercent.RightOneThird);\r\n   
+      sceneHierarchy.SetLayoutPercentAnyway(new Rect(0, 0, 0.2f, 1f));\r\n}"
+    ObjsData: []
+    VisualVersion: 0

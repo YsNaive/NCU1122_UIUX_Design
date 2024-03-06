@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03f84ab4ec20274e86f91d6e2a30257, type: 3}
+  m_Name: SeeAlso
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 2800000, guid: 7c96eb4a8f2b4ba48a012519285cd6ab, type: 3}
+  SubPages: []
+  Components:
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - See Also
+    ObjsData: []
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - To display a quick view to other DocPage or use as a URL link to open web,
+      usually use in API docs as see also.
+    ObjsData: []
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 0
+    JsonData: 
+    TextData: []
+    ObjsData: []
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Settings
+    ObjsData: []
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 5
+    JsonData: '{"scale":-1.0,"url":"https://hackmd.io/_uploads/Sycxbjvjn.png","mode":0}'
+    TextData: []
+    ObjsData: []
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 2
+    JsonData: 
+    TextData:
+    - description is only for prefix, while click it wrong effect, height only effect
+      in DocPage view mode as max height.
+    ObjsData: []
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 0
+    JsonData: 
+    TextData: []
+    ObjsData: []
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 1
+    JsonData: 
+    TextData:
+    - Show Case
+    ObjsData: []
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 6
+    JsonData: '{"height":250,"url":"","mode":0,"IntroAniMode":1,"OuttroAniMode":1,"IntroDuration":250,"OuttroDuration":250}'
+    TextData:
+    - Check our intro page !
+    - Document Builder
+    ObjsData:
+    - {fileID: 11400000, guid: b4d768b0a8c3e3a4f9c56bd8f9815b43, type: 2}
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  - VisualID: 6
+    JsonData: '{"height":400,"url":"https://github.com/YsNaive/Unity-DocumentBuilder","mode":1,"IntroAniMode":1,"OuttroAniMode":1,"IntroDuration":250,"OuttroDuration":250}'
+    TextData:
+    - This is GitHub page link
+    - Jump !
+    ObjsData:
+    - {fileID: 0}
+    AniSettings: 0100000001000000fa000000fa000000
+    VisualVersion: 0
+  IntroMode: 1
+  OuttroMode: 1
+  IntroDuration: 200
+  OuttroDuration: 200

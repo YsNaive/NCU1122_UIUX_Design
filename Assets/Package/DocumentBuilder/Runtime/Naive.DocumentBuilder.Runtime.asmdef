@@ -1,0 +1,16 @@
+{
+    "name": "Naive.DocumentBuilder.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:45db4eb6f2823c3428607863a9078e0c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

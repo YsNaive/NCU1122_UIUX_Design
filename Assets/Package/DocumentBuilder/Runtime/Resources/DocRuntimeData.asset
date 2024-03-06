@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a4c2ce97edfe04d91da5aae8995b35, type: 3}
+  m_Name: DocRuntimeData
+  m_EditorClassIdentifier: 
+  CurrentStyle: {fileID: 11400000, guid: 4f4cc2f18f09caa42a5337654ad9e793, type: 2}
+  m_IgnoreAssemblyName:
+  - unityplastic
+  - asset-store-tools-editor
+  - Bee.BeeDriver
+  - log4net
+  - ExCSS.Unity
+  - Mono.Posix
+  - Mono.Security
+  - Naive.DocumentBuilder.Sample
+  - nunit.framework
+  - PlayerBuildProgramLibrary.Data
+  - ReportGeneratorMerged
+  - System.Numerics
+  - System.ServiceModel.Internals
+  - Unity.2D.Sprite.Editor
+  - Unity.Cecil
+  - Unity.CollabProxy.Editor
+  - Unity.EditorCoroutines.Editor
+  - Unity.Performance.Profile-Analyzer.Editor
+  - Unity.PlasticSCM.Editor
+  - Unity.Rider.Editor
+  - Unity.Settings.Editor
+  - Unity.Plastic.Antlr3.Runtime
+  - Unity.Plastic.Newtonsoft.Json
+  - Unity.TestTools.CodeCoverage.Editor
+  - Unity.TestTools.CodeCoverage.Editor.OpenCover.Model
+  - Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection
+  - Unity.TextMeshPro.Editor
+  - Unity.Timeline.Editor
+  - Unity.VisualScripting.Core.Editor
+  - Unity.VisualScripting.Flow.Editor
+  - Unity.VisualScripting.SettingsProvider.Editor
+  - Unity.VisualScripting.Shared.Editor
+  - Unity.VisualScripting.State.Editor
+  - Unity.VisualStudio.Editor
+  - Unity.VSCode.Editor
+  - UnityEditor.UIElementsSamplesModule
