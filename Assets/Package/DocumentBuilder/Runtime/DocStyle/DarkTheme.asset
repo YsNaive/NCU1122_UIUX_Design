@@ -102,7 +102,7 @@ MonoBehaviour:
       Padding:
         rid: 8869985085687332882
       Text:
-        rid: 5337076939366858752
+        rid: 5337076939366858753
       Background:
         rid: 8869985085687332883
       Border:
@@ -268,13 +268,13 @@ MonoBehaviour:
           Value:
             Unit: 0
             Value: 2
-    - rid: 5337076939366858752
+    - rid: 5337076939366858753
       type: {class: ISText, ns: NaiveAPI_UI, asm: Naive.UIElementExtension.Runtime}
       data:
         FontAsset: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
         FontStyle: 0
         FontSize: 12
-        Color: {r: 0, g: 0, b: 0, a: 1}
+        Color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
         Align: 3
         Wrap: 0
     - rid: 8869985085687332875
