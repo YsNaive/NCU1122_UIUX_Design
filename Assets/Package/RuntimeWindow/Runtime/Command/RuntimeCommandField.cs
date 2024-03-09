@@ -1,4 +1,3 @@
-using Codice.Client.BaseCommands.BranchExplorer;
 using NaiveAPI.DocumentBuilder;
 using NaiveAPI_UI;
 using System;
