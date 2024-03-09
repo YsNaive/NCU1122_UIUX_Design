@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class UserData
 {
+    public string Base64Icon = "";
     public string Name = "";
     public string PhoneNumber = "";
     public string Degree = "";
@@ -14,7 +15,7 @@ public class UserData
     public string ResearchTopic = "";
     public string Contact = "";
     public string Skills = "";
-    public string Habits = "";
+    public string Hobbies = "";
     public string GraduatedSchool = "";
 }
 

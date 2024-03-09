@@ -9,39 +9,58 @@ public class CreateNewUserWindow : DSRuntimeWindow
 {
     public UserData UserData = new UserData();
 
-    public VisualElement errorMsg;
-
     public CreateNewUserWindow()
     {
-        Add(RuntimeDrawer.Create(UserData));
+        PopupOnClick = false;
 
-        DSButton btnSave = new DSButton("Save", () =>
+        UserDataDrawer userDataDrawer = new UserDataDrawer();
+        userDataDrawer.value = UserData;
+        Add(userDataDrawer);
+
+        VisualElement visualElement = new VisualElement();
+        visualElement.style.flexDirection = FlexDirection.Row;
+
+        DSButton btnSave = new DSButton("儲存", DocStyle.Current.SuccessColor, () =>
         {
-            if (validCheck())
+            if (userDataDrawer.IsAllValid())
             {
                 DataHandler.SaveData(DataHandler.UserDataDir, UserData.Name + ".json", JsonUtility.ToJson(UserData), false);
             }
+            else
+            {
+                userDataDrawer.ShowAllInvalidMessage();
+            }
         });
 
-        Add(btnSave);
+        DSButton btnBack = new DSButton("返回", DocStyle.Current.HintColor, () => Close());
 
-        errorMsg = new VisualElement();
-
-        Add(errorMsg);
-    }
-
-    private bool validCheck()
-    {
-        errorMsg.Clear();
-
-        if (DataHandler.FileExists(DataHandler.UserDataDir, UserData.Name + ".json"))
+        DSButton btnCancel = new DSButton("取消", DocStyle.Current.DangerColor, () => DoubleCheckWindow.Open(new Rect(20, 30, 60, 40), "該動作會撤銷之前的所有更改，確定要離開嗎？", (wantLeave) =>
         {
-            errorMsg.Add(new DSTextElement("已存在相同的使用者名稱"));
+            if (wantLeave) Destory();
+        }));
 
-            return false;
-        }
+        btnSave.style.marginRight = 50;
+        btnBack.style.marginLeft = 50;
+        btnBack.style.marginRight = 50;
+        btnCancel.style.marginLeft = 50;
+        btnSave.style.width = Length.Percent(20);
+        btnBack.style.width = Length.Percent(20);
+        btnCancel.style.width = Length.Percent(20);
 
-        return true;
+        visualElement.Add(btnSave);
+
+        visualElement.Add(btnBack);
+
+        visualElement.Add(btnCancel);
+
+        visualElement.style.flexGrow = 1;
+        visualElement.style.alignItems = Align.Center;
+        visualElement.style.justifyContent = Justify.Center;
+        visualElement.style.top = StyleKeyword.Auto;
+        visualElement.style.bottom = 0;
+        visualElement.style.marginTop = StyleKeyword.Auto;
+
+        Add(visualElement);
     }
 }
 

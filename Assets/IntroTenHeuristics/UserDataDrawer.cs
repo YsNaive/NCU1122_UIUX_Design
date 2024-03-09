@@ -5,75 +5,201 @@ using SFB;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 [CustomRuntimeDrawer(typeof(UserData), Priority = 10)]
 public class UserDataDrawer : RuntimeDrawer<UserData>
 {
-    private StringDrawer nameField;
-    private StringDrawer phoneNumberField;
-    private StringDrawer degreeField;
-    private StringDrawer careerField;
-    private StringDrawer genderField;
-    private StringDrawer researchTopicField;
-    private StringDrawer contactField;
-    private StringDrawer skillsField;
-    private StringDrawer habitsField;
-    private StringDrawer graduatedSchoolField;
+    private Base64ImageDrawer base64ImageField;
+    private MessageStringDrawer nameField;
+    private MessageStringDrawer phoneNumberField;
+    private MessageStringDrawer careerField;
+    private MessageStringDrawer genderField;
+    private MessageStringDrawer researchTopicField;
+    private MessageStringDrawer contactField;
+    private MessageStringDrawer skillsField;
+    private MessageStringDrawer hobbiesField;
+    private MessageStringDrawer graduatedSchoolField;
 
     public override void UpdateField()
     {
+        base64ImageField.SetValueWithoutNotify(value.Base64Icon);
         nameField.SetValueWithoutNotify(value.Name);
     }
 
-    public string Name = "";
-    public string PhoneNumber = "";
-    public string Degree = "";
-    public string Career = "";
-    public string Gender = "";
-    public string ResearchTopic = "";
-    public string Contact = "";
-    public string Skills = "";
-    public string Habits = "";
-    public string GraduatedSchool = "";
+    protected override void OnCreateGUI()
+    {
+        DSScrollView scrollView = new DSScrollView();
+
+        base64ImageField = new Base64ImageDrawer() { label = "大頭貼" };
+        base64ImageField.RegisterValueChangedCallback((evt) => { value.Base64Icon = evt.newValue; evt.StopPropagation(); });
+        nameField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("姓名：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("姓名 '{0}' 已被使用過了", (v) => UserDataHandler.FindByName(v) == null)
+                .AddCondition("姓名為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        nameField.RegisterValueChangedCallback((evt) => { value.Name = evt.newValue; evt.StopPropagation(); });
+        phoneNumberField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("電話號碼：")
+            .AddAttribute(new MessageStringAttribute()
+                /*.AddCondition("PhoneNumber can not be empty!", (v) => v != null && v != "")*/)
+            .Build();
+        phoneNumberField.RegisterValueChangedCallback((evt) => { value.PhoneNumber = evt.newValue; evt.StopPropagation(); });
+        careerField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("工作：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("工作為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        careerField.RegisterValueChangedCallback((evt) => { value.Career = evt.newValue; evt.StopPropagation(); });
+        genderField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("性別：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("性別為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        genderField.RegisterValueChangedCallback((evt) => { value.Gender = evt.newValue; evt.StopPropagation(); });
+        researchTopicField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("研究主題：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("研究主題為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        researchTopicField.RegisterValueChangedCallback((evt) => { value.ResearchTopic = evt.newValue; evt.StopPropagation(); });
+        contactField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("聯絡方式：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("聯絡方式為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        contactField.RegisterValueChangedCallback((evt) => { value.Contact = evt.newValue; evt.StopPropagation(); });
+        skillsField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("專長：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("專長為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        skillsField.RegisterValueChangedCallback((evt) => { value.Skills = evt.newValue; evt.StopPropagation(); });
+        hobbiesField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("愛好：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("愛好為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        hobbiesField.RegisterValueChangedCallback((evt) => { value.Hobbies = evt.newValue; evt.StopPropagation(); });
+        graduatedSchoolField = (MessageStringDrawer) RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("畢業學校：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("畢業學校為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        graduatedSchoolField.RegisterValueChangedCallback((evt) => { value.GraduatedSchool = evt.newValue; evt.StopPropagation(); });
+
+        VisualElement container = new VisualElement();
+        container.style.flexDirection = FlexDirection.Row;
+
+        VisualElement fieldContainer = new VisualElement();
+        fieldContainer.style.flexGrow = 1;
+        fieldContainer.Add(nameField);
+        fieldContainer.Add(phoneNumberField);
+        fieldContainer.Add(careerField);
+
+        container.Add(fieldContainer);
+        container.Add(base64ImageField);
+
+        scrollView.Add(container);
+        scrollView.Add(genderField);
+        scrollView.Add(researchTopicField);
+        scrollView.Add(contactField);
+        scrollView.Add(skillsField);
+        scrollView.Add(hobbiesField);
+        scrollView.Add(graduatedSchoolField);
+
+        Add(scrollView);
+    }
+
+    public bool IsAllValid()
+    {
+        if (!nameField.IsValid()) return false;
+        if (!phoneNumberField.IsValid()) return false;
+        if (!careerField.IsValid()) return false;
+        if (!genderField.IsValid()) return false;
+        if (!researchTopicField.IsValid()) return false;
+        if (!contactField.IsValid()) return false;
+        if (!skillsField.IsValid()) return false;
+        if (!hobbiesField.IsValid()) return false;
+        if (!graduatedSchoolField.IsValid()) return false;
+
+        return true;
+    }
+
+    public void ShowAllInvalidMessage()
+    {
+        if (!nameField.IsValid()) nameField.ShowInvalidMessage();
+        if (!phoneNumberField.IsValid()) phoneNumberField.ShowInvalidMessage();
+        if (!careerField.IsValid()) careerField.ShowInvalidMessage();
+        if (!genderField.IsValid()) genderField.ShowInvalidMessage();
+        if (!researchTopicField.IsValid()) researchTopicField.ShowInvalidMessage();
+        if (!contactField.IsValid()) contactField.ShowInvalidMessage();
+        if (!skillsField.IsValid()) skillsField.ShowInvalidMessage();
+        if (!hobbiesField.IsValid()) hobbiesField.ShowInvalidMessage();
+        if (!graduatedSchoolField.IsValid()) graduatedSchoolField.ShowInvalidMessage();
+    }
+}
+
+public class Base64ImageDrawer : RuntimeDrawer<string>
+{
+    private VisualElement preview;
+    private Texture2D texture;
+
+    public override void UpdateField()
+    {
+        texture.LoadImage(Convert.FromBase64String(value));
+
+        preview.style.backgroundImage = new StyleBackground(texture);
+
+        preview.style.width = 100;
+        preview.style.height = 100;
+    }
 
     protected override void OnCreateGUI()
     {
-        StandaloneFileBrowser.OpenFilePanel("UserImage", "", new ExtensionFilter[]
+        LayoutExpand();
+        iconElement.style.display = DisplayStyle.None;
+        labelElement.style.unityTextAlign = TextAnchor.MiddleCenter;
+        contentContainer.style.alignItems = Align.Center;
+        contentContainer.style.marginLeft = 0;
+
+        preview = new VisualElement();
+        texture = new Texture2D(1, 1);
+        //contentContainer.style.flexDirection = FlexDirection.Row;
+
+        DSButton btChoice = new DSButton("select", () =>
         {
-            new ExtensionFilter("image", "jpg", "png", "jpeg")
-        }, false);
-        nameField = (MessageStringDrawer) RuntimeDrawerFactory
-            .FromValueType(typeof(string))
-            .Label("Name")
-            .AddAttribute(new MessageStringAttribute()
-                .AddCondition("Name {0} is already existed", (v) => UserDataHandler.FindByName(v) == null)
-                .AddCondition("Name can not be empty!", (v) => v != null && v != ""))
-            .Build();
-        nameField.RegisterValueChangedCallback((evt) => value.Name = evt.newValue);
-        phoneNumberField = new StringDrawer() { label = "PhoneName" };
-        degreeField = new StringDrawer() { label = "Degree" };
-        careerField = new StringDrawer() { label = "Career" };
-        genderField = new StringDrawer() { label = "Gender" };
-        researchTopicField = new StringDrawer() { label = "ResearchTopic" };
-        contactField = new StringDrawer() { label = "Contact" };
-        skillsField = new StringDrawer() { label = "Skills" };
-        habitsField = new StringDrawer() { label = "Habits" };
-        graduatedSchoolField = new StringDrawer() { label = "GraduatedSchool" };
+            string[] path = StandaloneFileBrowser.OpenFilePanel("UserImage", "", new ExtensionFilter[]
+            {
+                new ExtensionFilter("image", "jpg", "png", "jpeg")
+            }, false);
 
-        nameField.style.SetIS_Style(new ISBorder(Color.red, 5));
+            if (path.Length > 0)
+            {
+                byte[] bytes = File.ReadAllBytes(path[0]);
 
-        Add(nameField);
-        Add(phoneNumberField);
-        Add(degreeField);
-        Add(careerField);
-        Add(genderField);
-        Add(researchTopicField);
-        Add(contactField);
-        Add(skillsField);
-        Add(habitsField); 
-        Add(graduatedSchoolField);
+                SetValue(Convert.ToBase64String(bytes));
+            }
+        });
+        btChoice.style.ClearMarginPadding();
+        btChoice.style.marginTop = 5;
+
+        btChoice.style.width = 100;
+
+        Add(preview);
+        Add(btChoice);
     }
 }
 
@@ -82,33 +208,45 @@ public class MessageStringDrawer : StringDrawer
 {
     public MessageStringAttribute attribute;
 
+    private DocDescription warningVisual;
     private DSTextElement warningField;
 
     public MessageStringDrawer()
     {
         this.Q<DSTextField>().style.flexGrow = 1;
         this.Q<DSTextField>().multiline = false;
-        contentContainer.style.flexDirection = FlexDirection.Row;
+        // contentContainer.style.flexDirection = FlexDirection.Row;
 
 
-        warningField = new DSTextElement();
-        warningField.style.display = DisplayStyle.None;
+        warningVisual = (DocDescription) DocVisual.Create(DocDescription.CreateComponent("", DocDescription.DescriptionType.Warning));
+        warningField = warningVisual.Q<DSTextElement>();
+        warningVisual.style.visibility = Visibility.Hidden;
 
-        Add(warningField);
+        Add(warningVisual);
 
         RegisterCallback<FocusOutEvent>((evt) =>
         {
-            warningField.style.display = DisplayStyle.None;
-            foreach ((string message, var checkValid) in attribute.Conditions)
-            {
-                if (!checkValid(this.value))
-                {
-                    warningField.text = string.Format(message, this.value);
-                    warningField.style.display = DisplayStyle.Flex;
-                    break;
-                }
-            }
+            ShowInvalidMessage();
         });
+    }
+
+    public void ShowInvalidMessage()
+    {
+        warningVisual.style.visibility = Visibility.Hidden;
+        foreach ((string message, var checkValid) in attribute.Conditions)
+        {
+            if (!checkValid(this.value))
+            {
+                ShowInvalidMessage(message);
+                break;
+            }
+        }
+    }
+
+    public void ShowInvalidMessage(string message)
+    {
+        warningField.text = string.Format(message, this.value);
+        warningVisual.style.visibility = Visibility.Visible;
     }
 
     public bool IsValid()

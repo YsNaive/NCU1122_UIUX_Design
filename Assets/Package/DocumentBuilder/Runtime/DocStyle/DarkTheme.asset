@@ -86,7 +86,7 @@ MonoBehaviour:
       Radius:
         rid: -2
     InputFieldStyle:
-      EnableMask: 641
+      EnableMask: 705
       Display:
         rid: -2
       Position:
@@ -98,7 +98,7 @@ MonoBehaviour:
       Size:
         rid: -2
       Margin:
-        rid: -2
+        rid: 2665917886673715200
       Padding:
         rid: 8869985085687332882
       Text:
@@ -199,6 +199,29 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2665917886673715200
+      type: {class: ISMargin, ns: NaiveAPI_UI, asm: Naive.UIElementExtension.Runtime}
+      data:
+        Left:
+          Keyword: 0
+          Value:
+            Unit: 0
+            Value: 0
+        Top:
+          Keyword: 0
+          Value:
+            Unit: 0
+            Value: 2
+        Right:
+          Keyword: 0
+          Value:
+            Unit: 0
+            Value: 0
+        Bottom:
+          Keyword: 0
+          Value:
+            Unit: 0
+            Value: 2
     - rid: 3933373726834294784
       type: {class: ISSize, ns: NaiveAPI_UI, asm: Naive.UIElementExtension.Runtime}
       data:
