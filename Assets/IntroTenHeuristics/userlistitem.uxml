@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
+    <ui:VisualElement name="ve_list" style="background-color: rgba(151, 134, 217, 255); height: 82px;">
+        <ui:Label text="Name:" display-tooltip-when-elided="true" name="name" style="font-size: 20px;" />
+        <ui:Label text="Hashtag:" display-tooltip-when-elided="true" name="hashtag" style="border-left-color: rgba(202, 144, 144, 255); border-right-color: rgba(202, 144, 144, 255); border-top-color: rgba(202, 144, 144, 255); border-bottom-color: rgba(202, 144, 144, 255); font-size: 20px;" />
+    </ui:VisualElement>
+</ui:UXML>
