@@ -86,7 +86,7 @@ MonoBehaviour:
       Radius:
         rid: -2
     InputFieldStyle:
-      EnableMask: 705
+      EnableMask: 961
       Display:
         rid: -2
       Position:
@@ -102,7 +102,7 @@ MonoBehaviour:
       Padding:
         rid: 8869985085687332882
       Text:
-        rid: -2
+        rid: 5337076939366858752
       Background:
         rid: 8869985085687332883
       Border:
@@ -268,6 +268,15 @@ MonoBehaviour:
           Value:
             Unit: 0
             Value: 2
+    - rid: 5337076939366858752
+      type: {class: ISText, ns: NaiveAPI_UI, asm: Naive.UIElementExtension.Runtime}
+      data:
+        FontAsset: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
+        FontStyle: 0
+        FontSize: 12
+        Color: {r: 0, g: 0, b: 0, a: 1}
+        Align: 3
+        Wrap: 0
     - rid: 8869985085687332875
       type: {class: ISMargin, ns: NaiveAPI_UI, asm: Naive.UIElementExtension.Runtime}
       data:
@@ -317,7 +326,7 @@ MonoBehaviour:
     - rid: 8869985085687332877
       type: {class: ISText, ns: NaiveAPI_UI, asm: Naive.UIElementExtension.Runtime}
       data:
-        FontAsset: {fileID: 0}
+        FontAsset: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
         FontStyle: 0
         FontSize: 12
         Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
@@ -372,7 +381,7 @@ MonoBehaviour:
     - rid: 8869985085687332880
       type: {class: ISText, ns: NaiveAPI_UI, asm: Naive.UIElementExtension.Runtime}
       data:
-        FontAsset: {fileID: 0}
+        FontAsset: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
         FontStyle: 0
         FontSize: 22
         Color: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
@@ -381,7 +390,7 @@ MonoBehaviour:
     - rid: 8869985085687332881
       type: {class: ISText, ns: NaiveAPI_UI, asm: Naive.UIElementExtension.Runtime}
       data:
-        FontAsset: {fileID: 0}
+        FontAsset: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
         FontStyle: 0
         FontSize: 12
         Color: {r: 0.94509804, g: 0.94509804, b: 0.94509804, a: 1}
