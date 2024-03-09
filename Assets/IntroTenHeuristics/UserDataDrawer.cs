@@ -1,6 +1,7 @@
 using NaiveAPI.DocumentBuilder;
 using NaiveAPI.RuntimeWindowUtils;
 using NaiveAPI_UI;
+using SFB;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,6 +40,10 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
 
     protected override void OnCreateGUI()
     {
+        StandaloneFileBrowser.OpenFilePanel("UserImage", "", new ExtensionFilter[]
+        {
+            new ExtensionFilter("image", "jpg", "png", "jpeg")
+        }, false);
         nameField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("Name")
