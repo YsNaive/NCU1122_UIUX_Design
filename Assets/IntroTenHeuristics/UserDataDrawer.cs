@@ -179,7 +179,7 @@ public class Base64ImageDrawer : RuntimeDrawer<string>
         texture = new Texture2D(1, 1);
         //contentContainer.style.flexDirection = FlexDirection.Row;
 
-        DSButton btChoice = new DSButton("select", () =>
+        DSButton btChoice = new DSButton("¿ï¾Ü¹Ï¤ù...", () =>
         {
             string[] path = StandaloneFileBrowser.OpenFilePanel("UserImage", "", new ExtensionFilter[]
             {
