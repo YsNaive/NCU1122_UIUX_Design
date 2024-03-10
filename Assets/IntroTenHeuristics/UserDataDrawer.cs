@@ -49,28 +49,28 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         base64ImageField.RegisterValueChangedCallback((evt) => { value.Base64Icon = evt.newValue; evt.StopPropagation(); });
         nameField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
-            .Label("姓名：")
+            .Label("姓　　名：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("姓名為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
         nameField.RegisterValueChangedCallback((evt) => { value.Name = evt.newValue; evt.StopPropagation(); });
         majorField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
-            .Label("系級：")
+            .Label("系　　級：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("系級為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
         majorField.RegisterValueChangedCallback((evt) => { value.Major = evt.newValue; evt.StopPropagation(); });
         careerField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
-            .Label("工作：")
+            .Label("工　　作：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("工作為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
         careerField.RegisterValueChangedCallback((evt) => { value.Career = evt.newValue; evt.StopPropagation(); });
         genderField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
-            .Label("性別：")
+            .Label("性　　別：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("性別為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
@@ -98,14 +98,14 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         contactField.RegisterValueChangedCallback((evt) => { value.Contact = evt.newValue; evt.StopPropagation(); });
         skillsField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
-            .Label("專長：")
+            .Label("專　　長：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("專長為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
         skillsField.RegisterValueChangedCallback((evt) => { value.Skills = evt.newValue; evt.StopPropagation(); });
         hobbiesField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
-            .Label("愛好：")
+            .Label("愛　　好：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("愛好為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
@@ -163,16 +163,16 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
 
     public void ShowAllInvalidMessage()
     {
-        if (!nameField.IsValid()) nameField.ShowInvalidMessage();
-        if (!majorField.IsValid()) majorField.ShowInvalidMessage();
-        if (!careerField.IsValid()) careerField.ShowInvalidMessage();
-        if (!genderField.IsValid()) genderField.ShowInvalidMessage();
-        if (!phoneNumberField.IsValid()) phoneNumberField.ShowInvalidMessage();
-        if (!researchTopicField.IsValid()) researchTopicField.ShowInvalidMessage();
-        if (!contactField.IsValid()) contactField.ShowInvalidMessage();
-        if (!skillsField.IsValid()) skillsField.ShowInvalidMessage();
-        if (!hobbiesField.IsValid()) hobbiesField.ShowInvalidMessage();
-        if (!graduatedSchoolField.IsValid()) graduatedSchoolField.ShowInvalidMessage();
+        nameField.ShowInvalidMessage();
+        majorField.ShowInvalidMessage();
+        careerField.ShowInvalidMessage();
+        genderField.ShowInvalidMessage();
+        phoneNumberField.ShowInvalidMessage();
+        researchTopicField.ShowInvalidMessage();
+        contactField.ShowInvalidMessage();
+        skillsField.ShowInvalidMessage();
+        hobbiesField.ShowInvalidMessage();
+        graduatedSchoolField.ShowInvalidMessage();
     }
 }
 
@@ -291,6 +291,20 @@ public class MessageStringDrawer : StringDrawer
     {
         warningField.text = string.Format(message, this.value);
         warningVisual.style.visibility = Visibility.Visible;
+    }
+
+    public void UpdateWarningMessage()
+    {
+        warningVisual.style.visibility = Visibility.Hidden;
+
+        foreach ((string message, var checkValid) in attribute.Conditions)
+        {
+            if (!checkValid(this.value))
+            {
+                ShowInvalidMessage(message);
+                break;
+            }
+        }
     }
 
     public bool IsValid()

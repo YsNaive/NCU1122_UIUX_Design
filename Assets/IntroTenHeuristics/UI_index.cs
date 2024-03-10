@@ -4,7 +4,6 @@ using NaiveAPI_UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -168,7 +167,7 @@ public class UI_index : MonoBehaviour
         DSLabel label = new DSLabel("ㄏノ砞璸㎝蝶挪");
         label.style.fontSize = label.style.fontSize.value.value * 2f;
         label.style.marginTop = DocStyle.Current.LineHeight;
-        DSTextElement memberName = new DSTextElement("和縪花砛в喘"); memberName.style.fontSize = memberName.style.fontSize.value.value * 1.8f;
+        DSTextElement memberName = new DSTextElement("和縪花砛獀穤"); memberName.style.fontSize = memberName.style.fontSize.value.value * 1.8f;
         memberName.style.marginBottom = 30;
         DSHorizontal randomUser = new DSHorizontal();
         VisualElement displayRandomUser = new VisualElement();
@@ -294,7 +293,10 @@ public class UI_index : MonoBehaviour
         window.style.width = Length.Percent(100);
         window.style.height = Length.Percent(100);
         if(editData != null)
+        {
             window.UserDataDrawer.value = editData;
+            window.UserDataDrawer.ShowAllInvalidMessage();
+        }
     }
 
 }
