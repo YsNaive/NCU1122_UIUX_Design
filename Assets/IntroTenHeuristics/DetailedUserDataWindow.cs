@@ -22,9 +22,15 @@ public class DetailedUserDataWindow : DSRuntimeWindow
     private LabelDrawer hobbiesElement;
     private LabelDrawer graduatedSchoolElement;
     private UserData data;
-
+    private VisualElement fullContainer;
+    private bool beheavoirLock = false;
+    VisualElement nextPage;
+    VisualElement prevPage;
     public DetailedUserDataWindow()
     {
+        Resizable = false;
+        Dragable  = false;
+
         Color background = style.backgroundColor.value; background.a = 0.5f;
         style.backgroundColor = background;
         contentContainer.style.flexGrow = 1;
@@ -33,15 +39,16 @@ public class DetailedUserDataWindow : DSRuntimeWindow
 
         contentContainer.RegisterCallback<KeyDownEvent>((evt) =>
         {
+            if (beheavoirLock) return;
             switch (evt.keyCode)
             {
                 case KeyCode.A:
                 case KeyCode.LeftArrow:
-                    Open(UserDataHandler.FindPrevData(data));
+                    Open(UserDataHandler.FindPrevData(data), false);
                     break;
                 case KeyCode.D:
                 case KeyCode.RightArrow:
-                    Open(UserDataHandler.FindNextData(data));
+                    Open(UserDataHandler.FindNextData(data), false);
                     break;
 
                 default: break;
@@ -52,11 +59,37 @@ public class DetailedUserDataWindow : DSRuntimeWindow
 
         VisualElement leaveContainer = new VisualElement();
         leaveContainer.style.width = Length.Percent(50);
-        leaveContainer.RegisterCallback<PointerDownEvent>((evt) => Close());
 
-        VisualElement fullContainer = new VisualElement();
+        fullContainer = new VisualElement();
         fullContainer.style.flexGrow = 1;
         fullContainer.style.backgroundColor = DocStyle.Current.BackgroundColor;
+        fullContainer.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
+        fullContainer.style.paddingLeft = 10;
+        fullContainer.style.paddingTop = 10;
+        leaveContainer.RegisterCallback<PointerDownEvent>((evt) =>
+        {
+            if (beheavoirLock) return;
+            beheavoirLock = true;
+            fullContainer.transform.position = new Vector2(1f, 0);
+            var item = fullContainer.schedule.Execute(() =>
+            {
+                var pos = fullContainer.transform.position;
+                pos.x *= 1.25f;
+                if (pos.x > fullContainer.worldBound.width) pos.x = fullContainer.worldBound.width;
+                fullContainer.transform.position = pos;
+            });
+            item.Until(() =>
+            {
+                if (fullContainer.worldBound.width - fullContainer.transform.position.x < 0.5)
+                {
+                    beheavoirLock = false;
+                    Close();
+                    item.Pause();
+                    return true;
+                }
+                return false;
+            }).Every(10).ExecuteLater(20);
+        });
 
         VisualElement container = new VisualElement();
         container.style.flexDirection = FlexDirection.Row;
@@ -85,7 +118,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
 
         DocStyle.Current.MainTextSize = origin;
 
-        VisualElement prevPage = new VisualElement();
+        prevPage = new VisualElement();
         prevPage.style.SetIS_Style(DocStyle.Current.ArrowIcon);
         prevPage.style.rotate = new Rotate(180);
         prevPage.style.width = prevPage.style.width.value.value * 2;
@@ -95,9 +128,13 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         prevPage.style.bottom = 10;
         prevPage.style.left = 10;
         prevPage.style.right = StyleKeyword.Auto;
-        prevPage.RegisterCallback<PointerDownEvent>((evt) => Open(UserDataHandler.FindPrevData(data)));
+        prevPage.RegisterCallback<PointerDownEvent>((evt) =>
+        {
+            if (beheavoirLock) return;
+            Open(UserDataHandler.FindPrevData(data), false);
+        });
 
-        VisualElement nextPage = new VisualElement();
+        nextPage = new VisualElement();
         nextPage.style.SetIS_Style(DocStyle.Current.ArrowIcon);
         nextPage.style.width = nextPage.style.width.value.value * 2;
         nextPage.style.height = nextPage.style.height.value.value * 2;
@@ -106,7 +143,11 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         nextPage.style.bottom = 10;
         nextPage.style.left = StyleKeyword.Auto;
         nextPage.style.right = 10;
-        nextPage.RegisterCallback<PointerDownEvent>((evt) => Open(UserDataHandler.FindNextData(data)));
+        nextPage.RegisterCallback<PointerDownEvent>((evt) =>
+        {
+            if (beheavoirLock) return;
+            Open(UserDataHandler.FindNextData(data), false);
+        });
 
         VisualElement rightContainer = new VisualElement();
 
@@ -135,16 +176,17 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         EnableTab = false;
     }
 
-    public static void Open(UserData data)
+    public static async void Open(UserData data, bool playAnimation, bool canNextPrev = true)
     {
         DetailedUserDataWindow window = GetWindow<DetailedUserDataWindow>();
+        if (window.beheavoirLock) return;
+
+        window.prevPage.style.display = canNextPrev ? DisplayStyle.Flex : DisplayStyle.None;
+        window.nextPage.style.display = canNextPrev ? DisplayStyle.Flex : DisplayStyle.None;
 
         window.data = data;
-
         window.schedule.Execute(window.contentContainer.Focus).ExecuteLater(1);
-
         window.EnableTab = false;
-
         window.texture = new Texture2D(1, 1);
         if (data.Base64Icon != "")
             window.texture.LoadImage(Convert.FromBase64String(data.Base64Icon));
@@ -154,14 +196,40 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         window.preview.style.backgroundImage = new StyleBackground(window.texture);
 
         window.nameElement.text = data.Name;
-        window.phoneNumberElement.text = data.PhoneNumber;
+        window.majorElement.text = data.Major;
         window.careerElement.text = data.Career;
         window.genderElement.text = data.Gender;
+        window.phoneNumberElement.text = data.PhoneNumber;
         window.researchTopicElement.text = data.ResearchTopic;
         window.contactElement.text = data.Contact;
         window.skillsElement.text = data.Skills;
         window.hobbiesElement.text = data.Hobbies;
         window.graduatedSchoolElement.text =¡@data.GraduatedSchool;
+
+        if (!playAnimation) return;
+        var page = window.fullContainer;
+        page.visible = false;
+        await System.Threading.Tasks.Task.Delay(10);
+        page.transform.position = new Vector2(page.layout.width, 0);
+        page.visible = true;
+        window.beheavoirLock = true;
+        var item = page.schedule.Execute(() =>
+        {
+            var pos = page.transform.position;
+            pos.x *= 0.85f;
+            if (pos.x < 1) pos.x = 0;
+            page.transform.position = pos;
+        });
+        item.Until(() =>
+        {
+            if(page.transform.position.x == 0)
+            {
+                window.beheavoirLock = false;
+                item.Pause();
+                return true;
+            }
+            return false;
+        }).Every(10).ExecuteLater(20);
     }
 }
 

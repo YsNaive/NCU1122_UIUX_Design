@@ -30,6 +30,7 @@ public class UserDataHandler
 
     public static void LoadAll()
     {
+        Datas.Clear();
         foreach (string path in Directory.GetFiles(DataHandler.UserDataDir, "*.json"))
         {
             Datas.Add(JsonUtility.FromJson<UserData>(File.ReadAllText(path)));

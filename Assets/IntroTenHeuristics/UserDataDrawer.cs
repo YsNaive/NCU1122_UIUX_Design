@@ -28,10 +28,21 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
     {
         base64ImageField.SetValueWithoutNotify(value.Base64Icon);
         nameField.SetValueWithoutNotify(value.Name);
+        phoneNumberField.SetValueWithoutNotify(value.PhoneNumber);
+        majorField.SetValueWithoutNotify(value.Major);
+        careerField.SetValueWithoutNotify(value.Career);
+        genderField.SetValueWithoutNotify(value.Gender);
+        researchTopicField.SetValueWithoutNotify(value.ResearchTopic);
+        contactField.SetValueWithoutNotify(value.Contact);
+        skillsField.SetValueWithoutNotify(value.Skills);
+        hobbiesField.SetValueWithoutNotify(value.Hobbies);
+        graduatedSchoolField.SetValueWithoutNotify(value.GraduatedSchool);
     }
 
     protected override void OnCreateGUI()
     {
+        style.marginTop = 15;
+        style.paddingRight = 45;
         DSScrollView scrollView = new DSScrollView();
 
         base64ImageField = new Base64ImageDrawer() { label = "大頭貼" };
@@ -40,7 +51,6 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
             .FromValueType(typeof(string))
             .Label("姓名：")
             .AddAttribute(new MessageStringAttribute()
-                .AddCondition("姓名 '{0}' 已被使用過了", (v) => UserDataHandler.FindByName(v) == null)
                 .AddCondition("姓名為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
         nameField.RegisterValueChangedCallback((evt) => { value.Name = evt.newValue; evt.StopPropagation(); });
@@ -110,8 +120,11 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
 
         VisualElement container = new VisualElement();
         container.style.flexDirection = FlexDirection.Row;
+        container.style.marginBottom = 10;
 
         VisualElement fieldContainer = new VisualElement();
+        fieldContainer.style.paddingTop = DocStyle.Current.LineHeight;
+        fieldContainer.style.paddingRight = DocStyle.Current.LineHeight*1.5f;
         fieldContainer.style.flexGrow = 1;
         fieldContainer.Add(nameField);
         fieldContainer.Add(majorField);
@@ -171,9 +184,21 @@ public class Base64ImageDrawer : RuntimeDrawer<string>
     public override void UpdateField()
     {
         if (value != "")
-            texture.LoadImage(Convert.FromBase64String(value));
+        {
+            try
+            {
+                texture = new Texture2D(1, 1);
+                texture.LoadImage(Convert.FromBase64String(value));
+            }
+            catch
+            {
+                texture = Resources.Load<Texture2D>("Image/default_icon");
+            }
+        }
         else
+        {
             texture = Resources.Load<Texture2D>("Image/default_icon");
+        }
 
         preview.style.backgroundImage = new StyleBackground(texture);
 
