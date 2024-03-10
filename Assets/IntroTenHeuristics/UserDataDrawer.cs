@@ -15,6 +15,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
     private Base64ImageDrawer base64ImageField;
     private MessageStringDrawer nameField;
     private MessageStringDrawer phoneNumberField;
+    private MessageStringDrawer majorField;
     private MessageStringDrawer careerField;
     private MessageStringDrawer genderField;
     private MessageStringDrawer researchTopicField;
@@ -35,7 +36,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
 
         base64ImageField = new Base64ImageDrawer() { label = "大頭貼" };
         base64ImageField.RegisterValueChangedCallback((evt) => { value.Base64Icon = evt.newValue; evt.StopPropagation(); });
-        nameField = (MessageStringDrawer) RuntimeDrawerFactory
+        nameField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("姓名：")
             .AddAttribute(new MessageStringAttribute()
@@ -43,13 +44,13 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
                 .AddCondition("姓名為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
         nameField.RegisterValueChangedCallback((evt) => { value.Name = evt.newValue; evt.StopPropagation(); });
-        phoneNumberField = (MessageStringDrawer) RuntimeDrawerFactory
+        majorField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
-            .Label("電話號碼：")
+            .Label("系級：")
             .AddAttribute(new MessageStringAttribute()
-                /*.AddCondition("PhoneNumber can not be empty!", (v) => v != null && v != "")*/)
+                .AddCondition("系級為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        phoneNumberField.RegisterValueChangedCallback((evt) => { value.PhoneNumber = evt.newValue; evt.StopPropagation(); });
+        majorField.RegisterValueChangedCallback((evt) => { value.Major = evt.newValue; evt.StopPropagation(); });
         careerField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("工作：")
@@ -64,6 +65,13 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
                 .AddCondition("性別為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
         genderField.RegisterValueChangedCallback((evt) => { value.Gender = evt.newValue; evt.StopPropagation(); });
+        phoneNumberField = (MessageStringDrawer)RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("電話號碼：")
+            .AddAttribute(new MessageStringAttribute()
+                /*.AddCondition("PhoneNumber can not be empty!", (v) => v != null && v != "")*/)
+            .Build();
+        phoneNumberField.RegisterValueChangedCallback((evt) => { value.PhoneNumber = evt.newValue; evt.StopPropagation(); });
         researchTopicField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("研究主題：")
@@ -106,7 +114,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         VisualElement fieldContainer = new VisualElement();
         fieldContainer.style.flexGrow = 1;
         fieldContainer.Add(nameField);
-        fieldContainer.Add(phoneNumberField);
+        fieldContainer.Add(majorField);
         fieldContainer.Add(careerField);
 
         container.Add(fieldContainer);
@@ -114,6 +122,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
 
         scrollView.Add(container);
         scrollView.Add(genderField);
+        scrollView.Add(phoneNumberField);
         scrollView.Add(researchTopicField);
         scrollView.Add(contactField);
         scrollView.Add(skillsField);
@@ -126,9 +135,10 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
     public bool IsAllValid()
     {
         if (!nameField.IsValid()) return false;
-        if (!phoneNumberField.IsValid()) return false;
+        if (!majorField.IsValid()) return false;
         if (!careerField.IsValid()) return false;
         if (!genderField.IsValid()) return false;
+        if (!phoneNumberField.IsValid()) return false;
         if (!researchTopicField.IsValid()) return false;
         if (!contactField.IsValid()) return false;
         if (!skillsField.IsValid()) return false;
@@ -141,9 +151,10 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
     public void ShowAllInvalidMessage()
     {
         if (!nameField.IsValid()) nameField.ShowInvalidMessage();
-        if (!phoneNumberField.IsValid()) phoneNumberField.ShowInvalidMessage();
+        if (!majorField.IsValid()) majorField.ShowInvalidMessage();
         if (!careerField.IsValid()) careerField.ShowInvalidMessage();
         if (!genderField.IsValid()) genderField.ShowInvalidMessage();
+        if (!phoneNumberField.IsValid()) phoneNumberField.ShowInvalidMessage();
         if (!researchTopicField.IsValid()) researchTopicField.ShowInvalidMessage();
         if (!contactField.IsValid()) contactField.ShowInvalidMessage();
         if (!skillsField.IsValid()) skillsField.ShowInvalidMessage();
@@ -159,7 +170,10 @@ public class Base64ImageDrawer : RuntimeDrawer<string>
 
     public override void UpdateField()
     {
-        texture.LoadImage(Convert.FromBase64String(value));
+        if (value != "")
+            texture.LoadImage(Convert.FromBase64String(value));
+        else
+            texture = Resources.Load<Texture2D>("Image/default_icon");
 
         preview.style.backgroundImage = new StyleBackground(texture);
 
@@ -176,6 +190,7 @@ public class Base64ImageDrawer : RuntimeDrawer<string>
         contentContainer.style.marginLeft = 0;
 
         preview = new VisualElement();
+
         texture = new Texture2D(1, 1);
         //contentContainer.style.flexDirection = FlexDirection.Row;
 
@@ -191,6 +206,10 @@ public class Base64ImageDrawer : RuntimeDrawer<string>
                 byte[] bytes = File.ReadAllBytes(path[0]);
 
                 SetValue(Convert.ToBase64String(bytes));
+            }
+            else
+            {
+                SetValue("");
             }
         });
         btChoice.style.ClearMarginPadding();

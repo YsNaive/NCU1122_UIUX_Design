@@ -8,9 +8,10 @@ public class UserData
 {
     public string Base64Icon = "";
     public string Name = "";
-    public string PhoneNumber = "";
+    public string Major = "";
     public string Career = "";
     public string Gender = "";
+    public string PhoneNumber = "";
     public string ResearchTopic = "";
     public string Contact = "";
     public string Skills = "";

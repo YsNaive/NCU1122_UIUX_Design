@@ -74,6 +74,8 @@ public class UI_index : MonoBehaviour
 {
     public UIDocument UID;
 
+    private DSScrollView userPageContainer;
+
     // Start is called before the first frame update
     IEnumerator Start()
     {
@@ -81,32 +83,61 @@ public class UI_index : MonoBehaviour
 
         UID.rootVisualElement.style.flexGrow = 1;
 
-        ScrollView rightContainer = UID.rootVisualElement.Q<ScrollView>("right-container");
-        rightContainer.style.flexGrow = 1;
+        VisualElement background = UID.rootVisualElement.Q<VisualElement>("background");
+        background.style.backgroundColor = DocStyle.Current.BackgroundColor;
 
-        Button btnUserList = UID.rootVisualElement.Q<Button>("btn-user-list");
-        btnUserList.style.SetIS_Style(DocStyle.Current.ButtonTextStyle);
+        VisualElement leftToolbar = UID.rootVisualElement.Q<VisualElement>("left-toolbar");
+        leftToolbar.style.backgroundColor = DocStyle.Current.SubBackgroundColor;
+
+        userPageContainer = new DSScrollView();
+
+        VisualElement rightContainer = UID.rootVisualElement.Q<VisualElement>("right-container");
+        rightContainer.style.backgroundColor = DocStyle.Current.BackgroundColor;
+        rightContainer.style.flexGrow = 1;
+        rightContainer.style.paddingTop = 10;
+
+        Button btnHome = new DSButton("主頁");
+        btnHome.AddToClassList("left-toolbar-btn");
+
+        Button btnUserList = new DSButton("使用者");
+        btnUserList.AddToClassList("left-toolbar-btn");
 
         btnUserList.clicked += () =>
         {
             rightContainer.Clear();
 
+            userPageContainer.Clear();
+
             foreach (UserData data in UserDataHandler.Datas)
             {
                 SimpleUserDataVisual simpleUserDataVisual = new SimpleUserDataVisual(data);
                 simpleUserDataVisual.RegisterCallback<PointerDownEvent>((evt) => DetailedUserDataWindow.Open(data));
-                rightContainer.Add(simpleUserDataVisual);
+                userPageContainer.Add(simpleUserDataVisual);
             }
+
+            rightContainer.Add(userPageContainer);
         };
 
-        Button btnCreateNewUser = UID.rootVisualElement.Q<Button>("btn-create-new-user");
+        Button btnCreateNewUser = new DSButton("新增");
+        btnCreateNewUser.AddToClassList("left-toolbar-btn");
 
         btnCreateNewUser.clicked += () =>
         {
+            rightContainer.Clear();
+
             CreateNewUserWindow window = RuntimeWindow.GetWindow<CreateNewUserWindow>();
 
-            window.SetSizeAnyway(RuntimeWindow.ScreenElement.layout.size);
+            window.EnableTab = false;
+
+            rightContainer.Add(window);
+
+            window.style.width = Length.Percent(100);
+            window.style.height = Length.Percent(100);
         };
+
+        leftToolbar.Add(btnHome);
+        leftToolbar.Add(btnUserList);
+        leftToolbar.Add(btnCreateNewUser);
 
         DetailedUserDataWindow window = RuntimeWindow.GetWindow<DetailedUserDataWindow>();
 
@@ -137,9 +168,13 @@ public class SimpleUserDataVisual : VisualElement
 
         VisualElement preview = new VisualElement();
         preview.style.marginRight = 20;
+        preview.style.SetIS_Style(ISRadius.Pixel(10));
 
         texture = new Texture2D(1, 1);
-        texture.LoadImage(Convert.FromBase64String(data.Base64Icon));
+        if (data.Base64Icon != "")
+            texture.LoadImage(Convert.FromBase64String(data.Base64Icon));
+        else
+            texture = Resources.Load<Texture2D>("Image/default_icon");
 
         preview.style.backgroundImage = new StyleBackground(texture);
 

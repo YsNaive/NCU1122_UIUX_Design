@@ -13,6 +13,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
     private VisualElement preview;
     private LabelDrawer nameElement;
     private LabelDrawer phoneNumberElement;
+    private LabelDrawer majorElement;
     private LabelDrawer careerElement;
     private LabelDrawer genderElement;    
     private LabelDrawer researchTopicElement;
@@ -63,6 +64,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         container.style.marginBottom = 10;
 
         preview = new VisualElement();
+        preview.style.SetIS_Style(ISRadius.Pixel(10));
 
         preview.style.width = 100;
         preview.style.height = 100;
@@ -73,6 +75,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         nameElement             = new LabelDrawer("姓　　名：");
         phoneNumberElement      = new LabelDrawer("電話號碼：");
         careerElement           = new LabelDrawer("工　　作：");
+        majorElement            = new LabelDrawer("系　　級：");
         genderElement           = new LabelDrawer("性　　別：");
         researchTopicElement    = new LabelDrawer("研究主題：");
         contactElement          = new LabelDrawer("聯絡方式：");
@@ -108,7 +111,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         VisualElement rightContainer = new VisualElement();
 
         rightContainer.Add(nameElement);
-        rightContainer.Add(phoneNumberElement);
+        rightContainer.Add(majorElement);
         rightContainer.Add(careerElement);
 
         container.Add(preview);
@@ -117,6 +120,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         fullContainer.Add(container);
         fullContainer.Add(DocVisual.Create(DocDividline.CreateComponent()));
         fullContainer.Add(genderElement);
+        fullContainer.Add(phoneNumberElement);
         fullContainer.Add(researchTopicElement);
         fullContainer.Add(contactElement);
         fullContainer.Add(skillsElement);
@@ -142,7 +146,10 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         window.EnableTab = false;
 
         window.texture = new Texture2D(1, 1);
-        window.texture.LoadImage(Convert.FromBase64String(data.Base64Icon));
+        if (data.Base64Icon != "")
+            window.texture.LoadImage(Convert.FromBase64String(data.Base64Icon));
+        else
+            window.texture = Resources.Load<Texture2D>("Image/default_icon");
 
         window.preview.style.backgroundImage = new StyleBackground(window.texture);
 
