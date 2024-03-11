@@ -151,7 +151,7 @@ public class UI_index : MonoBehaviour
         if (dataList.Count == 1)
             return (0, dataList[0]);
         if (dataList.Count == 0)
-            return (-1, null);
+            return (-1, new UserData());
         var resultIndex = prevIndex;
         while (resultIndex ==  prevIndex) {
             resultIndex = Random.Range(0, dataList.Count);
