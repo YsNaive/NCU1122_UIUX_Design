@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a4c2ce97edfe04d91da5aae8995b35, type: 3}
   m_Name: DocRuntimeData
   m_EditorClassIdentifier: 
-  CurrentStyle: {fileID: 11400000, guid: 83b159cb3881d2548a5d98a287f8e70a, type: 2}
+  CurrentStyle: {fileID: 11400000, guid: 4f4cc2f18f09caa42a5337654ad9e793, type: 2}
   m_IgnoreAssemblyName:
   - unityplastic
   - asset-store-tools-editor

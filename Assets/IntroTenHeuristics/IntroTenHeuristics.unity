@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UID: {fileID: 44024902}
+  DocumentPage: {fileID: 11400000, guid: edfe6fc58cc2a9b4e86dd1e34d75cdac, type: 2}
 --- !u!1 &576738552
 GameObject:
   m_ObjectHideFlags: 0

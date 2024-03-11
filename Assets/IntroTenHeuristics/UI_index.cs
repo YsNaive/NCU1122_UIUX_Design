@@ -87,11 +87,12 @@ public class CreateNewUserWindow : DSRuntimeWindow
 public class UI_index : MonoBehaviour
 {
     public UIDocument UID;
+    public SODocPage DocumentPage;
 
     private DSScrollView userPageContainer;
     VisualElement rightContainer;
     VisualElement leftToolbar;
-    Button btnHome, btnUserList, btnCreateNewUser;
+    Button btnHome, btnUserList, btnCreateNewUser, btnDocument;
     // Start is called before the first frame update
     IEnumerator Start()
     {
@@ -123,9 +124,17 @@ public class UI_index : MonoBehaviour
         btnCreateNewUser.AddToClassList("left-toolbar-btn");
         btnCreateNewUser.clicked += () => { openCreateNewUser(); };
 
+        btnDocument = new DSButton("»¡©ú");
+        btnDocument.AddToClassList("left-toolbar-btn");
+        btnDocument.clicked += openDocument;
+        btnDocument.style.marginTop = StyleKeyword.Auto;
+        btnDocument.style.top = StyleKeyword.Auto;
+        btnDocument.style.bottom = 0;
+
         leftToolbar.Add(btnHome);
         leftToolbar.Add(btnUserList);
         leftToolbar.Add(btnCreateNewUser);
+        leftToolbar.Add(btnDocument);
 
         openMainPage();
 
@@ -298,7 +307,13 @@ public class UI_index : MonoBehaviour
             window.UserDataDrawer.ShowAllInvalidMessage();
         }
     }
+    private void openDocument()
+    {
+        clearPage();
+        btnDocument.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
 
+        rightContainer.Add(new DocBookVisual(DocumentPage));
+    }
 }
 
 public class SimpleUserDataVisual : VisualElement
