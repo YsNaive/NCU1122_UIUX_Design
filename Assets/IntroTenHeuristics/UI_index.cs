@@ -116,7 +116,7 @@ public class UI_index : MonoBehaviour
         btnHome.AddToClassList("left-toolbar-btn");
         btnHome.clicked += openMainPage;
 
-        btnUserList = new DSButton("使用者");
+        btnUserList = new DSButton("組員\n介紹");
         btnUserList.AddToClassList("left-toolbar-btn");
         btnUserList.clicked += openUserList;
 
@@ -312,7 +312,7 @@ public class UI_index : MonoBehaviour
         clearPage();
         btnDocument.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
 
-        rightContainer.Add(new DocBookVisual(DocumentPage));
+        rightContainer.Add(new DocBookVisual(DocumentPage) { DontPlayAnimation = true });
     }
 }
 
