@@ -142,7 +142,8 @@ public class UI_index : MonoBehaviour
 
         yield return null;
 
-        window.SetLayoutPercentAnyway(new Rect(0, 0, 1, 1));
+        window.style.width = Length.Percent(100);
+        window.style.height = Length.Percent(100);
         window.Close();
     }
     (int newIndex, UserData userData) getRandData(int prevIndex)
