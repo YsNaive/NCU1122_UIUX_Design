@@ -21,6 +21,16 @@ public class DoubleCheckWindow : DSRuntimeWindow
         contentContainer.style.alignItems = Align.Center;
         contentContainer.style.justifyContent = Justify.Center;
 
+        Color background = style.backgroundColor.value; background.a = 0.5f;
+        style.backgroundColor = background;
+
+        VisualElement container = new VisualElement();
+        container.style.width = Length.Percent(60);
+        container.style.height = Length.Percent(40);
+        container.style.backgroundColor = DocStyle.Current.SubBackgroundColor;
+        container.style.alignItems = Align.Center;
+        container.style.justifyContent = Justify.Center;
+
         VisualElement visualElement = new VisualElement();
         visualElement.style.flexDirection = FlexDirection.Row;
 
@@ -42,18 +52,23 @@ public class DoubleCheckWindow : DSRuntimeWindow
         warningLabel.style.marginBottom = Length.Percent(5);
         visualElement.style.marginTop = Length.Percent(5);
 
-        Add(warningLabel);
-        Add(visualElement);
+        container.Add(warningLabel);
+        container.Add(visualElement);
+
+        Add(container);
     }
 
     public static void Open(Rect rect, string warning, Action<bool> callback)
     {
         DoubleCheckWindow window = CreateWindow<DoubleCheckWindow>();
 
-        window.style.left = Length.Percent(rect.x);
-        window.style.top = Length.Percent(rect.y);
-        window.style.width = Length.Percent(rect.width);
-        window.style.height = Length.Percent(rect.height);
+        //window.style.left = Length.Percent(rect.x);
+        //window.style.top = Length.Percent(rect.y);
+        //window.style.width = Length.Percent(rect.width);
+        //window.style.height = Length.Percent(rect.height);
+
+        window.style.width = Length.Percent(100);
+        window.style.height = Length.Percent(100);
 
         window.warningLabel.text = warning;
 

@@ -4,85 +4,11 @@ using NaiveAPI_UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
-
-public class CreateNewUserWindow : DSRuntimeWindow
-{
-    public Action OnSaveOrClear;
-    public UserData UserData => UserDataDrawer.value;
-    public UserDataDrawer UserDataDrawer => userDataDrawer;
-    private UserDataDrawer userDataDrawer;
-    public CreateNewUserWindow()
-    {
-        PopupOnClick = false;
-        Resizable = false;
-
-        userDataDrawer = new UserDataDrawer();
-        userDataDrawer.value ??= new UserData();
-        var sc = new DSScrollView();
-        sc.Add(userDataDrawer);
-
-        VisualElement visualElement = new VisualElement();
-        visualElement.style.flexDirection = FlexDirection.Row;
-
-        DSButton btnSave = new DSButton("儲存", DocStyle.Current.SuccessColor, () =>
-        {
-            if (userDataDrawer.IsAllValid())
-            {
-                Action doSave = () =>
-                {
-                    DataHandler.SaveData(DataHandler.UserDataDir, UserData.Name + ".json", JsonUtility.ToJson(UserData), true);
-                    UserDataHandler.LoadAll();
-                    OnSaveOrClear?.Invoke();
-                    Destory();
-                };
-                if(UserDataHandler.FindByName(UserData.Name) != null)
-                {
-                    DoubleCheckWindow.Open(new Rect(25, 30, 50, 40), string.Format("姓名 '{0}' 已被使用過了，你要覆寫嗎?", UserData.Name), (overwrite) =>
-                    {
-                        if (overwrite)
-                            doSave();
-                    });
-                }
-                else
-                    doSave();
-            }
-            else
-            {
-                userDataDrawer.ShowAllInvalidMessage();
-            }
-        });
-
-        DSButton btnCancel = new DSButton("清除", DocStyle.Current.DangerColor, () => DoubleCheckWindow.Open(new Rect(20, 30, 60, 40), "該動作會清除所有更改，確定要刪除嗎？", (wantLeave) =>
-        {
-            if (wantLeave)
-            {
-                OnSaveOrClear?.Invoke();
-                Destory();
-            }
-        }));
-
-        btnSave.style.marginRight = 50;
-        btnCancel.style.marginLeft = 50;
-        btnSave.style.width = Length.Percent(20);
-        btnCancel.style.width = Length.Percent(20);
-
-        visualElement.Add(btnSave);
-        visualElement.Add(btnCancel);
-
-        visualElement.style.flexGrow = 1;
-        visualElement.style.alignItems = Align.Center;
-        visualElement.style.justifyContent = Justify.Center;
-        visualElement.style.top = StyleKeyword.Auto;
-        visualElement.style.bottom = 0;
-        visualElement.style.marginTop = StyleKeyword.Auto;
-
-        sc.Add(visualElement);
-        Add(sc);
-    }
-}
 
 public class UI_index : MonoBehaviour
 {
@@ -93,6 +19,7 @@ public class UI_index : MonoBehaviour
     VisualElement rightContainer;
     VisualElement leftToolbar;
     Button btnHome, btnUserList, btnCreateNewUser, btnDocument;
+
     // Start is called before the first frame update
     IEnumerator Start()
     {
@@ -259,54 +186,156 @@ public class UI_index : MonoBehaviour
         root.Add(getRandomUser);
         rightContainer.Add(root);
     }
+
+    private VisualElement simpleVisualsContainer;
+    private List<SimpleUserDataVisual> simpleVisuals = new List<SimpleUserDataVisual>();
     private void openUserList()
     {
         clearPage();
         btnUserList.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
         userPageContainer.Clear();
 
+        VisualElement topElement = new VisualElement();
+        topElement.style.flexDirection = FlexDirection.Row;
+
+        VisualElement searchContainer = new VisualElement();
+        searchContainer.style.width = Length.Percent(30);
+        searchContainer.style.flexDirection = FlexDirection.Row;
+        searchContainer.style.backgroundColor = DocStyle.Current.InputFieldStyle.Background.ImageTint;
+        searchContainer.style.alignItems = Align.Center;
+        searchContainer.style.SetIS_Style(ISRadius.Pixel(10));
+        searchContainer.style.left = StyleKeyword.Auto;
+        searchContainer.style.right = 0;
+        searchContainer.style.marginLeft = StyleKeyword.Auto;
+        searchContainer.style.marginRight = 10;
+        searchContainer.style.marginTop = 5;
+        searchContainer.style.marginBottom = 5;
+
+        DSTextField searchField = new DSTextField("", (evt) =>
+        {
+            simpleVisualsContainer.Clear();
+
+            Debug.Log(simpleVisualsContainer.childCount);
+
+            foreach (SimpleUserDataVisual visual in simpleVisuals.OrderBy((v) =>
+            {
+                int distance = int.MaxValue;
+
+                foreach (string s in v.UserData.GetAllValue())
+                {
+                    if (!s.Contains(evt.newValue))
+                    {
+                        distance++;
+                    }
+                }
+
+                return distance;
+            }))
+            {
+                simpleVisualsContainer.Add(visual);
+            }
+        });
+        searchField.value = "搜尋";
+        searchField.style.flexGrow = 1;
+        searchField.style.height = 40;
+        searchField.style.marginLeft = 10;
+        searchField.style.marginRight = 10;
+        searchField[0].style.backgroundImage = null;
+        searchField[0].style.SetIS_Style(new ISBorder(Color.clear, 0));
+        searchField[0].style.fontSize = DocStyle.Current.InputFieldStyle.Text.FontSize * 1.5f;
+
+        searchField.RegisterCallback<FocusInEvent>((evt) =>
+        {
+            if (searchField.value == "搜尋")
+            {
+                searchField.SetValueWithoutNotify("");
+            }
+        });
+
+        searchField.RegisterCallback<FocusOutEvent>((evt) =>
+        {
+            if (searchField.value == "")
+            {
+                searchField.SetValueWithoutNotify("搜尋");
+            }
+        });
+
+        VisualElement image = new VisualElement();
+
+        image.style.backgroundImage = Resources.Load<Texture2D>("Image/search_white");
+        image.style.width = 30;
+        image.style.height = 30;
+        image.style.marginTop = 5;
+        image.style.marginBottom = 5;
+        image.style.marginLeft = 10;
+
+        searchContainer.Add(image);
+        searchContainer.Add(searchField);
+
+        topElement.Add(searchContainer);
+
+        userPageContainer.Add(topElement);
+
+        simpleVisualsContainer = new VisualElement();
+
         foreach (UserData data in UserDataHandler.Datas)
         {
             SimpleUserDataVisual simpleUserDataVisual = new SimpleUserDataVisual(data);
             simpleUserDataVisual.RegisterCallback<PointerDownEvent>((evt) => DetailedUserDataWindow.Open(data, true));
-            userPageContainer.Add(simpleUserDataVisual);
+
+            VisualElement tools = new VisualElement();
+            tools.style.position = Position.Absolute;
+            tools.style.top = 10;
+            tools.style.right = 10;
+            tools.style.left = StyleKeyword.Auto;
+            tools.style.bottom = StyleKeyword.Auto;
+            tools.style.marginTop = 0;
+            tools.style.marginRight = 0;
+            tools.style.marginLeft = StyleKeyword.Auto;
+            tools.style.marginBottom = StyleKeyword.Auto;
 
             var localData = data;
             DSButton editBtn = new DSButton("編輯", DocStyle.Current.HintColor);
             editBtn.style.SetIS_Style(ISRadius.Pixel(10));
-            editBtn.style.position = Position.Absolute;
-            editBtn.style.top = 10;
-            editBtn.style.right = 10;
-            editBtn.style.left = StyleKeyword.Auto;
-            editBtn.style.bottom = StyleKeyword.Auto;
-            editBtn.style.marginTop = 0;
-            editBtn.style.marginRight = 0;
-            editBtn.style.marginLeft = StyleKeyword.Auto;
-            editBtn.style.marginBottom = StyleKeyword.Auto;
             editBtn.clicked += () => { openCreateNewUser(localData); };
-            simpleUserDataVisual.Add(editBtn);
+
+            DSButton btnDelete = new DSButton("刪除", DocStyle.Current.HintColor, () =>
+            {
+                DoubleCheckWindow.Open(new Rect(), "確定要永久刪除此使用者？確認後資料將永久消失。", (confirm) =>
+                {
+                    if (confirm)
+                    {
+                        DataHandler.DeleteData(DataHandler.UserDataDir, localData.Name + ".json");
+
+                        UserDataHandler.LoadAll();
+
+                        userPageContainer.Remove(simpleUserDataVisual);
+                    }
+                });
+            });
+            btnDelete.style.SetIS_Style(ISRadius.Pixel(10));
+
+            tools.Add(editBtn);
+            tools.Add(btnDelete);
+
+            simpleUserDataVisual.Add(tools);
+            simpleVisuals.Add(simpleUserDataVisual);
+            simpleVisualsContainer.Add(simpleUserDataVisual);
         }
+
+        userPageContainer.Add(simpleVisualsContainer);
 
         rightContainer.Add(userPageContainer);
     }
+
     private void openCreateNewUser(UserData editData = null)
     {
         clearPage();
         btnCreateNewUser.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
 
-        CreateNewUserWindow window = RuntimeWindow.GetWindow<CreateNewUserWindow>();
-        window.OnSaveOrClear = openMainPage;
-        window.EnableTab = false;
+        CreateNewUserWindow window = CreateNewUserWindow.Open(openMainPage, editData);
 
         rightContainer.Add(window);
-
-        window.style.width = Length.Percent(100);
-        window.style.height = Length.Percent(100);
-        if(editData != null)
-        {
-            window.UserDataDrawer.value = editData;
-            window.UserDataDrawer.ShowAllInvalidMessage();
-        }
     }
     private void openDocument()
     {
@@ -319,9 +348,13 @@ public class UI_index : MonoBehaviour
 
 public class SimpleUserDataVisual : VisualElement
 {
+    public UserData UserData;
+
     private Texture2D texture;
     public SimpleUserDataVisual(UserData data)
     {
+        UserData = data;
+
         style.backgroundColor = DocStyle.Current.BackgroundColor;
         style.SetIS_Style(ISMargin.Pixel(7));
         style.marginBottom = 0;

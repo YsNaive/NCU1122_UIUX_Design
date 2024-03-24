@@ -44,4 +44,19 @@ public class DataHandler
     {
         return File.Exists(dir + "/" + fileName);
     }
+
+    public static bool DeleteData(string dir, string fileName)
+    {
+        string completePath = dir + "/" + fileName;
+
+        if (!File.Exists(completePath)) return false;
+
+        File.Delete(completePath);
+
+        #if UNITY_EDITOR
+        File.Delete(completePath + ".meta");
+        #endif
+
+        return true;
+    }
 }
