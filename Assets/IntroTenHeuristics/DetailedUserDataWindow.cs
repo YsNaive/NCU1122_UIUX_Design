@@ -21,6 +21,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
     private LabelDrawer skillsElement;
     private LabelDrawer hobbiesElement;
     private LabelDrawer graduatedSchoolElement;
+    private LabelDrawer specialExperienceElement;
     private UserData data;
     private VisualElement fullContainer;
     private bool beheavoirLock = false;
@@ -105,16 +106,18 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         int origin = DocStyle.Current.MainTextSize;
         DocStyle.Current.MainTextSize = (int)(origin * 1.5f);
 
-        nameElement             = new LabelDrawer("姓　　名：");
-        phoneNumberElement      = new LabelDrawer("電話號碼：");
-        careerElement           = new LabelDrawer("工　　作：");
-        majorElement            = new LabelDrawer("系　　級：");
-        genderElement           = new LabelDrawer("性　　別：");
-        researchTopicElement    = new LabelDrawer("研究主題：");
-        contactElement          = new LabelDrawer("聯絡方式：");
-        skillsElement           = new LabelDrawer("專　　長：");
-        hobbiesElement          = new LabelDrawer("愛　　好：");
-        graduatedSchoolElement  = new LabelDrawer("畢業學校：");
+        nameElement              = new LabelDrawer("姓　　名：");
+        phoneNumberElement       = new LabelDrawer("電話號碼：");
+        careerElement            = new LabelDrawer("工　　作：");
+        majorElement             = new LabelDrawer("系　　級：");
+        genderElement            = new LabelDrawer("性　　別：");
+        researchTopicElement     = new LabelDrawer("研究主題：");
+        contactElement           = new LabelDrawer("聯絡方式：");
+        skillsElement            = new LabelDrawer("專　　長：");
+        hobbiesElement           = new LabelDrawer("愛　　好：");
+        graduatedSchoolElement   = new LabelDrawer("畢業學校：");
+        specialExperienceElement = new LabelDrawer("特殊經驗：");
+        specialExperienceElement.EnableMultiline(true);
 
         DocStyle.Current.MainTextSize = origin;
 
@@ -167,6 +170,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         fullContainer.Add(skillsElement);
         fullContainer.Add(hobbiesElement);
         fullContainer.Add(graduatedSchoolElement);
+        fullContainer.Add(specialExperienceElement);
         fullContainer.Add(prevPage);
         fullContainer.Add(nextPage);
 
@@ -205,6 +209,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         window.skillsElement.text = data.Skills;
         window.hobbiesElement.text = data.Hobbies;
         window.graduatedSchoolElement.text =　data.GraduatedSchool;
+        window.specialExperienceElement.text = data.SpecialExperience;
 
         if (!playAnimation) return;
         var page = window.fullContainer;
@@ -237,6 +242,18 @@ public class LabelDrawer : RuntimeDrawer<string>
 {
     public string text { get => textElement.text; set => textElement.text = value; }
     private DSTextElement textElement;
+
+    public void EnableMultiline(bool multiline)
+    {
+        if (multiline)
+        {
+            LayoutExpand();
+        }
+        else
+        {
+            LayoutInline();
+        }
+    }
 
     public LabelDrawer(string label) : base()
     {

@@ -189,7 +189,49 @@ public class CreateNewUserWindow : DSRuntimeWindow
     {
         if (userDataDrawer.IsLastPage())
         {
-            saveData();
+            if (userDataDrawer.IsAllValid())
+            {
+                if (IsEditing && UserData.Name != originalData.Name)
+                {
+                    if (DataHandler.FileExists(DataHandler.UserDataDir, UserData.Name + ".json"))
+                    {
+                        HintWindow.Open(new Rect(35, 80, 30, 10), $"修改失敗，'{UserData.Name}'已經存在");
+                    }
+                    else
+                    {
+                        DataHandler.DeleteData(DataHandler.UserDataDir, originalData.Name + ".json");
+                        DataHandler.SaveData(DataHandler.UserDataDir, UserData.Name + ".json", JsonUtility.ToJson(UserData), false);
+
+                        HintWindow.Open(new Rect(35, 80, 30, 10), $"成功修改'{UserData.Name}'");
+                    }
+                }
+                else
+                {
+                    if (DataHandler.SaveData(DataHandler.UserDataDir, UserData.Name + ".json", JsonUtility.ToJson(UserData), IsEditing))
+                    {
+                        if (IsEditing)
+                        {
+                            HintWindow.Open(new Rect(35, 80, 30, 10), $"成功修改'{UserData.Name}'");
+                        }
+                        else
+                        {
+                            HintWindow.Open(new Rect(35, 80, 30, 10), $"成功新增'{UserData.Name}'");
+                        }
+                    }
+                    else
+                    {
+                        HintWindow.Open(new Rect(35, 80, 30, 10), $"新增失敗，'{UserData.Name}'已經存在");
+                    }
+                }
+
+                UserDataHandler.LoadAll();
+                OnSaveOrClear?.Invoke();
+                Destory();
+            }
+            else
+            {
+                userDataDrawer.ShowAllInvalidMessage();
+            }
         }
         else if(userDataDrawer.IsPageValid())
         {
@@ -211,27 +253,6 @@ public class CreateNewUserWindow : DSRuntimeWindow
 
     private void saveData()
     {
-
-        if (userDataDrawer.IsAllValid())
-        {
-            if (IsEditing && UserData.Name != originalData.Name)
-            {
-                DataHandler.DeleteData(DataHandler.UserDataDir, originalData.Name + ".json");
-                DataHandler.SaveData(DataHandler.UserDataDir, UserData.Name + ".json", JsonUtility.ToJson(UserData), false);
-            }
-            else
-            {
-                DataHandler.SaveData(DataHandler.UserDataDir, UserData.Name + ".json", JsonUtility.ToJson(UserData), IsEditing);
-            }
-
-            UserDataHandler.LoadAll();
-            OnSaveOrClear?.Invoke();
-            Destory();
-        }
-        else
-        {
-            userDataDrawer.ShowAllInvalidMessage();
-        }
     }
 
     private void highlightCurrentPage()

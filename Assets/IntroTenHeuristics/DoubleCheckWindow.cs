@@ -10,6 +10,7 @@ public class DoubleCheckWindow : DSRuntimeWindow
 {
     private DSLabel warningLabel;
     private DSButton btConfirm, btCancel;
+    private VisualElement container;
 
     public DoubleCheckWindow()
     {
@@ -24,9 +25,9 @@ public class DoubleCheckWindow : DSRuntimeWindow
         Color background = style.backgroundColor.value; background.a = 0.5f;
         style.backgroundColor = background;
 
-        VisualElement container = new VisualElement();
-        container.style.width = Length.Percent(60);
-        container.style.height = Length.Percent(40);
+        container = new VisualElement();
+        //container.style.width = Length.Percent(60);
+        //container.style.height = Length.Percent(40);
         container.style.backgroundColor = DocStyle.Current.SubBackgroundColor;
         container.style.alignItems = Align.Center;
         container.style.justifyContent = Justify.Center;
@@ -62,13 +63,13 @@ public class DoubleCheckWindow : DSRuntimeWindow
     {
         DoubleCheckWindow window = CreateWindow<DoubleCheckWindow>();
 
-        //window.style.left = Length.Percent(rect.x);
-        //window.style.top = Length.Percent(rect.y);
-        //window.style.width = Length.Percent(rect.width);
-        //window.style.height = Length.Percent(rect.height);
-
         window.style.width = Length.Percent(100);
         window.style.height = Length.Percent(100);
+
+        //window.container.style.left = Length.Percent(rect.x);
+        //window.container.style.top = Length.Percent(rect.y);
+        window.container.style.width = Length.Percent(rect.width);
+        window.container.style.height = Length.Percent(rect.height);
 
         window.warningLabel.text = warning;
 

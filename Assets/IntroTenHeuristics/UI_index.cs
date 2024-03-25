@@ -301,7 +301,7 @@ public class UI_index : MonoBehaviour
 
             DSButton btnDelete = new DSButton("刪除", DocStyle.Current.HintColor, () =>
             {
-                DoubleCheckWindow.Open(new Rect(), "確定要永久刪除此使用者？確認後資料將永久消失。", (confirm) =>
+                DoubleCheckWindow.Open(new Rect(20, 30, 60, 40), "確定要永久刪除此使用者？確認後資料將永久消失。", (confirm) =>
                 {
                     if (confirm)
                     {
@@ -309,7 +309,10 @@ public class UI_index : MonoBehaviour
 
                         UserDataHandler.LoadAll();
 
-                        userPageContainer.Remove(simpleUserDataVisual);
+                        simpleVisuals.Remove(simpleUserDataVisual);
+                        simpleVisualsContainer.Remove(simpleUserDataVisual);
+
+                        HintWindow.Open(new Rect(35, 80, 30, 10), $"成功刪除'{localData.Name}'");
                     }
                 });
             });
