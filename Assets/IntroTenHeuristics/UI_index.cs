@@ -188,7 +188,7 @@ public class UI_index : MonoBehaviour
     }
 
     private VisualElement simpleVisualsContainer;
-    private List<SimpleUserDataVisual> simpleVisuals = new List<SimpleUserDataVisual>();
+    private List<SimpleUserDataVisual> simpleVisuals;
     private void openUserList()
     {
         clearPage();
@@ -211,11 +211,13 @@ public class UI_index : MonoBehaviour
         searchContainer.style.marginTop = 5;
         searchContainer.style.marginBottom = 5;
 
+        simpleVisuals = new List<SimpleUserDataVisual>();
+
         DSTextField searchField = new DSTextField("", (evt) =>
         {
             simpleVisualsContainer.Clear();
 
-            Debug.Log(simpleVisualsContainer.childCount);
+            //Debug.Log(simpleVisuals.Count);
 
             foreach (SimpleUserDataVisual visual in simpleVisuals.OrderBy((v) =>
             {
