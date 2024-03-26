@@ -251,10 +251,6 @@ public class CreateNewUserWindow : DSRuntimeWindow
         }
     }
 
-    private void saveData()
-    {
-    }
-
     private void highlightCurrentPage()
     {
         foreach (TextElement progress in progresses)

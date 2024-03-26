@@ -18,7 +18,7 @@ public class UI_index : MonoBehaviour
     private DSScrollView userPageContainer;
     VisualElement rightContainer;
     VisualElement leftToolbar;
-    Button btnHome, btnUserList, btnCreateNewUser, btnDocument;
+    Button btnHome, btnUserList, btnCreateNewUser, btnDocument, btnOnlineHelp;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -51,17 +51,34 @@ public class UI_index : MonoBehaviour
         btnCreateNewUser.AddToClassList("left-toolbar-btn");
         btnCreateNewUser.clicked += () => { openCreateNewUser(); };
 
+        VisualElement bottomElement = new VisualElement();
+        bottomElement.style.marginTop = StyleKeyword.Auto;
+        bottomElement.style.top = StyleKeyword.Auto;
+        bottomElement.style.bottom = 0;
+        bottomElement.style.marginBottom = 0;
+
         btnDocument = new DSButton("說明");
         btnDocument.AddToClassList("left-toolbar-btn");
+        btnDocument.style.SetIS_Style(new ISBorder(Color.clear, 0));
         btnDocument.clicked += openDocument;
-        btnDocument.style.marginTop = StyleKeyword.Auto;
-        btnDocument.style.top = StyleKeyword.Auto;
-        btnDocument.style.bottom = 0;
+
+        btnOnlineHelp = new DSButton("線上\n幫助");
+        btnOnlineHelp.AddToClassList("left-toolbar-btn");
+        btnOnlineHelp.style.SetIS_Style(new ISBorder(Color.clear, 0));
+        btnOnlineHelp.clicked += () => DoubleCheckWindow.Open(new Rect(20, 30, 60, 40), "即將跳轉至外部網站，是否要繼續？", (confirm) =>
+        {
+            if (confirm)
+                Application.OpenURL("https://ysnaive.github.io/NCU1122_UIUX_Design/");
+        });
 
         leftToolbar.Add(btnHome);
         leftToolbar.Add(btnUserList);
         leftToolbar.Add(btnCreateNewUser);
-        leftToolbar.Add(btnDocument);
+
+        bottomElement.Add(btnDocument);
+        bottomElement.Add(btnOnlineHelp);
+
+        leftToolbar.Add(bottomElement);
 
         openMainPage();
 
