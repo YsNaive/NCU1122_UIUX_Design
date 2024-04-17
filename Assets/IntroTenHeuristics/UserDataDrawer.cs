@@ -24,6 +24,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
     private MessageStringDrawer hobbiesField;
     private MessageStringDrawer graduatedSchoolField;
     private MessageStringDrawer specialExperienceField;
+    private MessageStringDrawer favoriteClassesField;
 
 
     private List<VisualElement> pages = new List<VisualElement>();
@@ -47,6 +48,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         hobbiesField.SetValueWithoutNotify(value.Hobbies);
         graduatedSchoolField.SetValueWithoutNotify(value.GraduatedSchool);
         specialExperienceField.SetValueWithoutNotify(value.SpecialExperience);
+        favoriteClassesField.SetValueWithoutNotify(value.FavoriteClasses);
 
         OnUserDataChanged?.Invoke(value);
     }
@@ -136,6 +138,13 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
                 .AddCondition("特殊經驗為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
         specialExperienceField.RegisterValueChangedCallback((evt) => { value.SpecialExperience = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        favoriteClassesField = (MessageStringDrawer)RuntimeDrawerFactory
+            .FromValueType(typeof(string))
+            .Label("喜愛專科：")
+            .AddAttribute(new MessageStringAttribute()
+                .AddCondition("喜愛專科為必填，不得為空！", (v) => v != null && v != ""))
+            .Build();
+        favoriteClassesField.RegisterValueChangedCallback((evt) => { value.FavoriteClasses = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
 
         specialExperienceField.EnableMultiline(true);
 
@@ -223,11 +232,12 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         container.Add(researchTopicField);
         container.Add(skillsField);
         container.Add(hobbiesField);
+        container.Add(favoriteClassesField);
         container.Add(specialExperienceField);
 
         pageDrawers.Add(new List<MessageStringDrawer>
         {
-            researchTopicField, skillsField, hobbiesField, specialExperienceField
+            researchTopicField, skillsField, hobbiesField, favoriteClassesField, specialExperienceField
         });
 
         return container;
@@ -354,6 +364,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         if (!hobbiesField.IsValid()) return false;
         if (!graduatedSchoolField.IsValid()) return false;
         if (!specialExperienceField.IsValid()) return false;
+        if (!favoriteClassesField.IsValid()) return false;
 
         return true;
     }
@@ -371,6 +382,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         hobbiesField.ShowInvalidMessage();
         graduatedSchoolField.ShowInvalidMessage();
         specialExperienceField.ShowInvalidMessage();
+        favoriteClassesField.ShowInvalidMessage();
     }
 
     public void Reset()

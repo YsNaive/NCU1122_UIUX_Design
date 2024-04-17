@@ -18,6 +18,7 @@ public class UserData
     public string Hobbies = "";
     public string GraduatedSchool = "";
     public string SpecialExperience = "";
+    public string FavoriteClasses = "";
 
     public UserData() {}
 
@@ -35,6 +36,7 @@ public class UserData
         Hobbies = data.Hobbies;
         GraduatedSchool = data.GraduatedSchool;
         SpecialExperience = data.SpecialExperience;
+        FavoriteClasses = data.FavoriteClasses;
     }
 
     public override bool Equals(object obj)
@@ -51,7 +53,8 @@ public class UserData
             data.Skills == Skills &&
             data.Hobbies == Hobbies &&
             data.GraduatedSchool == GraduatedSchool &&
-            data.SpecialExperience == SpecialExperience;
+            data.SpecialExperience == SpecialExperience &&
+            data.FavoriteClasses == FavoriteClasses;
     }
 
     public override int GetHashCode()
@@ -70,7 +73,7 @@ public class UserData
         hash = hash * 23 + Hobbies.GetHashCode();
         hash = hash * 23 + GraduatedSchool.GetHashCode();
         hash = hash * 23 + SpecialExperience.GetHashCode();
-
+        hash = hash * 23 + FavoriteClasses.GetHashCode();
 
         return hash;
     }
@@ -88,6 +91,7 @@ public class UserData
         yield return Hobbies;
         yield return GraduatedSchool;
         yield return SpecialExperience;
+        yield return FavoriteClasses;
     }
 }
 

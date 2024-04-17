@@ -22,6 +22,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
     private LabelDrawer hobbiesElement;
     private LabelDrawer graduatedSchoolElement;
     private LabelDrawer specialExperienceElement;
+    private LabelDrawer favoriteClassesElement;
     private UserData data;
     private VisualElement fullContainer;
     private bool beheavoirLock = false;
@@ -117,6 +118,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         hobbiesElement           = new LabelDrawer("愛　　好：");
         graduatedSchoolElement   = new LabelDrawer("畢業學校：");
         specialExperienceElement = new LabelDrawer("特殊經驗：");
+        favoriteClassesElement   = new LabelDrawer("喜愛專科：");
         specialExperienceElement.EnableMultiline(true);
 
         DocStyle.Current.MainTextSize = origin;
@@ -170,6 +172,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         fullContainer.Add(skillsElement);
         fullContainer.Add(hobbiesElement);
         fullContainer.Add(graduatedSchoolElement);
+        fullContainer.Add(favoriteClassesElement);
         fullContainer.Add(specialExperienceElement);
         fullContainer.Add(prevPage);
         fullContainer.Add(nextPage);
@@ -210,6 +213,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         window.hobbiesElement.text = data.Hobbies;
         window.graduatedSchoolElement.text =　data.GraduatedSchool;
         window.specialExperienceElement.text = data.SpecialExperience;
+        window.favoriteClassesElement.text = data.FavoriteClasses;
 
         if (!playAnimation) return;
         var page = window.fullContainer;

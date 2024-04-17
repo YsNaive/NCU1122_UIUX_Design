@@ -110,6 +110,7 @@ public class UI_index : MonoBehaviour
         var border = new ISBorder(Color.clear, 0);
         foreach(var ve in leftToolbar.Children())
             ve.style.SetIS_Style(border);
+        btnDocument.style.SetIS_Style(border);
     }
     private void openMainPage() 
     {
