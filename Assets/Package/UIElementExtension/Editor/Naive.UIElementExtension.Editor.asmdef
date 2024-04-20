@@ -1,0 +1,18 @@
+{
+    "name": "Naive.UIElementExtension.Editor",
+    "rootNamespace": "NaiveAPI_Editor.UITK",
+    "references": [
+        "GUID:2a39e1f859d61234a98d3acf83c95d76"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

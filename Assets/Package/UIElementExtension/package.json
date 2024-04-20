@@ -1,0 +1,21 @@
+{
+    "name": "naiveapi.uielement-extension",
+    "displayName": "UIElement Extension",
+    "version": "1.0.0",
+    "unity": "2021.3",
+    "description": "This is package make better UITK dev experience",
+    "type": "tool",
+    "keywords": [
+      "Tool",
+      "UIToolkit",
+      "UIElement",
+      "VisualElement",
+      "Extension",
+      "Runtime"
+    ],
+    "author": {
+      "name": "Naive",
+      "email": "yi.shi.4589@gmail.com"
+    }
+}
+  

@@ -1,0 +1,14 @@
+{
+    "name": "Naive.UIElementExtension.Runtime",
+    "rootNamespace": "NaiveAPI.UITK",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

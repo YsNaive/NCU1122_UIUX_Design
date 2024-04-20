@@ -1,0 +1,16 @@
+{
+    "name": "Naive.UIElementExtension.Sample",
+    "rootNamespace": "NaiveAPI.UITK.Sample",
+    "references": [
+        "GUID:2a39e1f859d61234a98d3acf83c95d76"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
