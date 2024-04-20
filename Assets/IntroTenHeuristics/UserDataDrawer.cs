@@ -1,6 +1,6 @@
-using NaiveAPI.DocumentBuilder;
-using NaiveAPI.RuntimeWindowUtils;
-using NaiveAPI_UI;
+using NaiveAPI.UITK;
+
+
 using SFB;
 using System;
 using System.Collections;
@@ -31,10 +31,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
     private List<List<MessageStringDrawer>> pageDrawers = new List<List<MessageStringDrawer>>();
     private VisualElement page;
 
-
-    public Action<UserData> OnUserDataChanged;
-
-    public override void UpdateField()
+    public override void RepaintDrawer()
     {
         base64ImageField.SetValueWithoutNotify(value.Base64Icon);
         nameField.SetValueWithoutNotify(value.Name);
@@ -49,102 +46,100 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         graduatedSchoolField.SetValueWithoutNotify(value.GraduatedSchool);
         specialExperienceField.SetValueWithoutNotify(value.SpecialExperience);
         favoriteClassesField.SetValueWithoutNotify(value.FavoriteClasses);
-
-        OnUserDataChanged?.Invoke(value);
     }
 
-    protected override void OnCreateGUI()
+    protected override void CreateGUI()
     {
         style.marginTop = 15;
         style.paddingRight = 45;
-        DSScrollView scrollView = new DSScrollView();
+        RSScrollView scrollView = new RSScrollView();
 
         base64ImageField = new Base64ImageDrawer();
-        base64ImageField.RegisterValueChangedCallback((evt) => { value.Base64Icon = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        base64ImageField.OnValueChanged += () => { value.Base64Icon = base64ImageField.value; InvokeMemberValueChange(base64ImageField); };
         nameField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("姓　　名：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("姓名為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        nameField.RegisterValueChangedCallback((evt) => { value.Name = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        nameField.OnValueChanged += () => { value.Name = nameField.value; InvokeMemberValueChange(nameField); };
         majorField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("系　　級：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("系級為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        majorField.RegisterValueChangedCallback((evt) => { value.Major = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        majorField.OnValueChanged += () => { value.Major = majorField.value; InvokeMemberValueChange(majorField); };
         careerField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("工　　作：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("工作為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        careerField.RegisterValueChangedCallback((evt) => { value.Career = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        careerField.OnValueChanged += () => { value.Career = careerField.value; InvokeMemberValueChange(careerField); };
         genderField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("性　　別：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("性別為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        genderField.RegisterValueChangedCallback((evt) => { value.Gender = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        genderField.OnValueChanged += () => { value.Gender = genderField.value; InvokeMemberValueChange(genderField); };
         phoneNumberField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("電話號碼：")
             .AddAttribute(new MessageStringAttribute()
                 /*.AddCondition("PhoneNumber can not be empty!", (v) => v != null && v != "")*/)
             .Build();
-        phoneNumberField.RegisterValueChangedCallback((evt) => { value.PhoneNumber = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        phoneNumberField.OnValueChanged += () => { value.PhoneNumber = phoneNumberField.value; InvokeMemberValueChange(phoneNumberField); };
         researchTopicField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("研究主題：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("研究主題為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        researchTopicField.RegisterValueChangedCallback((evt) => { value.ResearchTopic = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        researchTopicField.OnValueChanged += () => { value.ResearchTopic = researchTopicField.value; InvokeMemberValueChange(researchTopicField); };
         contactField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("聯絡方式：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("聯絡方式為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        contactField.RegisterValueChangedCallback((evt) => { value.Contact = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        contactField.OnValueChanged += () => { value.Contact = contactField.value; InvokeMemberValueChange(contactField); };
         skillsField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("專　　長：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("專長為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        skillsField.RegisterValueChangedCallback((evt) => { value.Skills = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        skillsField.OnValueChanged += () => { value.Skills = skillsField.value; InvokeMemberValueChange(skillsField); };
         hobbiesField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("愛　　好：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("愛好為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        hobbiesField.RegisterValueChangedCallback((evt) => { value.Hobbies = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        hobbiesField.OnValueChanged += () => { value.Hobbies = hobbiesField.value; InvokeMemberValueChange(hobbiesField); };
         graduatedSchoolField = (MessageStringDrawer) RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("畢業學校：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("畢業學校為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        graduatedSchoolField.RegisterValueChangedCallback((evt) => { value.GraduatedSchool = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        graduatedSchoolField.OnValueChanged += () => { value.GraduatedSchool = graduatedSchoolField.value; InvokeMemberValueChange(graduatedSchoolField); };
         specialExperienceField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("特殊經驗：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("特殊經驗為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        specialExperienceField.RegisterValueChangedCallback((evt) => { value.SpecialExperience = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        specialExperienceField.OnValueChanged += () => { value.SpecialExperience = specialExperienceField.value; InvokeMemberValueChange(specialExperienceField); };
         favoriteClassesField = (MessageStringDrawer)RuntimeDrawerFactory
             .FromValueType(typeof(string))
             .Label("喜愛專科：")
             .AddAttribute(new MessageStringAttribute()
                 .AddCondition("喜愛專科為必填，不得為空！", (v) => v != null && v != ""))
             .Build();
-        favoriteClassesField.RegisterValueChangedCallback((evt) => { value.FavoriteClasses = evt.newValue; OnUserDataChanged?.Invoke(value); evt.StopPropagation(); });
+        favoriteClassesField.OnValueChanged += () => { value.FavoriteClasses = favoriteClassesField.value; InvokeMemberValueChange(favoriteClassesField); };
 
         specialExperienceField.EnableMultiline(true);
 
@@ -157,8 +152,8 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         //container.style.marginBottom = 10;
 
         //VisualElement fieldContainer = new VisualElement();
-        //fieldContainer.style.paddingTop = DocStyle.Current.LineHeight;
-        //fieldContainer.style.paddingRight = DocStyle.Current.LineHeight*1.5f;
+        //fieldContainer.style.paddingTop = RSTheme.Current.LineHeight;
+        //fieldContainer.style.paddingRight = RSTheme.Current.LineHeight*1.5f;
         //fieldContainer.style.flexGrow = 1;
         //fieldContainer.Add(nameField);
         //fieldContainer.Add(majorField);
@@ -189,7 +184,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         container.style.marginBottom = 10;
 
         VisualElement fieldContainer = new VisualElement();
-        fieldContainer.style.paddingRight = DocStyle.Current.LineHeight * 1.5f;
+        fieldContainer.style.paddingRight = RSTheme.Current.LineHeight * 1.5f;
         fieldContainer.style.flexGrow = 1;
         fieldContainer.Add(nameField);
         fieldContainer.Add(majorField);
@@ -420,9 +415,9 @@ public class Base64ImageDrawer : RuntimeDrawer<string>
     private VisualElement preview;
     private Texture2D texture;
 
-    public override void UpdateField()
+    public override void RepaintDrawer()
     {
-        titleElement.style.display = StyleKeyword.None;
+        // titleElement.style.display = StyleKeyword.None;
 
         if (value != "")
         {
@@ -447,7 +442,7 @@ public class Base64ImageDrawer : RuntimeDrawer<string>
         preview.style.height = 100;
     }
 
-    protected override void OnCreateGUI()
+    protected override void CreateGUI()
     {
         LayoutExpand();
         iconElement.style.display = DisplayStyle.None;
@@ -460,7 +455,7 @@ public class Base64ImageDrawer : RuntimeDrawer<string>
         texture = new Texture2D(1, 1);
         //contentContainer.style.flexDirection = FlexDirection.Row;
 
-        DSButton btChoice = new DSButton("選擇圖片...", () =>
+        RSButton btChoice = new RSButton("選擇圖片...", () =>
         {
             string[] path = StandaloneFileBrowser.OpenFilePanel("UserImage", "", new ExtensionFilter[]
             {
@@ -493,22 +488,22 @@ public class MessageStringDrawer : StringDrawer
 {
     public MessageStringAttribute attribute;
 
-    private DocDescription warningVisual;
-    private DSTextElement warningField;
+    private RSTextElement warningVisual;
+    private RSTextElement warningField;
 
     public void EnableMultiline(bool multiline)
     {
         if (multiline)
         {
             LayoutExpand();
-            this.Q<DSTextField>().multiline = true;
-            this.Q<DSTextField>().RegisterValueChangedCallback(multilineValueChange);
+            this.Q<RSTextField>().multiline = true;
+            this.Q<RSTextField>().RegisterValueChangedCallback(multilineValueChange);
         }
         else
         {
             LayoutInline();
-            this.Q<DSTextField>().multiline = false;
-            this.Q<DSTextField>().UnregisterValueChangedCallback(multilineValueChange);
+            this.Q<RSTextField>().multiline = false;
+            this.Q<RSTextField>().UnregisterValueChangedCallback(multilineValueChange);
         }
     }
 
@@ -520,12 +515,13 @@ public class MessageStringDrawer : StringDrawer
 
     public MessageStringDrawer()
     {
-        this.Q<DSTextField>().style.flexGrow = 1;
-        this.Q<DSTextField>().multiline = false;
+        this.Q<RSTextField>().style.flexGrow = 1;
+        this.Q<RSTextField>().multiline = false;
 
 
-        warningVisual = (DocDescription) DocVisual.Create(DocDescription.CreateComponent("", DocDescription.DescriptionType.Warning));
-        warningField = warningVisual.Q<DSTextElement>();
+        warningVisual = new RSTextElement();
+        warningVisual.style.backgroundColor = RSTheme.Current.WarningColorSet.BackgroundColor;
+        warningField = warningVisual.Q<RSTextElement>();
         warningVisual.style.visibility = Visibility.Hidden;
 
         Add(warningVisual);

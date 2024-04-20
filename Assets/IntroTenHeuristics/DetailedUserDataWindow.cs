@@ -1,13 +1,13 @@
-using NaiveAPI.DocumentBuilder;
-using NaiveAPI.RuntimeWindowUtils;
-using NaiveAPI_UI;
+using NaiveAPI.UITK;
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DetailedUserDataWindow : DSRuntimeWindow
+public class DetailedUserDataWindow : RSRuntimeWindow
 {
     private Texture2D texture;
     private VisualElement preview;
@@ -64,8 +64,8 @@ public class DetailedUserDataWindow : DSRuntimeWindow
 
         fullContainer = new VisualElement();
         fullContainer.style.flexGrow = 1;
-        fullContainer.style.backgroundColor = DocStyle.Current.BackgroundColor;
-        fullContainer.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
+        fullContainer.style.backgroundColor = RSTheme.Current.BackgroundColor;
+        fullContainer.style.SetRS_Style(new RSBorder(RSTheme.Current.FrontgroundColor, 2.5f));
         fullContainer.style.paddingLeft = 10;
         fullContainer.style.paddingTop = 10;
         leaveContainer.RegisterCallback<PointerDownEvent>((evt) =>
@@ -99,13 +99,13 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         container.style.marginBottom = 10;
 
         preview = new VisualElement();
-        preview.style.SetIS_Style(ISRadius.Pixel(10));
+        preview.style.SetRS_Style(RSRadius.Pixel(10));
 
         preview.style.width = 100;
         preview.style.height = 100;
 
-        int origin = DocStyle.Current.MainTextSize;
-        DocStyle.Current.MainTextSize = (int)(origin * 1.5f);
+        float origin = RSTheme.Current.MainText.size;
+        RSTheme.Current.MainText.size = (int)(origin * 1.5f);
 
         nameElement              = new LabelDrawer("姓　　名：");
         phoneNumberElement       = new LabelDrawer("電話號碼：");
@@ -121,10 +121,9 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         favoriteClassesElement   = new LabelDrawer("喜愛專科：");
         specialExperienceElement.EnableMultiline(true);
 
-        DocStyle.Current.MainTextSize = origin;
+        RSTheme.Current.MainText.size = origin;
 
-        prevPage = new VisualElement();
-        prevPage.style.SetIS_Style(DocStyle.Current.ArrowIcon);
+        prevPage = RSTheme.Current.CreateArrowIcon(180);
         prevPage.style.rotate = new Rotate(180);
         prevPage.style.width = prevPage.style.width.value.value * 2;
         prevPage.style.height = prevPage.style.height.value.value * 2;
@@ -139,8 +138,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
             Open(UserDataHandler.FindPrevData(data), false);
         });
 
-        nextPage = new VisualElement();
-        nextPage.style.SetIS_Style(DocStyle.Current.ArrowIcon);
+        nextPage = RSTheme.Current.CreateArrowIcon(180);
         nextPage.style.width = nextPage.style.width.value.value * 2;
         nextPage.style.height = nextPage.style.height.value.value * 2;
         nextPage.style.position = Position.Absolute;
@@ -164,7 +162,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
         container.Add(rightContainer);
 
         fullContainer.Add(container);
-        fullContainer.Add(DocVisual.Create(DocDividline.CreateComponent()));
+        //fullContainer.Add(DocVisual.Create(DocDividline.CreateComponent()));
         fullContainer.Add(genderElement);
         fullContainer.Add(phoneNumberElement);
         fullContainer.Add(researchTopicElement);
@@ -245,7 +243,7 @@ public class DetailedUserDataWindow : DSRuntimeWindow
 public class LabelDrawer : RuntimeDrawer<string>
 {
     public string text { get => textElement.text; set => textElement.text = value; }
-    private DSTextElement textElement;
+    private RSTextElement textElement;
 
     public void EnableMultiline(bool multiline)
     {
@@ -269,16 +267,16 @@ public class LabelDrawer : RuntimeDrawer<string>
         textElement.text = text;
     }
 
-    public override void UpdateField()
+    public override void RepaintDrawer()
     {
         textElement.text = value;
     }
 
-    protected override void OnCreateGUI()
+    protected override void CreateGUI()
     {
         style.marginTop = 10;
 
-        textElement = new DSTextElement();
+        textElement = new RSTextElement();
 
         Add(textElement);
     }

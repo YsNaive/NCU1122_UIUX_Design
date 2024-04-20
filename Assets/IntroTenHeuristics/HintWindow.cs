@@ -1,29 +1,29 @@
-using NaiveAPI.DocumentBuilder;
-using NaiveAPI.RuntimeWindowUtils;
-using NaiveAPI_UI;
+using NaiveAPI.UITK;
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class HintWindow : DSRuntimeWindow
+public class HintWindow : RSRuntimeWindow
 {
-    private DSTextElement hintElement;
+    private RSTextElement hintElement;
 
     public HintWindow()
     {
         Dragable = false;
         Resizable = false;
 
-        style.SetIS_Style(ISRadius.Pixel(30));
+        style.SetRS_Style(RSRadius.Pixel(30));
         style.alignItems = Align.Center;
         style.justifyContent = Justify.Center;
         contentContainer.style.justifyContent = Justify.Center;
         style.flexGrow = 1;
 
-        hintElement = new DSTextElement();
+        hintElement = new RSTextElement();
         hintElement.style.unityTextAlign = TextAnchor.MiddleCenter;
-        hintElement.style.fontSize = DocStyle.Current.MainTextSize * 1.5f;
+        hintElement.style.fontSize = RSTheme.Current.MainText.size * 1.5f;
         Add(hintElement);
     }
 
