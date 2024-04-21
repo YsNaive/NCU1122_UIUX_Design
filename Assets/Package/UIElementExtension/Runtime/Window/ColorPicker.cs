@@ -1,4 +1,3 @@
-using log4net;
 using System;
 using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
@@ -58,7 +57,7 @@ namespace NaiveAPI.UITK
                 _updatePickingColor();
             }
         }
-        static Texture2D squarePickingAreaTexture = new Texture2D(32, 32) { wrapMode = TextureWrapMode.Clamp };
+        static Texture2D squarePickingAreaTexture;
         public Color pickingColor
         {
             get => m_pickingColor;
@@ -263,6 +262,7 @@ namespace NaiveAPI.UITK
         }
         void _updatePickingSquare()
         {
+            squarePickingAreaTexture ??= new Texture2D(32, 32) { wrapMode = TextureWrapMode.Clamp };
             for (int i = 0, imax = squarePickingAreaTexture.width; i < imax; i++)
             {
                 for (int j = 0, jmax = squarePickingAreaTexture.height; j < jmax; j++)

@@ -21,12 +21,12 @@ MonoBehaviour:
   - key: zh-CHT
     name: "\u7E41\u9AD4\u4E2D\u6587"
     icon: {fileID: 0}
-  DefaultLanguage: en
-  CurrentLanguage: en
+  DefaultLanguage: zh-CHT
+  CurrentLanguage: zh-CHT
   PreloadLangeaueTable:
   - {fileID: 11400000, guid: dd25463c532db134b917c97ee4d9bf0a, type: 2}
   - {fileID: 11400000, guid: a735bcb1843c16b49aed9bb89a671560, type: 2}
-  - {fileID: 11400000, guid: f9f3772942e16804bb67ed48a7921aec, type: 2}
+  - {fileID: 11400000, guid: 0259b2b204fc544429a948ed1e90fdbe, type: 2}
   m_IgnoreAssemblyName:
   - asset-store-tools-editor
   - Bee.BeeDriver
@@ -151,4 +151,10 @@ MonoBehaviour:
   - naiveapi.label
   - naiveapi.colorPicker
   - naiveapi.cancel
+  - page.main
+  - page.main.title
+  - page.editTheme
+  - page.editUser
+  - page.editUser.editing
+  - page.editUser.creating
   s_LanguageImageKeys: []

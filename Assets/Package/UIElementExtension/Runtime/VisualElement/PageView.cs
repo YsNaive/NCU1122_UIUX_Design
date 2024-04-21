@@ -8,7 +8,7 @@ namespace NaiveAPI.UITK
         public override VisualElement contentContainer => currentContainer;
         private VisualElement currentContainer = null;
 
-        Dictionary<TKey, VisualElement> pageTable = new();
+        public Dictionary<TKey, VisualElement> pageTable = new();
         public PageView() { }
         public PageView(TKey initPageKey)
         {

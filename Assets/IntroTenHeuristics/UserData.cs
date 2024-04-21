@@ -1,27 +1,136 @@
+using SingularityGroup.HotReload;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class UserData
 {
-    public string Base64Icon = "";
-    public string Name = "";
-    public string Major = "";
-    public string Career = "";
-    public string Gender = "";
-    public string PhoneNumber = "";
-    public string ResearchTopic = "";
-    public string Contact = "";
-    public string Skills = "";
-    public string Hobbies = "";
-    public string GraduatedSchool = "";
-    public string SpecialExperience = "";
-    public string FavoriteClasses = "";
-
-    public UserData() {}
-
+    public static readonly string[] MemberNames = new string[]
+    {
+        nameof(Base64Icon),
+        nameof(Name),
+        nameof(Major),
+        nameof(Career),
+        nameof(Gender),
+        nameof(PhoneNumber),
+        nameof(ResearchTopic),
+        nameof(Contact),
+        nameof(Skills),
+        nameof(Hobbies),
+        nameof(GraduatedSchool),
+        nameof(SpecialExperience),
+        nameof(FavoriteClasses),
+    };
+    public string[] stringValues = new string[13];
+    public const int I_Base64Icon        = 0;
+    public const int I_Name              = 1;
+    public const int I_Major             = 2;
+    public const int I_Career            = 3;
+    public const int I_Gender            = 4;
+    public const int I_PhoneNumber       = 5;
+    public const int I_ResearchTopic     = 6;
+    public const int I_Contact           = 7;
+    public const int I_Skills            = 8;
+    public const int I_Hobbies           = 9;
+    public const int I_GraduatedSchool   = 10;
+    public const int I_SpecialExperience = 11;
+    public const int I_FavoriteClasses   = 12;
+    #region getter setter
+    public Texture2D IconTexture
+    {
+        get
+        {
+            if (m_IconTexture == null)
+            {
+                if (Base64Icon != "")
+                {
+                    m_IconTexture = new Texture2D(1, 1);
+                    m_IconTexture.LoadImage(Convert.FromBase64String(Base64Icon));
+                }
+                m_IconTexture = Resources.Load<Texture2D>("Image/default_icon");
+            }
+            return m_IconTexture;
+        }
+    }
+    Texture2D m_IconTexture = null;
+    public string Base64Icon
+    {
+        get => stringValues[I_Base64Icon];
+        set
+        {
+            m_IconTexture = null;
+            stringValues[I_Base64Icon] = value;
+        }
+    }
+    public string Name
+    {
+        get => stringValues[I_Name];
+        set => stringValues[I_Name] = value;
+    }
+    public string Major
+    {
+        get => stringValues[I_Major];
+        set => stringValues[I_Major] = value;
+    }
+    public string Career
+    {
+        get => stringValues[I_Career];
+        set => stringValues[I_Career] = value;
+    }
+    public string Gender
+    {
+        get => stringValues[I_Gender];
+        set => stringValues[I_Gender] = value;
+    }
+    public string PhoneNumber
+    {
+        get => stringValues[I_PhoneNumber];
+        set => stringValues[I_PhoneNumber] = value;
+    }
+    public string ResearchTopic
+    {
+        get => stringValues[I_ResearchTopic];
+        set => stringValues[I_ResearchTopic] = value;
+    }
+    public string Contact
+    {
+        get => stringValues[I_Contact];
+        set => stringValues[I_Contact] = value;
+    }
+    public string Skills
+    {
+        get => stringValues[I_Skills];
+        set => stringValues[I_Skills] = value;
+    }
+    public string Hobbies
+    {
+        get => stringValues[I_Hobbies];
+        set => stringValues[I_Hobbies] = value;
+    }
+    public string GraduatedSchool
+    {
+        get => stringValues[I_GraduatedSchool];
+        set => stringValues[I_GraduatedSchool] = value;
+    }
+    public string SpecialExperience
+    {
+        get => stringValues[I_SpecialExperience];
+        set => stringValues[I_SpecialExperience] = value;
+    }
+    public string FavoriteClasses
+    {
+        get => stringValues[I_FavoriteClasses];
+        set => stringValues[I_FavoriteClasses] = value;
+    }
+    #endregion
+    public UserData() {
+        for (int i = 0; i < stringValues.Length; i++)
+            stringValues[i] = "";
+    }
     public UserData(UserData data)
     {
         Base64Icon = data.Base64Icon;
@@ -38,6 +147,14 @@ public class UserData
         SpecialExperience = data.SpecialExperience;
         FavoriteClasses = data.FavoriteClasses;
     }
+
+    public VisualElement CreateUserIconElement()
+    {
+        VisualElement ret = new();
+        ret.style.backgroundImage = Background.FromTexture2D(IconTexture);
+        return ret;
+    }
+
 
     public override bool Equals(object obj)
     {
@@ -56,7 +173,6 @@ public class UserData
             data.SpecialExperience == SpecialExperience &&
             data.FavoriteClasses == FavoriteClasses;
     }
-
     public override int GetHashCode()
     {
         int hash = 17;
@@ -77,22 +193,6 @@ public class UserData
 
         return hash;
     }
-
-    public IEnumerable<string> GetAllValue()
-    {
-        yield return Name;
-        yield return Major;
-        yield return Career;
-        yield return Gender;
-        yield return PhoneNumber;
-        yield return ResearchTopic;
-        yield return Contact;
-        yield return Skills;
-        yield return Hobbies;
-        yield return GraduatedSchool;
-        yield return SpecialExperience;
-        yield return FavoriteClasses;
-    }
 }
 
 public class UserDataHandler
@@ -112,12 +212,34 @@ public class UserDataHandler
             Datas.Add(JsonUtility.FromJson<UserData>(File.ReadAllText(path)));
         }
     }
+    public static void DeleteThenSaveAll()
+    {
+        foreach (string path in Directory.GetFiles(DataHandler.UserDataDir, "*.json"))
+            File.Delete(path);
+        foreach (string path in Directory.GetFiles(DataHandler.UserDataDir, "*.meta"))
+            File.Delete(path);
+        SaveAll();
+#if UNITY_EDITOR
+        UnityEditor.AssetDatabase.Refresh();
+#endif
+    }
+    public static void SaveAll()
+    {
+        int i=0;
+        foreach (var data in Datas)
+        {
+            Debug.Log("Save " + data.Name);
+            DataHandler.SaveData(DataHandler.UserDataDir, $"{i++}.json", JsonUtility.ToJson(data));
+        }
+#if UNITY_EDITOR
+        UnityEditor.AssetDatabase.Refresh();
+#endif
+    }
 
     public static UserData FindByName(string name)
     {
         return Datas.Find((d) => d.Name == name);
     }
-
     public static UserData FindPrevData(UserData userData)
     {
         int index = Datas.IndexOf(userData);
@@ -126,7 +248,6 @@ public class UserDataHandler
 
         return Datas[index == 0 ? Datas.Count - 1 : index - 1];
     }
-
     public static UserData FindNextData(UserData userData)
     {
         int index = Datas.IndexOf(userData);

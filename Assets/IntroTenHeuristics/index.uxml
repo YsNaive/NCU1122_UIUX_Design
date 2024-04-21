@@ -1,7 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/IntroTenHeuristics/index.uss?fileID=7433441132597879392&amp;guid=ef5bc76f4f25f73409440ea0d38e6f1c&amp;type=3#index" />
-    <ui:VisualElement name="background" style="width: 100%; height: 100%; background-color: rgb(212, 218, 219); flex-direction: row;">
-        <ui:VisualElement name="left-toolbar" style="background-color: rgb(32, 179, 221);" />
-        <ui:VisualElement name="right-container" />
-    </ui:VisualElement>
-</ui:UXML>

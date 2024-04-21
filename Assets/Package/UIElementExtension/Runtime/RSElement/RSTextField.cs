@@ -15,6 +15,8 @@ namespace NaiveAPI.UITK
             inputFieldElement = this[0];
             inputFieldElement.style.ClearMarginPadding();
             inputFieldElement.style.SetRS_Style(RSTheme.Current.FieldStyle);
+            inputFieldElement.style.backgroundColor = RSTheme.Current.BackgroundColor3;
+            inputFieldElement.style.color = RSTheme.Current.FrontgroundColor2;
         }
         public new string label
         {
