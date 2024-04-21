@@ -5,14 +5,14 @@ namespace NaiveAPI.UITK
     public abstract class CapturePointerManipulator : PointerManipulator
     {
         protected bool IsCapture = false;
-        protected virtual void PointerDown(PointerDownEvent evt)
+        protected void PointerDown(PointerDownEvent evt)
         {
             IsCapture = true;
             target.CapturePointer(evt.pointerId);
             OnCaptured(evt);
             evt.StopPropagation();
         }
-        protected virtual void PointerUp(PointerUpEvent evt)
+        protected void PointerUp(PointerUpEvent evt)
         {
             if(target.HasPointerCapture(evt.pointerId))
             {
@@ -22,7 +22,7 @@ namespace NaiveAPI.UITK
                 evt.StopPropagation();
             }
         }
-        protected virtual void PointerMove(PointerMoveEvent evt)
+        protected void PointerMove(PointerMoveEvent evt)
         {
             if(IsCapture)
                 OnDraging(evt);

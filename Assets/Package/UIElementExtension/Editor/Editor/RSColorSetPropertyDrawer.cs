@@ -15,6 +15,16 @@ namespace NaiveAPI_Editor.UITK
         Color generateFG = new Color(.9f, .9f, .9f);
         float generateSplit = 9f;
         Color[] copy = new Color[7];
+        static GUIContent[] labels = new GUIContent[]
+        {
+            new GUIContent("Text Color"),
+            new GUIContent("Background"),
+            new GUIContent("Background 2"),
+            new GUIContent("Background 3"),
+            new GUIContent("Frontground"),
+            new GUIContent("Frontground 2"),
+            new GUIContent("Frontground 3"),
+        };
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var colorsProp = property.FindPropertyRelative("colors");
@@ -96,7 +106,7 @@ namespace NaiveAPI_Editor.UITK
             for (int i = 0; i < 7; i++)
             {
                 position.y += position.height;
-                EditorGUI.PropertyField(position, colorsProp.GetArrayElementAtIndex(i));
+                EditorGUI.PropertyField(position, colorsProp.GetArrayElementAtIndex(i), labels[i]);
             }
             EditorGUI.indentLevel--;
         }

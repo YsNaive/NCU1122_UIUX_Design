@@ -48,7 +48,7 @@ namespace NaiveAPI.UITK
             field.focusable = false;
             field.style.flexGrow = 1;
             field.style.unityTextAlign = TextAnchor.MiddleLeft;
-            var icon = RSTheme.Current.CreateArrowIcon(90);
+            var icon = RSTheme.Current.CreateIconElement(RSTheme.Current.Icon.arrow, 90);
             icon.style.right = 0;
             icon.style.left = StyleKeyword.Auto;
             icon.style.paddingLeft = StyleKeyword.Auto;

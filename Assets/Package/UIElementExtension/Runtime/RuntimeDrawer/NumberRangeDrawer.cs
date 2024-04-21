@@ -8,51 +8,34 @@ namespace NaiveAPI.UITK
 {
     public abstract class NumberRangeDrawer<T> : RuntimeDrawer<T>
     {
-        Slider slider;
-        RSTextField field;
+        public RSSlider slider;
+        public RSTextField textfield;
         public NumberRangeDrawer()
         {
             var border = new RSBorder(Color.clear, 0);
-            slider = new Slider() { direction = SliderDirection.Horizontal };
-            slider.style.ClearMarginPadding();
-            slider.style.minHeight = RSTheme.Current.LineHeight;
-            slider.style.paddingLeft = RSTheme.Current.LineHeight / 2;
-            var tracker = slider.Q("unity-tracker");
-            tracker.style.backgroundColor = RSTheme.Current.BackgroundColor2;
-            tracker.style.SetRS_Style(border);
-            var drager = slider.Q("unity-dragger");
-            drager.style.SetRS_Style(RSRadius.Percent(100));
-            drager.style.ClearMarginPadding();
-            var size = RSTheme.Current.LineHeight;
-            tracker.style.marginTop = 0;
-            tracker.style.top = size * 0.4f;
-            tracker.style.height = size * 0.2f;
-            drager.style.width = size * 0.6f;
-            drager.style.height = size * 0.6f;
-            drager.style.backgroundColor = RSTheme.Current.FrontgroundColor;
-            drager.style.top = size * 0.2f;
-            drager.style.SetRS_Style(border);
+            slider = new RSSlider();
+            slider.style.marginRight = RSTheme.Current.VisualMargin;
             slider.RegisterValueChangedCallback(evt =>
             {
                 SetValueWithoutRepaint(CaseNumber(evt.newValue));
-                field.SetValueWithoutNotify(CaseNumber(evt.newValue).ToString());
+                textfield.SetValueWithoutNotify(CaseNumber(evt.newValue).ToString());
                 evt.StopPropagation();
             });
-            field = new RSTextField();
-            field.RegisterCallback<FocusOutEvent>(evt =>
+            textfield = new RSTextField();
+            textfield.RegisterCallback<FocusOutEvent>(evt =>
             {
                 float result;
-                if (float.TryParse(field.value, out result))
+                if (float.TryParse(textfield.value, out result))
                 {
                     slider.value = Math.Clamp(result, slider.lowValue, slider.highValue);
-                    field.SetValueWithoutNotify(CaseNumber(slider.value).ToString());
+                    textfield.SetValueWithoutNotify(CaseNumber(slider.value).ToString());
                     SetValueWithoutRepaint(CaseNumber(slider.value));
                 }
                 else
-                    field.SetValueWithoutNotify(CaseNumber(result).ToString());
+                    textfield.SetValueWithoutNotify(CaseNumber(result).ToString());
                 evt.StopPropagation();
             });
-            Add(new RSHorizontal(slider, null, null, null, field));
+            Add(new RSHorizontal(slider, null, null, null, textfield));
         }
 
         protected override void CreateGUI()
@@ -60,8 +43,8 @@ namespace NaiveAPI.UITK
         }
         public override void RepaintDrawer()
         {
-            if (field.IsFocusedOnPanel()) return;
-            field.value = (value.ToString());
+            if (textfield.IsFocusedOnPanel()) return;
+            textfield.value = (value.ToString());
             slider.value = float.Parse(value.ToString());
         }
         public override void ReciveAttribute(Attribute attribute)

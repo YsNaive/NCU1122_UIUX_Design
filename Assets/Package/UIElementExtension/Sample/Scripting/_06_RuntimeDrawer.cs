@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 
 namespace NaiveAPI.UITK.Sample
@@ -66,8 +67,21 @@ namespace NaiveAPI.UITK.Sample
             // create drawer from member
             // it will auto find its Attributies
             var data = new SampleData();
-            _ = RuntimeDrawer.CreateAndBind(data, nameof(data.name));
-            _ = RuntimeDrawer.CreateAndBind(data, nameof(data.hp));
+            _ = RuntimeDrawer.CreateFromMember(typeof(SampleData), nameof(SampleData.name));
+            _ = RuntimeDrawer.CreateFromMember(data.GetType(), nameof(data.hp));
+
+            // create drawer from factory
+            // first choise init value
+            _ = RuntimeDrawerFactory.FromDrawerType(typeof(IntegerDrawer));
+            _ = RuntimeDrawerFactory.FromValueType(typeof(int));
+            _ = RuntimeDrawerFactory.FromValue(1); // this will auto set Drawer.value to input
+            // than add optional params & Build()
+            var drawer  = RuntimeDrawerFactory
+                .FromValue(1)
+                .AddAttribute(new RangeAttribute(0, 100))
+                .AddAttribute(new HeaderAttribute("Settings"))
+                .Label("Int")
+                .Build();
         }
 
         /*--------------------------------------------------------|
@@ -91,7 +105,7 @@ namespace NaiveAPI.UITK.Sample
 
             // fast way to create drawer for data.hp
             // if you don't need to do other thing when value change
-            var hpDrawer2 = RuntimeDrawer.CreateAndBind(data, nameof(data.hp));
+            var hpDrawer2 = RuntimeDrawer.Create(data.hp);
             hpDrawer2.Bind(data, nameof(data.hp));
 
             // you can even just create a drawer for data without any settings

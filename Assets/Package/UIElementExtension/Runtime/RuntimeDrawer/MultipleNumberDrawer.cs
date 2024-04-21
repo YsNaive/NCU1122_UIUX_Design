@@ -21,7 +21,12 @@ namespace NaiveAPI.UITK
                 fields[i].labelElement.style.unityTextAlign = TextAnchor.MiddleCenter;
                 fields[i].labelWidth = RSTheme.Current.LineHeight;
                 fields[i].iconElement.style.display = DisplayStyle.None;
-                fields[i].OnValueChanged += () => SetValueWithoutRepaint(Fields2DataType(fields));
+                int localI = i;
+                fields[i].OnValueChanged += () =>
+                {
+                    SetValueWithoutRepaint(Fields2DataType(fields));
+                    InvokeMemberValueChange(fields[localI]);
+                };
                 fields[i].indentWidth = 0;
             }
             VisualElement[] row = new VisualElement[layout_col];

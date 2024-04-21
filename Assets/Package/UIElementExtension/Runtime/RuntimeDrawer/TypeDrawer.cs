@@ -144,7 +144,7 @@ namespace NaiveAPI.UITK
                 }
                 searchField.schedule.Execute(searchField.SelectAll).ExecuteLater(10);
             });
-            var icon = RSTheme.Current.CreateArrowIcon(90);
+            var icon = RSTheme.Current.CreateIconElement(RSTheme.Current.Icon.arrow, 90);
             icon.style.right = 0;
             icon.style.left = StyleKeyword.Auto;
             icon.style.paddingLeft = StyleKeyword.Auto;

@@ -18,9 +18,13 @@ MonoBehaviour:
     s_keys:
     - naiveapi.icon
     - naiveapi.name
+    - naiveapi.colorPicker
+    - naiveapi.cancel
     s_values:
     - Icon
     - Name
+    - Color Picker
+    - Cancel
   SpriteTable:
     s_keys: []
     s_values: []

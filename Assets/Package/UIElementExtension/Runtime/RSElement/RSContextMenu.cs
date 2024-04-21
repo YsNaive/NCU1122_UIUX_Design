@@ -68,7 +68,7 @@ namespace NaiveAPI.UITK
             RSHorizontal createSubMenu(node node)
             {
                 var title = createMenuText(node.value);
-                var arrow = RSTheme.Current.CreateArrowIcon();
+                var arrow = RSTheme.Current.CreateIconElement(RSTheme.Current.Icon.arrow);
                 arrow.style.marginLeft = StyleKeyword.Auto;
                 var hor = new RSHorizontal();
                 hor.Add(title);

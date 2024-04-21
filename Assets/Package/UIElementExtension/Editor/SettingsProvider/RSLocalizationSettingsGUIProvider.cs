@@ -33,18 +33,19 @@ namespace NaiveAPI_Editor.UITK
             foreach (var item in LoadedTable)
                 loadedTable.Add(new ObjectEditorDrawer { value = item });
             root.Add(loadedTable);
-            root.Add(new RSButton("Reload", () =>
-            {
-                CurrentLanguage = "en";
-                foreach (var ve in root.HierarchyRecursive<RSLocalizeTextElement>())
-                    ve.ReloadText();
-            }));
-            root.Add(new RSButton("¨ê·s", () =>
-            {
-                CurrentLanguage = "zh-CHT";
-                foreach (var ve in root.HierarchyRecursive<RSLocalizeTextElement>())
-                    ve.ReloadText();
-            }));
+            //root.Add(new RSButton("Reload", () =>
+            //{
+            //    CurrentLanguage = "en";
+            //    foreach (var ve in root.HierarchyRecursive<RSLocalizeTextElement>())
+            //        ve.ReloadText();
+            //}));
+            //root.Add(new RSButton("¨ê·s", () =>
+            //{
+            //    CurrentLanguage = "zh-CHT";
+            //    foreach (var ve in root.HierarchyRecursive<RSLocalizeTextElement>())
+            //        ve.ReloadText();
+            //}));
+            root.Add(RuntimeDrawer.Create(new RSColorSet(), "Color set"));
             return root;
         }
 

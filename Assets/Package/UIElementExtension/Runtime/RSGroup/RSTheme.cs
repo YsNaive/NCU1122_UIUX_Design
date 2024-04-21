@@ -84,18 +84,17 @@ namespace NaiveAPI.UITK
                 return new RSSize { anySide = LineHeight };
             }
         }
-        public VisualElement CreateArrowIcon(float deg = 0)
+        public VisualElement CreateIconElement(Sprite img,float deg = 0)
         {
-            var icon = new VisualElement();
-            icon.style.maxWidth = LineHeight;
-            icon.style.maxHeight = LineHeight;
-            icon.style.width = LineHeight;
-            icon.style.height = LineHeight;
-            icon.style.backgroundImage = Background.FromSprite(Icon.arrow);
-            icon.style.unityBackgroundImageTintColor = Current.FrontgroundColor;
-            icon.style.rotate = new Rotate(deg);
-            icon.style.scale = new Scale(new Vector3(.75f, .75f, 1f));
-            return icon;
+            var ret = new VisualElement();
+            ret.style.maxWidth = LineHeight;
+            ret.style.maxHeight = LineHeight;
+            ret.style.width = LineHeight;
+            ret.style.height = LineHeight;
+            ret.style.backgroundImage = Background.FromSprite(img);
+            ret.style.unityBackgroundImageTintColor = Current.FrontgroundColor;
+            ret.style.rotate = new Rotate(deg);
+            return ret;
         }
 
         public RSTheme DeepCopy()
@@ -129,6 +128,7 @@ namespace NaiveAPI.UITK
             public Sprite arrow;
             public Sprite earth;
             public Sprite disableEarth;
+            public Sprite eyedropper;
 
             public IconSpriteSet DeepCopy()
             {
@@ -136,7 +136,8 @@ namespace NaiveAPI.UITK
                 {
                     arrow = arrow,
                     earth = earth,
-                    disableEarth = disableEarth
+                    disableEarth = disableEarth,
+                    eyedropper = eyedropper,
                 };
             }
         }

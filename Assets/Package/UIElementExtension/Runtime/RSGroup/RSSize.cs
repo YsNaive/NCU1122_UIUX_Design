@@ -135,6 +135,7 @@ namespace NaiveAPI.UITK
             }
         }
         #endregion
+        public static readonly RSSize Full = new RSSize { height = RSLength.Full, width = RSLength.Full };
         public override void SetValueToDefault(int flag)
         {
             if ((flag & F_Width )    == F_Width)     m_width     = RSLength.FromMode(DefaultLengthMode_Normal);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -115,11 +116,18 @@ namespace NaiveAPI.UITK
                     decorator.DecorateDrawer(attribute, drawer);
             }
         }
-        public static RuntimeDrawer CreateAndBind(object obj, string memberName)
+        public static RuntimeDrawer CreateFromMember(Type type, string memberName)
         {
-            var drawer = RuntimeDrawerFactory.FromMember(obj, memberName).Build();
-            drawer.Bind(obj, memberName);
-            return drawer;
+            return CreateFromMember(type.GetMember(memberName, BindingFlags.GetField | BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)[0]);
+            
+        }
+        public static RuntimeDrawer CreateFromMember(MemberInfo memberInfo)
+        {
+            return RuntimeDrawerFactory
+                .FromValue(memberInfo.FieldOrPropertyType())
+                .AddAttribute(memberInfo)
+                .Label(DefaultDrawer.ProcessName(memberInfo.Name))
+                .Build();
         }
         public static RuntimeDrawer Create(object value, string label = "")
         {
@@ -457,7 +465,6 @@ namespace NaiveAPI.UITK
         private static Type m_valueType;
         private static object m_value;
         private static string m_label = "";
-        private static string m_memberName = "";
         public static void Clear()
         {
             m_attributes.Clear();
@@ -466,19 +473,11 @@ namespace NaiveAPI.UITK
             m_valueType = null;
             m_value = null;
             m_label = "";
-            m_memberName = "";
         }
         public static RuntimeDrawerFactory FromValue(object value)
         {
             Clear();
             m_value = value;
-            return factory;
-        }
-        public static RuntimeDrawerFactory FromMember(object obj, string memberName)
-        {
-            Clear();
-            m_value = obj;
-            m_memberName = memberName;
             return factory;
         }
         public static RuntimeDrawerFactory FromValueType(Type type)
@@ -515,41 +514,23 @@ namespace NaiveAPI.UITK
         }
         public RuntimeDrawer Build()
         {
-            if(m_memberName != "")
-            {
-                m_valueType = m_value.GetType();
-                if (!m_valueType.IsClass)
-                    throw new Exception("You can only BuildFromMember with a RenferenceType value (class)");
-                MemberInfo[] members = m_valueType.GetMember(m_memberName, BindingFlags.GetProperty | BindingFlags.GetField | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                if (members.Length == 0) throw new Exception($"Not found member {m_memberName} in value");
-                MemberInfo member = members[0];
-                foreach (var attr in member.GetCustomAttributes())
-                {
-                    m_attributes.Add(attr);
-                    m_attributeTypes.Add(attr.GetType());
-                }
-                m_valueType = member.FieldOrPropertyType();
-                m_value = DefaultDrawer.GetGetter(member)(m_value);
-                m_label = DefaultDrawer.ProcessName(m_memberName);
-            }
-            else if (m_valueType == null)
-            {
-                if (m_value == null)
-                {
-                    Debug.LogError("[RuntimeDrawerFactory] ValueObject / ValueType / DrawerType Not Found.");
-                    return null;
-                }
-                m_valueType = m_value.GetType();
-            }
-
             if (m_drawerType == null)
             {
+                if (m_valueType == null)
+                {
+                    if (m_value == null)
+                    {
+                        Debug.LogError("[RuntimeDrawerFactory] ValueObject / ValueType / DrawerType Not Found.");
+                        return null;
+                    }
+                    m_valueType = m_value.GetType();
+                }
                 if (m_attributes.Count > 0)
                     m_drawerType = RuntimeDrawer.FindDrawerType(m_valueType, m_attributeTypes);
                 else
                     m_drawerType = RuntimeDrawer.FindDrawerType(m_valueType);
             }
-            return build(m_drawerType, m_label, m_value, m_attributes.ToArray()); 
+            return build(m_drawerType, m_label, m_value, m_attributes.ToArray());
         }
         private RuntimeDrawer build(Type drawerType, string label, object value, Attribute[] attributes)
         {

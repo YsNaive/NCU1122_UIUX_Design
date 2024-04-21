@@ -15,6 +15,8 @@ namespace NaiveAPI.UITK
             public const string name = "naiveapi.name";
             public const string icon = "naiveapi.icon";
             public const string label = "naiveapi.label";
+            public const string colorPicker = "naiveapi.colorPicker";
+            public const string cancel = "naiveapi.cancel";
 
             public override IEnumerable<string> TextKeys
             {
@@ -23,6 +25,8 @@ namespace NaiveAPI.UITK
                     yield return name;
                     yield return icon;
                     yield return label;
+                    yield return colorPicker;
+                    yield return cancel;
                 }
             }
 

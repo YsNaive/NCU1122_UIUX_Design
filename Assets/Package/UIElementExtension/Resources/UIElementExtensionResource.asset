@@ -113,7 +113,42 @@ MonoBehaviour:
   - UnityEngine.VideoModule
   - UnityEngine.VFXModule
   - UnityEngine.VehiclesModule
-  s_DefaultDrawerSettings_keys: []
-  s_DefaultDrawerSettings_values: []
-  s_LanguageTextKeys: []
+  s_DefaultDrawerSettings_keys:
+  - UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  - NaiveAPI.UITK.RuntimeWindow, Naive.UIElementExtension.Runtime, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  s_DefaultDrawerSettings_values:
+  - AffectOnDerived: 1
+    Icon: {fileID: 0}
+    HideMember: []
+    ExposeMember:
+    - localPosition
+    - eulerAngles
+    - localScale
+  - AffectOnDerived: 1
+    Icon: {fileID: 0}
+    HideMember:
+    - TabElement
+    ExposeMember:
+    - TabName
+    - EnableTab
+    - EnableContextMenu
+    - LimitInParent
+    - LimitSize
+    - Dragable
+    - Resizable
+    - SnapLayout
+    - SnapBorder
+    - PopupOnClick
+    - MinSize
+    - MaxSize
+    - NextPosition
+    - NextSize
+  s_LanguageTextKeys:
+  - naiveapi.name
+  - naiveapi.icon
+  - naiveapi.label
+  - naiveapi.colorPicker
+  - naiveapi.cancel
   s_LanguageImageKeys: []

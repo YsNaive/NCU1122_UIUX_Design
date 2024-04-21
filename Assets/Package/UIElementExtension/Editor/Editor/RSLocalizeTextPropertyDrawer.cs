@@ -24,7 +24,7 @@ namespace NaiveAPI_Editor.UITK
                 bindProp.boolValue = !bindProp.boolValue;
             }
             var icon = bindProp.boolValue? RSTheme.Current.Icon.earth : RSTheme.Current.Icon.disableEarth;
-            UIElementExtensionEditorGUI.DrawSprite(earthIconRect, icon);
+            UIElementExtensionEditorUtils.DrawSprite(earthIconRect, icon);
             if (bindProp.boolValue)
             {
                 Rect pickBtnRect = fieldRect;

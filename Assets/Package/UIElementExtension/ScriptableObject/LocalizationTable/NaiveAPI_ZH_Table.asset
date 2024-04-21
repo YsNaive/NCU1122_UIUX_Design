@@ -18,9 +18,13 @@ MonoBehaviour:
     s_keys:
     - naiveapi.name
     - naiveapi.icon
+    - naiveapi.colorPicker
+    - naiveapi.cancel
     s_values:
     - "\u540D\u7A31"
     - "\u5716\u6A19"
+    - "\u984F\u8272\u9078\u64C7\u5668"
+    - "\u53D6\u6D88"
   SpriteTable:
     s_keys: []
     s_values: []

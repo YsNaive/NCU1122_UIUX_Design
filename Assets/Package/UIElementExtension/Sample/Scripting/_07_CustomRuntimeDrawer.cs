@@ -29,7 +29,7 @@ namespace NaiveAPI.UITK.Sample
             public Vector2 vector2Value;
         }
         // Define Attribute is not Require
-        // But if you defind it, youc can register this Drawer in Runtime.Create()
+        // But if you defind it, you can register this Drawer in RuntimeDrawer.Create() table
         // [CustomRuntimeDrawer(typeof(SampleData), Priority = 0)]
         class NormalImplement : RuntimeDrawer<SampleData>
         {
@@ -49,9 +49,21 @@ namespace NaiveAPI.UITK.Sample
                 floatDrawer   = new FloatDrawer()   { label = "float"};
                 vector2Drawer = new Vector2Drawer() { label = "vector2"};
 
-                integerDrawer.OnValueChanged += () => value.intValue = integerDrawer.value;
-                floatDrawer.OnValueChanged   += () => value.floatValue = floatDrawer.value;
-                vector2Drawer.OnValueChanged += () => value.vector2Value = vector2Drawer.value;
+                integerDrawer.OnValueChanged += () =>
+                {
+                    value.intValue = integerDrawer.value;
+                    InvokeMemberValueChange(integerDrawer);
+                };
+                floatDrawer.OnValueChanged   += () =>
+                {
+                    value.floatValue = floatDrawer.value;
+                    InvokeMemberValueChange(floatDrawer);
+                };
+                vector2Drawer.OnValueChanged += () =>
+                {
+                    value.vector2Value = vector2Drawer.value;
+                    InvokeMemberValueChange(vector2Drawer);
+                };
 
                 Add(integerDrawer);
                 Add(floatDrawer);
@@ -67,8 +79,6 @@ namespace NaiveAPI.UITK.Sample
                 AddDrawer("vector2", () => value.vector2Value, (v) => value.vector2Value = v);
             }
         }
-
-
 
         /*----------------------|
         | Dynamic Layout Sample |
@@ -99,18 +109,25 @@ namespace NaiveAPI.UITK.Sample
                 if (jDrawer != null)
                     jDrawer.value = (value as ChildData).j;
             }
-
             protected override void CreateGUI()
             {
                 Clear();
                 iDrawer = new IntegerDrawer();
-                iDrawer.OnValueChanged += () => value.i = iDrawer.value;
+                iDrawer.OnValueChanged += () =>
+                {
+                    value.i = iDrawer.value;
+                    InvokeMemberValueChange(iDrawer);
+                };
                 Add(iDrawer);
 
                 if (value is ChildData)
                 {
                     jDrawer = new IntegerDrawer();
-                    jDrawer.OnValueChanged += () => (value as ChildData).j = jDrawer.value;
+                    jDrawer.OnValueChanged += () =>
+                    {
+                        (value as ChildData).j = jDrawer.value;
+                        InvokeMemberValueChange(jDrawer);
+                    };
                     Add(jDrawer);
                 }
                 else

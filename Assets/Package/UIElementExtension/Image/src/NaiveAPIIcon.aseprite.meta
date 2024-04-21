@@ -186,6 +186,14 @@ ScriptedImporter:
         width: 44
         height: 44
       spriteId: ab467435e67e91e42b859f151e04d399
+    - name: NaiveAPIIcon_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 3
+        y: 3
+        width: 42
+        height: 42
+      spriteId: 15db258f18c2be642951557a7eb89488
     linkedCells: []
     parentIndex: -1
   platformSettings:
