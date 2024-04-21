@@ -1,6 +1,6 @@
-using NaiveAPI.DocumentBuilder;
-using NaiveAPI.RuntimeWindowUtils;
-using NaiveAPI_UI;
+using NaiveAPI.UITK;
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,9 +13,9 @@ using Random = UnityEngine.Random;
 public class UI_index : MonoBehaviour
 {
     public UIDocument UID;
-    public SODocPage DocumentPage;
+    //public SODocPage DocumentPage;
 
-    private DSScrollView userPageContainer;
+    private RSScrollView userPageContainer;
     VisualElement rightContainer;
     VisualElement leftToolbar;
     Button btnHome, btnUserList, btnCreateNewUser, btnDocument, btnOnlineHelp;
@@ -28,26 +28,26 @@ public class UI_index : MonoBehaviour
         UID.rootVisualElement.style.flexGrow = 1;
 
         VisualElement background = UID.rootVisualElement.Q<VisualElement>("background");
-        background.style.backgroundColor = DocStyle.Current.BackgroundColor;
+        background.style.backgroundColor = RSTheme.Current.BackgroundColor;
 
         leftToolbar = UID.rootVisualElement.Q<VisualElement>("left-toolbar");
-        leftToolbar.style.backgroundColor = DocStyle.Current.SubBackgroundColor;
+        leftToolbar.style.backgroundColor = RSTheme.Current.BackgroundColor2;
 
-        userPageContainer = new DSScrollView();
+        userPageContainer = new RSScrollView();
 
         rightContainer = UID.rootVisualElement.Q<VisualElement>("right-container");
-        rightContainer.style.backgroundColor = DocStyle.Current.BackgroundColor;
+        rightContainer.style.backgroundColor = RSTheme.Current.BackgroundColor;
         rightContainer.style.flexGrow = 1;
 
-        btnHome = new DSButton("主頁");
+        btnHome = new RSButton("主頁");
         btnHome.AddToClassList("left-toolbar-btn");
         btnHome.clicked += openMainPage;
 
-        btnUserList = new DSButton("組員\n介紹");
+        btnUserList = new RSButton("組員\n介紹");
         btnUserList.AddToClassList("left-toolbar-btn");
         btnUserList.clicked += openUserList;
 
-        btnCreateNewUser = new DSButton("新增");
+        btnCreateNewUser = new RSButton("新增");
         btnCreateNewUser.AddToClassList("left-toolbar-btn");
         btnCreateNewUser.clicked += () => { openCreateNewUser(); };
 
@@ -57,14 +57,14 @@ public class UI_index : MonoBehaviour
         bottomElement.style.bottom = 0;
         bottomElement.style.marginBottom = 0;
 
-        btnDocument = new DSButton("說明");
+        btnDocument = new RSButton("說明");
         btnDocument.AddToClassList("left-toolbar-btn");
-        btnDocument.style.SetIS_Style(new ISBorder(Color.clear, 0));
-        btnDocument.clicked += openDocument;
+        btnDocument.style.SetRS_Style(new RSBorder(Color.clear, 0));
+        //btnDocument.wked += openDocument;
 
-        btnOnlineHelp = new DSButton("線上\n幫助");
+        btnOnlineHelp = new RSButton("線上\n幫助");
         btnOnlineHelp.AddToClassList("left-toolbar-btn");
-        btnOnlineHelp.style.SetIS_Style(new ISBorder(Color.clear, 0));
+        btnOnlineHelp.style.SetRS_Style(new RSBorder(Color.clear, 0));
         btnOnlineHelp.clicked += () => DoubleCheckWindow.Open(new Rect(20, 30, 60, 40), "即將跳轉至外部網站，是否要繼續？", (confirm) =>
         {
             if (confirm)
@@ -107,42 +107,42 @@ public class UI_index : MonoBehaviour
     private void clearPage()
     {
         rightContainer.Clear();
-        var border = new ISBorder(Color.clear, 0);
+        var border = new RSBorder(Color.clear, 0);
         foreach(var ve in leftToolbar.Children())
-            ve.style.SetIS_Style(border);
-        btnDocument.style.SetIS_Style(border);
+            ve.style.SetRS_Style(border);
+        btnDocument.style.SetRS_Style(border);
     }
     private void openMainPage() 
     {
         clearPage();
-        btnHome.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
+        btnHome.style.SetRS_Style(new RSBorder(RSTheme.Current.FrontgroundColor, 2.5f));
         VisualElement root = new VisualElement();
         root.style.alignItems = Align.Center;
         root.style. flexGrow = 1;
-        DSLabel label = new DSLabel("使用者界面設計和評鑑");
+        RSTextElement label = new RSTextElement("使用者界面設計和評鑑");
         label.style.fontSize = label.style.fontSize.value.value * 2f;
-        label.style.marginTop = DocStyle.Current.LineHeight;
-        DSTextElement memberName = new DSTextElement("李睿穎　丘廷豪　許治暘"); memberName.style.fontSize = memberName.style.fontSize.value.value * 1.8f;
+        label.style.marginTop = RSTheme.Current.LineHeight;
+        RSTextElement memberName = new RSTextElement("李睿穎　丘廷豪　許治暘"); memberName.style.fontSize = memberName.style.fontSize.value.value * 1.8f;
         memberName.style.marginBottom = 30;
-        DSHorizontal randomUser = new DSHorizontal();
+        RSHorizontal randomUser = new RSHorizontal();
         VisualElement displayRandomUser = new VisualElement();
         displayRandomUser.style.justifyContent = Justify.Center;
         randomUser.Add(displayRandomUser);
         VisualElement userImage = new VisualElement();
-        DSTextElement userName = new DSTextElement();
+        RSTextElement userName = new RSTextElement();
         userName.style.marginTop = 15;
         displayRandomUser.Add(userImage);
         displayRandomUser.Add(userName);
         userImage.style.width = 250;
         userImage.style.height = 250;
-        userImage.style.SetIS_Style(ISRadius.Pixel(30));
+        userImage.style.SetRS_Style(RSRadius.Pixel(30));
         userName.style.fontSize = userName.style.fontSize.value.value * 1.8f;
         userName.style.unityTextAlign = TextAnchor.MiddleCenter;
 
-        Button getRandomUser = new DSButton("抽獎");
+        Button getRandomUser = new RSButton("抽獎");
         getRandomUser.style.unityTextAlign = TextAnchor.MiddleCenter;
         getRandomUser.style.fontSize = getRandomUser.style.fontSize.value.value * 1.8f;
-        getRandomUser.style.SetIS_Style(ISRadius.Pixel(7));
+        getRandomUser.style.SetRS_Style(RSRadius.Pixel(7));
         getRandomUser.style.marginBottom = 15;
         getRandomUser.style.maxHeight = 70;
         getRandomUser.style.minWidth = 200;
@@ -210,7 +210,7 @@ public class UI_index : MonoBehaviour
     private void openUserList()
     {
         clearPage();
-        btnUserList.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
+        btnUserList.style.SetRS_Style(new RSBorder(RSTheme.Current.FrontgroundColor, 2.5f));
         userPageContainer.Clear();
 
         VisualElement topElement = new VisualElement();
@@ -219,9 +219,9 @@ public class UI_index : MonoBehaviour
         VisualElement searchContainer = new VisualElement();
         searchContainer.style.width = Length.Percent(30);
         searchContainer.style.flexDirection = FlexDirection.Row;
-        searchContainer.style.backgroundColor = DocStyle.Current.InputFieldStyle.Background.ImageTint;
+        searchContainer.style.backgroundColor = RSTheme.Current.FieldStyle.Background.tintColor;
         searchContainer.style.alignItems = Align.Center;
-        searchContainer.style.SetIS_Style(ISRadius.Pixel(10));
+        searchContainer.style.SetRS_Style(RSRadius.Pixel(10));
         searchContainer.style.left = StyleKeyword.Auto;
         searchContainer.style.right = 0;
         searchContainer.style.marginLeft = StyleKeyword.Auto;
@@ -231,7 +231,7 @@ public class UI_index : MonoBehaviour
 
         simpleVisuals = new List<SimpleUserDataVisual>();
 
-        DSTextField searchField = new DSTextField("", (evt) =>
+        RSTextField searchField = new RSTextField("", (evt) =>
         {
             simpleVisualsContainer.Clear();
 
@@ -261,8 +261,8 @@ public class UI_index : MonoBehaviour
         searchField.style.marginLeft = 10;
         searchField.style.marginRight = 10;
         searchField[0].style.backgroundImage = null;
-        searchField[0].style.SetIS_Style(new ISBorder(Color.clear, 0));
-        searchField[0].style.fontSize = DocStyle.Current.InputFieldStyle.Text.FontSize * 1.5f;
+        searchField[0].style.SetRS_Style(new RSBorder(Color.clear, 0));
+        searchField[0].style.fontSize = RSTheme.Current.MainText.size * 1.5f;
 
         searchField.RegisterCallback<FocusInEvent>((evt) =>
         {
@@ -315,11 +315,11 @@ public class UI_index : MonoBehaviour
             tools.style.marginBottom = StyleKeyword.Auto;
 
             var localData = data;
-            DSButton editBtn = new DSButton("編輯", DocStyle.Current.HintColor);
-            editBtn.style.SetIS_Style(ISRadius.Pixel(10));
+            RSButton editBtn = new RSButton("編輯", RSTheme.Current.HintColorSet);
+            editBtn.style.SetRS_Style(RSRadius.Pixel(10));
             editBtn.clicked += () => { openCreateNewUser(localData); };
 
-            DSButton btnDelete = new DSButton("刪除", DocStyle.Current.HintColor, () =>
+            RSButton btnDelete = new RSButton("刪除", RSTheme.Current.HintColorSet, () =>
             {
                 DoubleCheckWindow.Open(new Rect(20, 30, 60, 40), "確定要永久刪除此使用者？確認後資料將永久消失。", (confirm) =>
                 {
@@ -336,7 +336,7 @@ public class UI_index : MonoBehaviour
                     }
                 });
             });
-            btnDelete.style.SetIS_Style(ISRadius.Pixel(10));
+            btnDelete.style.SetRS_Style(RSRadius.Pixel(10));
 
             tools.Add(editBtn);
             tools.Add(btnDelete);
@@ -354,19 +354,19 @@ public class UI_index : MonoBehaviour
     private void openCreateNewUser(UserData editData = null)
     {
         clearPage();
-        btnCreateNewUser.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
+        btnCreateNewUser.style.SetRS_Style(new RSBorder(RSTheme.Current.FrontgroundColor, 2.5f));
 
         CreateNewUserWindow window = CreateNewUserWindow.Open(openMainPage, editData);
 
         rightContainer.Add(window);
     }
-    private void openDocument()
-    {
-        clearPage();
-        btnDocument.style.SetIS_Style(new ISBorder(DocStyle.Current.FrontgroundColor, 2.5f));
+    //private void openDocument()
+    //{
+    //    clearPage();
+    //    btnDocument.style.SetRS_Style(new RSBorder(RSTheme.Current.FrontgroundColor, 2.5f));
 
-        rightContainer.Add(new DocBookVisual(DocumentPage) { DontPlayAnimation = true });
-    }
+    //    rightContainer.Add(new DocBookVisual(DocumentPage) { DontPlayAnimation = true });
+    //}
 }
 
 public class SimpleUserDataVisual : VisualElement
@@ -378,17 +378,18 @@ public class SimpleUserDataVisual : VisualElement
     {
         UserData = data;
 
-        style.backgroundColor = DocStyle.Current.BackgroundColor;
-        style.SetIS_Style(ISMargin.Pixel(7));
+        style.backgroundColor = RSTheme.Current.BackgroundColor;
+        RSMargin.op_temp.any = 7;
+        style.SetRS_Style(RSMargin.op_temp);
         style.marginBottom = 0;
         style.paddingLeft = 20;
         style.flexDirection = FlexDirection.Row;
         style.alignItems = Align.Center;
-        RegisterCallback<PointerEnterEvent>(evt => style.backgroundColor = DocStyle.Current.SubBackgroundColor);
+        RegisterCallback<PointerEnterEvent>(evt => style.backgroundColor = RSTheme.Current.BackgroundColor2);
         RegisterCallback<PointerLeaveEvent>(evt => style.backgroundColor = Color.clear);
         VisualElement preview = new VisualElement();
         preview.style.marginRight = 20;
-        preview.style.SetIS_Style(ISRadius.Pixel(10));
+        preview.style.SetRS_Style(RSRadius.Pixel(10));
 
         texture = new Texture2D(1, 1);
         if (data.Base64Icon != "")
@@ -404,9 +405,13 @@ public class SimpleUserDataVisual : VisualElement
         VisualElement rightContainer = new VisualElement();
         rightContainer.style.flexGrow = 1;
 
-        DSLabel nameElement = new DSLabel(data.Name);
-        DSLabel contactElement = new DSLabel("聯絡方式：" + data.Contact);
-        DSLabel researchTopicElement = new DSLabel("研究主題：" + data.ResearchTopic);
+        RSTextElement nameElement = new RSTextElement(data.Name);
+        RSTextElement contactElement = new RSTextElement("聯絡方式：" + data.Contact);
+        RSTextElement researchTopicElement = new RSTextElement("研究主題：" + data.ResearchTopic);
+
+        nameElement.style.fontSize = nameElement.style.fontSize.value.value * 1.5f;
+        contactElement.style.fontSize = contactElement.style.fontSize.value.value * 1.5f;
+        researchTopicElement.style.fontSize = researchTopicElement.style.fontSize.value.value * 1.5f;
 
         rightContainer.Add(nameElement);
         rightContainer.Add(contactElement);

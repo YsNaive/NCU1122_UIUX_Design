@@ -1,15 +1,15 @@
-using NaiveAPI.DocumentBuilder;
-using NaiveAPI.RuntimeWindowUtils;
+using NaiveAPI.UITK;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class DoubleCheckWindow : DSRuntimeWindow
+public class DoubleCheckWindow : RSRuntimeWindow
 {
-    private DSLabel warningLabel;
-    private DSButton btConfirm, btCancel;
+    private RSTextElement warningLabel;
+    private RSButton btConfirm, btCancel;
     private VisualElement container;
 
     public DoubleCheckWindow()
@@ -28,18 +28,18 @@ public class DoubleCheckWindow : DSRuntimeWindow
         container = new VisualElement();
         //container.style.width = Length.Percent(60);
         //container.style.height = Length.Percent(40);
-        container.style.backgroundColor = DocStyle.Current.SubBackgroundColor;
+        container.style.backgroundColor = RSTheme.Current.BackgroundColor2;
         container.style.alignItems = Align.Center;
         container.style.justifyContent = Justify.Center;
 
         VisualElement visualElement = new VisualElement();
         visualElement.style.flexDirection = FlexDirection.Row;
 
-        warningLabel = new DSLabel();
+        warningLabel = new RSTextElement();
 
-        btConfirm = new DSButton("確認", DocStyle.Current.SuccessColor);
+        btConfirm = new RSButton("確認", RSTheme.Current.SuccessColorSet);
 
-        btCancel = new DSButton("取消", DocStyle.Current.DangerColor);
+        btCancel = new RSButton("取消", RSTheme.Current.DangerColorSet);
 
         btConfirm.style.marginRight = 40;
         btCancel.style.marginLeft = 40;

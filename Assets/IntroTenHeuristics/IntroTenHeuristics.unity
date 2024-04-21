@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 6fc4b206bee24d4428e36b9d85d3fa0c, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: e2f5f3b73ed56714c9e276f103e8c3e9, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 66543b4288bddce468bdd0b2a5ab908d, type: 3}
   m_SortingOrder: 0
@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UID: {fileID: 44024902}
-  DocumentPage: {fileID: 11400000, guid: edfe6fc58cc2a9b4e86dd1e34d75cdac, type: 2}
 --- !u!1 &576738552
 GameObject:
   m_ObjectHideFlags: 0
