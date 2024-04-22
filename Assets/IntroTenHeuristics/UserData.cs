@@ -51,7 +51,10 @@ public class UserData
                     m_IconTexture = new Texture2D(1, 1);
                     m_IconTexture.LoadImage(Convert.FromBase64String(Base64Icon));
                 }
-                m_IconTexture = Resources.Load<Texture2D>("Image/default_icon");
+                else
+                {
+                    m_IconTexture = Resources.Load<Texture2D>("Image/default_icon");
+                }
             }
             return m_IconTexture;
         }

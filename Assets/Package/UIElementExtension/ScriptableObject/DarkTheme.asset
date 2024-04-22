@@ -19,7 +19,7 @@ MonoBehaviour:
       m_FontStyle: 0
       m_Size:
         mode: 713
-        value: 12
+        value: 16
       m_Color: {r: 0.8862745, g: 0.8862745, b: 0.8862745, a: 1}
       m_Anchor: 3
       m_Wrap: 0

@@ -2,6 +2,9 @@ using NaiveAPI.UITK;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UIElements;
+using SFB;
+using System.IO;
+using System;
 
 [CustomRuntimeDrawer(typeof(UserData))]
 public class UserDataDrawer : RuntimeDrawer<UserData>
@@ -12,11 +15,15 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         Contact,
         Qualities,
     }
+    VisualElement iconView;
     public override void RepaintDrawer()
     {
+        if (value == null) return;
         for (int i = 1; i < value.stringValues.Length; i++)
             stringDrawers[i].SetValueWithoutNotify(value.stringValues[i]);
+        iconView.style.backgroundImage = value.IconTexture;
     }
+
     VisualElement stageContainer;
     PageView<MemberCategory> pageView;
     StringDrawer[] stringDrawers = new StringDrawer[13];
@@ -61,8 +68,32 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
                 InvokeMemberValueChange(stringDrawers[localIndex]);
             };
         }
+        var iconViewContainer = new VisualElement();
+        iconView = new VisualElement()
+        {
+            style =
+            {
+                width = 75,
+                height = 75,
+            }
+        };
+        iconView.style.backgroundColor = Color.white;
+        var selectIconBtn = new RSButton("Select", RSTheme.Current.HintColorSet, () =>
+        {
+            var pick = StandaloneFileBrowser.OpenFilePanel("Select Icon", "", new ExtensionFilter[] { new ExtensionFilter("Image", "jpg", "jpeg", "png") }, false);
+            if (pick.Length != 0)
+            {
+                var pickedPath = pick[0];
+                value.Base64Icon = Convert.ToBase64String(File.ReadAllBytes(pickedPath));
+                iconView.style.backgroundImage = value.IconTexture;
+            }
+        })
+        { style = { marginTop = RSTheme.Current.VisualMargin, } };
+        iconViewContainer.Add(iconView);
+        iconViewContainer.Add(selectIconBtn);
 
         pageView = new ();
+        pageView.style.flexGrow = 1f;
         pageView.OpenOrCreatePage(MemberCategory.BasicInfo);
         pageView.Add(stringDrawers[UserData.I_Name]);
         pageView.Add(stringDrawers[UserData.I_Major]);
@@ -79,6 +110,12 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         pageView.Add(stringDrawers[UserData.I_FavoriteClasses]);
         pageView.Add(stringDrawers[UserData.I_Skills]);
         pageView.Add(stringDrawers[UserData.I_SpecialExperience]);
-        Add(pageView);
+
+        var hor = new RSHorizontal();
+        hor.Add(iconViewContainer);
+        hor.Add(pageView);
+        Add(hor);
+        pageView.OpenOrCreatePage(MemberCategory.BasicInfo);
     }
+
 }
