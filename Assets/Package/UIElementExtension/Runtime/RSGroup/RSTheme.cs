@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
 namespace NaiveAPI.UITK
@@ -15,19 +16,21 @@ namespace NaiveAPI.UITK
             get
             {
                 if(m_current == null)
-                    m_current = UIElementExtensionResource.Get.DefaultTheme.Theme.DeepCopy();
+                    m_current = UIElementExtensionResource.Get.DefaultTheme?.Theme.DeepCopy() ?? new();
                 return m_current;
             }
+            set { m_current = value; }
         }
         static RSTheme m_current = null;
 
         [Header("In Runtime, will layout as in Editor with (640*480) ref size.")]
         [Header("Style Settings")]
-        public RSText MainText  = new();
-        public RSText LabelText = new();
-        public RSStyle FieldStyle  = new();
+        public FontAsset TextFont = null;
+        public Sprite FieldBackground = null;
 
         [Header("Layout Settings")]
+        public float TextSize = 12f;
+        public float LabelTextSize = 20f;
         public float LineHeight = 20f;
         public float LabelWidth = 180f;
         public float IndentedLabelWidth => GetIndentedLabelWidth(indentLevel);
@@ -96,15 +99,56 @@ namespace NaiveAPI.UITK
             ret.style.rotate = new Rotate(deg);
             return ret;
         }
-
+        public void ApplyFieldStyle(VisualElement ve)
+        {
+            ApplyTextStyle(ve);
+            
+            var asTextField = ve as TextInputBaseField<string>;
+            if(asTextField != null)
+                asTextField.textSelection.cursorColor = NormalColorSet.TextColor;
+            ve.style.paddingLeft = VisualMargin;
+            ve.style.paddingRight = VisualMargin;
+            if (FieldBackground == null)
+            {
+                ve.style.backgroundColor = NormalColorSet.BackgroundColor2;
+                ve.style.minHeight = LineHeight - VisualMargin;
+                RSBorder.op_temp.anyWidth = VisualMargin/4f;
+                RSBorder.op_temp.anyColor =NormalColorSet.BackgroundColor3;
+                RSBorder.op_temp.ApplyOn(ve);
+                RSMargin.op_temp.any = VisualMargin / 4f;
+                RSMargin.op_temp.ApplyOn(ve);
+            }
+            else
+            {
+                ve.style.minHeight = LineHeight;
+                ve.style.backgroundImage = Background.FromSprite(FieldBackground);
+            }
+        }
+        public void ApplyTextStyle(VisualElement ve) { ApplyTextStyle(ve, NormalColorSet); }
+        public void ApplyTextStyle(VisualElement ve, RSColorSet colorSet)
+        {
+            ve.style.minHeight = LineHeight - VisualMargin;
+            ve.style.color = colorSet.TextColor;
+            ve.style.fontSize = TextSize;
+            if(TextFont != null)
+            {
+                ve.style.unityFont = TextFont.sourceFontFile;
+                ve.style.unityFontDefinition = new FontDefinition { fontAsset = TextFont };
+            }
+        }
         public RSTheme DeepCopy()
         {
             return new RSTheme
             {
-                MainText = MainText.DeepCopy(),
-                LabelText = LabelText.DeepCopy(),
+                TextFont = TextFont,
+                FieldBackground = FieldBackground,
 
-                FieldStyle = FieldStyle.DeepCopy(),
+                TextSize = TextSize,
+                LabelTextSize = LabelTextSize,
+                LineHeight = LineHeight,
+                LabelWidth = LabelWidth,
+                IndentStep = IndentStep,
+                VisualMargin = VisualMargin,
 
                 NormalColorSet = NormalColorSet.DeepCopy(),
                 SuccessColorSet = SuccessColorSet.DeepCopy(),
@@ -112,10 +156,6 @@ namespace NaiveAPI.UITK
                 DangerColorSet = DangerColorSet.DeepCopy(),
                 HintColorSet = HintColorSet.DeepCopy(),
 
-                LineHeight = LineHeight,
-                LabelWidth = LabelWidth,
-                IndentStep = IndentStep,
-                VisualMargin = VisualMargin,
 
                 Icon = Icon.DeepCopy(),
                 CSharp = CSharp.DeepCopy(),

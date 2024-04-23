@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultTheme: {fileID: 11400000, guid: 353b44d16e4cc6f42a676f2c13784341, type: 2}
   DarkTheme: {fileID: 11400000, guid: 353b44d16e4cc6f42a676f2c13784341, type: 2}
+  LightTheme: {fileID: 11400000, guid: f8107e741bccaee40a0212764d6baf9a, type: 2}
   LanguageInfos:
   - key: en
     name: English
@@ -146,13 +147,20 @@ MonoBehaviour:
     - NextPosition
     - NextSize
   s_LanguageTextKeys:
+  - naiveapi.name
+  - naiveapi.icon
+  - naiveapi.label
+  - naiveapi.colorPicker
+  - naiveapi.cancel
   - page.main
   - page.main.title
-  - page.userData
   - page.editTheme
   - page.editUser
   - page.editUser.editing
   - page.editUser.creating
+  - page.userData
+  - page.documentation
+  - page.onlineHelp
   - userData.name
   - userData.base64Icon
   - userData.major
@@ -166,11 +174,22 @@ MonoBehaviour:
   - userData.graduatedSchool
   - userData.specialExperience
   - userData.favoriteClasses
-  - naiveapi.name
-  - naiveapi.icon
-  - naiveapi.label
-  - naiveapi.colorPicker
-  - naiveapi.cancel
-  - page.documentation
-  - page.onlineHelp
+  - _apply
+  - theme.setToDefaultDark
+  - theme.setToDefaultLight
+  - theme.normalColorSet
+  - theme.successColorSet
+  - theme.dangerColorSet
+  - theme.hintColorSet
+  - _delete
+  - _save
+  - _select
+  - _cancel
+  - userData.basicInfoGroup
+  - userData.contactGroup
+  - userData.quilitiesGroup
+  - userDataEdit.title
+  - userDataEdit.createNew
+  - userDataEdit.nextPage
+  - userDataEdit.prevPage
   s_LanguageImageKeys: []

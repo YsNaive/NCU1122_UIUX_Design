@@ -63,8 +63,7 @@ namespace NaiveAPI.UITK
         public static readonly Dictionary<string, Dictionary<string, Sprite>> RuntimeSpriteTable = new();
         public static Dictionary<string, (string, FontAsset)> GetTextTable(string languageKey)
         {
-            languageKey ??= "";
-            if (RuntimeTextTable.TryGetValue(languageKey, out var table))
+            if(RuntimeTextTable.TryGetValue(languageKey, out var table))
                 return table;
             table = new();
             RuntimeTextTable.Add(languageKey, table);
@@ -72,7 +71,6 @@ namespace NaiveAPI.UITK
         }
         public static Dictionary<string, Sprite> GetSpriteTable(string languageKey)
         {
-            languageKey ??= "";
             if (RuntimeSpriteTable.TryGetValue(languageKey, out var table))
                 return table;
             table = new ();
@@ -106,21 +104,16 @@ namespace NaiveAPI.UITK
         {
             foreach(var table in LoadedTable)
             {
-                if (table == null)
-                    continue;
-                        
                 var textDst = GetTextTable(table.LanguageKey);
                 var spriteDst = GetSpriteTable(table.LanguageKey);
                 foreach(var textPair in table.TextTable)
                 {
-                    if (textPair.Value == null) return;
                     if (textDst.ContainsKey(textPair.Key))
                         continue;
                     textDst.Add(textPair.Key, (textPair.Value, table.FontAsset));
                 }
                 foreach (var spritePair in table.SpriteTable)
                 {
-                    if (spritePair.Value == null) return;
                     if (spriteDst.ContainsKey(spritePair.Key))
                         continue;
                     spriteDst.Add(spritePair.Key, spritePair.Value);

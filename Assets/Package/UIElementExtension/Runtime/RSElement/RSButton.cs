@@ -31,7 +31,7 @@ namespace NaiveAPI.UITK
             if (clicked != null)
                 this.clicked += clicked;
             this.text = text;
-
+            RSTheme.Current.ApplyTextStyle(this);
             RegisterCallback<PointerEnterEvent>(e => { style.backgroundColor = m_HoverColor; });
             RegisterCallback<PointerLeaveEvent>(e => { style.backgroundColor = m_BackgroundColor; });
 

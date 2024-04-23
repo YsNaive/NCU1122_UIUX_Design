@@ -8,7 +8,7 @@ namespace NaiveAPI.UITK
         public override VisualElement contentContainer => currentContainer;
         private VisualElement currentContainer = null;
 
-        public Dictionary<TKey, VisualElement> pageTable = new();
+        public readonly Dictionary<TKey, VisualElement> pageTable = new();
         public PageView() { }
         public PageView(TKey initPageKey)
         {
@@ -31,6 +31,10 @@ namespace NaiveAPI.UITK
         public void OpenOrCreatePage(TKey key)
         {
             SetDisplay(pageTable.GetOrCreateValue(key));
+        }
+        public void CreatePage(TKey key, VisualElement container)
+        {
+            pageTable.SetOrCreateKey(key, container);
         }
         public void SetDisplay(VisualElement element)
         {

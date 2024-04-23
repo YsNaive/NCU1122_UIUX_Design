@@ -23,7 +23,9 @@ namespace NaiveAPI_Editor.UITK
             field.style.ClearMarginPadding();
             field[0].style.ClearMarginPadding();
             field[0].style.minHeight = RSTheme.Current.LineHeight;
-            field[0].style.SetRS_Style(RSTheme.Current.FieldStyle);
+            RSTheme.Current.ApplyFieldStyle(field[0]);
+            foreach(var ve in field.ChildrenRecursive())
+                RSTheme.Current.ApplyTextStyle(ve);
             field.RegisterValueChangedCallback(evt =>
             {
                 evt.StopImmediatePropagation();

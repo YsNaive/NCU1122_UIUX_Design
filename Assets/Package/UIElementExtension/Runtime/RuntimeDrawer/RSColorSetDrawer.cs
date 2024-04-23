@@ -87,18 +87,16 @@ namespace NaiveAPI.UITK
             generateButton.style.marginLeft = RSTheme.Current.VisualMargin;
             generateButton.clicked += () =>
             {
-                FoldoutState = true;
                 generateButton.style.display = DisplayStyle.None;
                 applyButton.style.display = DisplayStyle.Flex;
                 cancelButton.style.display = DisplayStyle.Flex;
-                backgroundColorDrawer.SetValueWithoutNotify(value[1]);
-                frontgroundColorDrawer.SetValueWithoutNotify(value[6]);
-                splitDrawer.SetValueWithoutNotify(9f);
+                backgroundColorDrawer.value = value[1];
+                frontgroundColorDrawer.value = value[6];
+                splitDrawer.value = 9f;
                 pageView.OpenPage(true);
                 for (int i = 0; i < 7; i++)
-                {
                     copyBuffer[i] = value[i];
-                }
+                FoldoutState = true;
             };
             applyButton.style.marginLeft = RSTheme.Current.VisualMargin;
             applyButton.clicked += () =>
@@ -115,7 +113,7 @@ namespace NaiveAPI.UITK
                 cancelButton.style.display = DisplayStyle.None;
                 pageView.OpenPage(false);
                 for (int i = 0; i < 7; i++)
-                    this.value[i] = copyBuffer[i];
+                    value[i] = copyBuffer[i];
                 InvokeMemberValueChange(this);
                 RepaintDrawer();
             };

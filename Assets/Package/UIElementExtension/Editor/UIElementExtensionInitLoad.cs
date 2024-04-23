@@ -1,4 +1,6 @@
+using NaiveAPI.UITK;
 using UnityEditor;
+using UnityEngine;
 
 namespace NaiveAPI_Editor.UITK
 {
@@ -13,6 +15,14 @@ namespace NaiveAPI_Editor.UITK
             {
                 symbols += ";" + Symbol;
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(EditorUserBuildSettings.selectedBuildTargetGroup, symbols);
+            }
+
+            if(Resources.Load<UIElementExtensionResource>(UIElementExtensionResource.SourceFileName) == null)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(UIElementExtensionResource.ResourceFolderGUID) + "\\" + UIElementExtensionResource.SourceFileName + ".asset";
+                AssetDatabase.CreateAsset(UIElementExtensionResource.Get, path);
+                AssetDatabase.Refresh();
+                Debug.Log($"UIElementExtensionResource Asset Not Found. Auto Create at: {path}");
             }
         }
     }

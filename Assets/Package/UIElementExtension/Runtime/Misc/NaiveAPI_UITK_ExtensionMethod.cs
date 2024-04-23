@@ -8,6 +8,13 @@ namespace NaiveAPI.UITK
 {
     public static class NaiveAPI_UITK_ExtensionMethod
     {
+        public static void SetOrCreateKey<TKey,TValue>(this Dictionary<TKey,TValue> table, TKey key, TValue value)
+        {
+            if(table.ContainsKey(key))
+                table[key] = value;
+            else
+                table.Add(key, value);
+        }
         public static TValue GetOrCreateValue<TKey,TValue>(this Dictionary<TKey,TValue> table, TKey key)
             where TValue : new()
         {

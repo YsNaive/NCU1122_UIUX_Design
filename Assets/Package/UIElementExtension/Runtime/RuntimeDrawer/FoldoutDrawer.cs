@@ -28,6 +28,7 @@ namespace NaiveAPI.UITK
         public VisualElement iconElement2;
         public FoldoutDrawer()
         {
+            labelElement.style.flexGrow = 1f;
             iconElement.style.backgroundImage = new StyleBackground(RSTheme.Current.Icon.arrow);
             iconElement.style.unityBackgroundImageTintColor = RSTheme.Current.FrontgroundColor;
             iconElement.style.scale = new Scale(new Vector3(.75f, .75f, 1f));

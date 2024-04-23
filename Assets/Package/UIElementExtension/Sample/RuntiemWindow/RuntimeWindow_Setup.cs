@@ -46,6 +46,7 @@ namespace NaiveAPI.Sample
             sceneHierarchy.LimitSize = false;
 
             sampleWindow.Add(new RSButton("Select on Inspector", () => { inspector.Selecting = sampleWindow; }));
+            sampleWindow.Add(RuntimeDrawer.Create(new RSColorSet(), "ColorSet"));
             inspector     .InitLayoutAsPercent(RuntimeWindow.LayoutPercent.RightOneThird);
             sceneHierarchy.InitLayoutAsPercent(new Rect(0, 0, 0.2f, 1f));
 

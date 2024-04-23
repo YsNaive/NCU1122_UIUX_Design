@@ -9,14 +9,12 @@ namespace NaiveAPI.UITK
         VisualElement inputFieldElement;
         public RSTextField()
         {
-            style.minHeight = RSTheme.Current.LineHeight;
+            RSTheme.Current.ApplyTextStyle(this);
+            RSTheme.Current.ApplyTextStyle(labelElement);
             style.ClearMarginPadding();
-            style.SetRS_Style(RSTheme.Current.MainText);
             inputFieldElement = this[0];
             inputFieldElement.style.ClearMarginPadding();
-            inputFieldElement.style.SetRS_Style(RSTheme.Current.FieldStyle);
-            inputFieldElement.style.backgroundColor = RSTheme.Current.BackgroundColor3;
-            inputFieldElement.style.color = RSTheme.Current.FrontgroundColor2;
+            RSTheme.Current.ApplyFieldStyle(inputFieldElement);
         }
         public new string label
         {
@@ -24,7 +22,6 @@ namespace NaiveAPI.UITK
             set
             {
                 base.label = value;
-                labelElement.style.SetRS_Style(RSTheme.Current.MainText);
                 labelElement.style.width = RSTheme.Current.LabelWidth;
                 labelElement.style.minWidth = RSTheme.Current.LabelWidth;
             }

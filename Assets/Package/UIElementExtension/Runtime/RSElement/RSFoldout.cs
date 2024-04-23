@@ -10,8 +10,7 @@ namespace NaiveAPI.UITK
         public Toggle ToggleElement;
         public RSFoldout()
         {
-            style.SetRS_Style(RSTheme.Current.MainText);
-            contentContainer.style.minHeight = RSTheme.Current.LineHeight;
+            RSTheme.Current.ApplyTextStyle(this);
             contentContainer.style.paddingLeft = RSTheme.Current.LineHeight / 2f;
             ToggleElement = this.Q<Toggle>();
             ToggleElement.style.ClearMarginPadding();

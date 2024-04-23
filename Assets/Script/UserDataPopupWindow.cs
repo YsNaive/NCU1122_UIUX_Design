@@ -76,9 +76,10 @@ public class UserDataPopupWindow : RuntimeWindow
         {
             style =
             {
-                width= 120,
-                height = 120,
+                width= 100,
+                height = 100,
                 backgroundImage = data.IconTexture,
+                flexShrink = 0,
             }
         };
         RSRadius.op_temp.any = RSTheme.Current.LineHeight / 3f;
@@ -89,16 +90,16 @@ public class UserDataPopupWindow : RuntimeWindow
 
         VisualElement infoContainer = new VisualElement();
 
-        basicInfoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_major) + "¡G", data.Major));
-        basicInfoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_career) + "¡G", data.Career));
-        basicInfoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_gender) + "¡G", data.Gender));
-        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_phoneNumber) + "¡G", data.PhoneNumber));
-        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_researchTopic) + "¡G", data.ResearchTopic));
-        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_contact) + "¡G", data.Contact));
-        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_skills) + "¡G", data.Skills));
-        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_hobbies) + "¡G", data.Hobbies));
-        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_graduatedSchool) + "¡G", data.GraduatedSchool));
-        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_favoriteClasses) + "¡G", data.FavoriteClasses));
+        basicInfoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_major) + "¡G", data.Major));
+        basicInfoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_career) + "¡G", data.Career));
+        basicInfoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_gender) + "¡G", data.Gender));
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_phoneNumber) + "¡G", data.PhoneNumber));
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_researchTopic) + "¡G", data.ResearchTopic));
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_contact) + "¡G", data.Contact));
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_skills) + "¡G", data.Skills));
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_hobbies) + "¡G", data.Hobbies));
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_graduatedSchool) + "¡G", data.GraduatedSchool));
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_favoriteClasses) + "¡G", data.FavoriteClasses));
 
 
         hor.Add(icon);
@@ -109,33 +110,30 @@ public class UserDataPopupWindow : RuntimeWindow
 }
 
 
-public class LabelDrawer : RuntimeDrawer<string>
+public class UserDataMemberElement : VisualElement
 {
     public string text { get => textElement.text; set => textElement.text = value; }
+    private RSTextElement labelElement;
     private RSTextElement textElement;
 
-    public LabelDrawer(string label) : base()
+    public UserDataMemberElement()
     {
-        this.label = label;
-    }
+        textElement = new RSTextElement();
+        labelElement = new RSTextElement();
 
-    public LabelDrawer(string label, string text) : this(label)
+        style.flexDirection = FlexDirection.Row;
+        style.marginTop = 10;
+        labelElement.style.width = 100;
+        labelElement.style.flexShrink = 0;
+        Add(labelElement);
+        Add(textElement);
+    }
+    public UserDataMemberElement(string label) : this()
+    {
+        labelElement.text = label;
+    }
+    public UserDataMemberElement(string label, string text) : this(label)
     {
         textElement.text = text;
-    }
-
-    public override void RepaintDrawer()
-    {
-        textElement.text = value;
-    }
-
-    protected override void CreateGUI()
-    {
-        style.marginTop = 10;
-        style.paddingLeft = 0;
-
-        textElement = new RSTextElement();
-
-        Add(textElement);
     }
 }

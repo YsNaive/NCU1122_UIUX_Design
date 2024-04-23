@@ -22,21 +22,39 @@ MonoBehaviour:
     - page.editUser.editing
     - page.editUser.creating
     - page.editUser
-    - userData.career
-    - userData.name
-    - page.onlineHelp
-    - page.documentation
     - page.userData
-    - userData.major
+    - userData.name
     - userData.gender
+    - userData.major
+    - userData.hobbies
     - userData.phoneNumber
     - userData.researchTopic
-    - userData.contact
-    - userData.skills
-    - userData.hobbies
-    - userData.graduatedSchool
     - userData.specialExperience
+    - userData.graduatedSchool
     - userData.favoriteClasses
+    - page.documentation
+    - userData.skills
+    - userData.contact
+    - page.onlineHelp
+    - userData.career
+    - _apply
+    - theme.hintColorSet
+    - theme.normalColorSet
+    - theme.successColorSet
+    - theme.dangerColorSet
+    - theme.setToDefaultDark
+    - theme.setToDefaultLight
+    - _save
+    - _delete
+    - _select
+    - _cancel
+    - userDataEdit.title
+    - userData.contactGroup
+    - userDataEdit.nextPage
+    - userDataEdit.prevPage
+    - userDataEdit.createNew
+    - userData.basicInfoGroup
+    - userData.quilitiesGroup
     s_values:
     - "\u4E3B\u9801"
     - "\u7DE8\u8F2F\\n\u4E3B\u984C"
@@ -44,21 +62,39 @@ MonoBehaviour:
     - "\u7DE8\u8F2F\u8CC7\u6599"
     - "\u65B0\u589E\u8CC7\u6599"
     - "\u7DE8\u8F2F\\n\u8CC7\u6599"
-    - "\u5DE5\u3000\u3000\u4F5C"
-    - "\u59D3\u3000\u3000\u540D"
-    - "\u7DDA\u4E0A\\n\u5E6B\u52A9"
-    - "\u8AAA\u660E"
     - "\u7528\u6236\\n\u8CC7\u6599"
-    - "\u7CFB\u3000\u3000\u7D1A"
+    - "\u59D3\u3000\u3000\u540D"
     - "\u6027\u3000\u3000\u5225"
-    - "\u96FB\u8A71\u865F\u78BC"
+    - "\u7CFB\u3000\u3000\u7D1A"
+    - "\u8208\u3000\u3000\u8DA3"
+    - "\u806F\u7D61\u96FB\u8A71"
     - "\u7814\u7A76\u4E3B\u984C"
-    - "\u9023\u7D61\u65B9\u5F0F"
-    - "\u5C08\u3000\u3000\u9577"
-    - "\u611B\u3000\u3000\u597D"
+    - "\u7279\u6B8A\u7D93\u6B77"
     - "\u7562\u696D\u5B78\u6821"
-    - "\u7279\u6B8A\u7D93\u9A57"
-    - "\u559C\u611B\u5C08\u79D1"
+    - "\u559C\u597D\u79D1\u76EE"
+    - "\u6587\u6A94"
+    - "\u5C08\u3000\u3000\u9577"
+    - "\u806F\u7D61\u8CC7\u8A0A"
+    - "\u7DDA\u4E0A\\n\u652F\u63F4"
+    - "\u5DE5\u3000\u3000\u4F5C"
+    - "\u61C9\u7528"
+    - "\u63D0\u793A.\u4E3B\u984C\u8272"
+    - "\u4E00\u822C.\u4E3B\u984C\u8272"
+    - "\u78BA\u5B9A.\u4E3B\u984C\u8272"
+    - "\u8B66\u793A.\u4E3B\u984C\u8272"
+    - "\u91CD\u8A2D\u70BA\u6DF1\u8272\u4E3B\u984C"
+    - "\u91CD\u8A2D\u70BA\u6DFA\u8272\u4E3B\u984C"
+    - "\u5132\u5B58"
+    - "\u522A\u9664"
+    - "\u9078\u64C7"
+    - "\u53D6\u6D88"
+    - "\u9078\u64C7\u4EE5\u7DE8\u8F2F \u6216 \u5275\u5EFA\u65B0\u8CC7\u6599"
+    - "\u806F\u7D61\u65B9\u5F0F"
+    - "\u4E0B\u4E00\u9801"
+    - "\u4E0A\u4E00\u9801"
+    - "\u5275\u5EFA\u65B0\u8CC7\u6599"
+    - "\u57FA\u672C\u8CC7\u8A0A"
+    - "\u500B\u4EBA\u7279\u8CEA"
   SpriteTable:
     s_keys: []
     s_values: []

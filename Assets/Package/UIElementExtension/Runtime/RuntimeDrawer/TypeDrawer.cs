@@ -13,10 +13,61 @@ namespace NaiveAPI.UITK
             public Type type;
             public string searchName;
         }
+        public class TypeSearchView : SearchView<string, Type>
+        {
+            protected override VisualElement CreateItemVisual(Type value)
+            {
+                var visual = new RSTypeNameElement(value);
+                visual.style.paddingLeft = RSTheme.Current.LineHeight / 2f;
+                visual.style.paddingRight = visual.style.paddingLeft;
+                visual.style.borderBottomColor = RSTheme.Current.BackgroundColor2;
+                visual.style.borderBottomWidth = 1;
+                visual.style.flexShrink = 0;
+                visual.style.unityTextAlign = TextAnchor.MiddleLeft;
+                visual.RegisterCallback<PointerEnterEvent>(evt => { visual.style.backgroundColor = RSTheme.Current.BackgroundColor2; });
+                visual.RegisterCallback<PointerLeaveEvent>(evt => { visual.style.backgroundColor = Color.clear; });
+
+                var tooltipElement = new TooltipElement(visual);
+                tooltipElement.style.backgroundColor = RSTheme.Current.BackgroundColor;
+                tooltipElement.style.SetRS_Style(new RSBorder { anyColor = RSTheme.Current.FrontgroundColor, anyWidth = 1f });
+                tooltipElement.style.paddingLeft = RSTheme.Current.VisualMargin;
+                tooltipElement.style.paddingRight = RSTheme.Current.VisualMargin;
+                tooltipElement.Add(new RSTextElement("{ } " + value.Namespace) { style = { unityTextAlign = TextAnchor.MiddleLeft } });
+                tooltipElement.PopupDelay = 350;
+                tooltipElement.RegisterPopupOnTarget(visual);
+                tooltipElement.OnOpend += (_) => { opendTooltip?.Close(); opendTooltip = tooltipElement; };
+                choicesVisual.Add(value, visual);
+                visual.RegisterCallback<PointerDownEvent>(evt =>
+                {
+                    callback?.Invoke(value);
+                    tooltipElement.Close();
+                });
+                return visual;
+            }
+
+            protected override IEnumerable<Type> GetOrderedItem(string searchKey)
+            {
+                return searchInfos
+                .Where(info => { return currentFilter?.Invoke(info.type) ?? true; })
+                .OrderBy(info =>
+                {
+                    var distance = info.searchName.LevenshteinDistance(searchKey);
+                    var lenDiff = Math.Abs(info.searchName.Length - searchKey.Length);
+                    if (lenDiff > 8)
+                        return info.searchName.Length + searchKey.Length;
+                    if (info.searchName.StartsWith(searchKey, StringComparison.OrdinalIgnoreCase))
+                        distance /= 2;
+                    if (info.searchName.Contains(searchKey, StringComparison.OrdinalIgnoreCase))
+                        distance /= 2;
+                    return distance;
+                })
+                .Select(info => info.type);
+            }
+        }
         static SearchInfo[] searchInfos;
         static event Action<Type> callback = (_) => { opendTooltip?.Close(); };
         static Dictionary<Type,VisualElement> choicesVisual = new();
-        static SearchView<string, Type> searchView;
+        static TypeSearchView searchView;
         static Func<Type, bool> currentFilter;
         static TooltipElement opendTooltip;
         static TypeDrawer()
@@ -34,51 +85,7 @@ namespace NaiveAPI.UITK
                 searchInfos[i++] = info;
             }
 
-            searchView = new SearchView<string, Type>(
-                (key) => searchInfos
-                .Where(info =>{ return currentFilter?.Invoke(info.type) ?? true;})
-                .OrderBy(info =>
-                    {
-                        var distance = info.searchName.LevenshteinDistance(key);
-                        var lenDiff = Math.Abs(info.searchName.Length - key.Length);
-                        if (lenDiff > 8)
-                            return info.searchName.Length + key.Length;
-                        if (info.searchName.StartsWith(key, StringComparison.OrdinalIgnoreCase))
-                            distance /= 2;
-                        if (info.searchName.Contains(key, StringComparison.OrdinalIgnoreCase))
-                            distance /= 2;
-                        return distance;
-                    })
-                .Select(info => info.type),
-                (type) =>
-                {
-                    var visual = new RSTypeNameElement(type);
-                    visual.style.paddingLeft = RSTheme.Current.LineHeight / 2f;
-                    visual.style.paddingRight = visual.style.paddingLeft;
-                    visual.style.borderBottomColor = RSTheme.Current.BackgroundColor2;
-                    visual.style.borderBottomWidth = 1;
-                    visual.style.flexShrink = 0;
-                    visual.style.unityTextAlign = TextAnchor.MiddleLeft;
-                    visual.RegisterCallback<PointerEnterEvent>(evt => { visual.style.backgroundColor = RSTheme.Current.BackgroundColor2; });
-                    visual.RegisterCallback<PointerLeaveEvent>(evt => { visual.style.backgroundColor = Color.clear; });
-
-                    var tooltipElement = new TooltipElement(visual);
-                    tooltipElement.style.backgroundColor = RSTheme.Current.BackgroundColor;
-                    tooltipElement.style.SetRS_Style(new RSBorder { anyColor = RSTheme.Current.FrontgroundColor, anyWidth = 1f });
-                    tooltipElement.style.paddingLeft = RSTheme.Current.VisualMargin;
-                    tooltipElement.style.paddingRight = RSTheme.Current.VisualMargin;
-                    tooltipElement.Add(new RSTextElement("{ } " + type.Namespace) { style = { unityTextAlign = TextAnchor.MiddleLeft } });
-                    tooltipElement.PopupDelay = 350;
-                    tooltipElement.RegisterPopupOnTarget(visual);
-                    tooltipElement.OnOpend += (_) => { opendTooltip?.Close(); opendTooltip = tooltipElement; };
-                    choicesVisual.Add(type, visual);
-                    visual.RegisterCallback<PointerDownEvent>(evt =>
-                    {
-                        callback?.Invoke(type);
-                        tooltipElement.Close();
-                    });
-                    return visual;
-                });
+            searchView = new();
         }
         RSTextField searchField;
         PopupElement choicesPopup;
@@ -101,7 +108,9 @@ namespace NaiveAPI.UITK
         protected override void CreateGUI()
         {
             choicesPopup = new();
-            choicesPopup.Add(searchView);
+            var scrollView = new RSScrollView();
+            scrollView.Add(searchView);
+            choicesPopup.Add(scrollView);
             choicesPopup.OnClosed += () =>
             {
                 callback -= onSelected;

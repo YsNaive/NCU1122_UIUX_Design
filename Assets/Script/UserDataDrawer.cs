@@ -5,15 +5,26 @@ using UnityEngine.UIElements;
 using SFB;
 using System.IO;
 using System;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 [CustomRuntimeDrawer(typeof(UserData))]
 public class UserDataDrawer : RuntimeDrawer<UserData>
 {
     public enum MemberCategory
     {
-        BasicInfo,
-        Contact,
-        Qualities,
+        BasicInfo = 0,
+        Contact = 1,
+        Qualities = 2,
+    }
+    static string GetCategoryText(MemberCategory category)
+    {
+        return category switch
+        {
+            MemberCategory.BasicInfo => RSLocalization.GetText(SR.userData_basicInfoGroup),
+            MemberCategory.Contact => RSLocalization.GetText(SR.userData_contactGroup),
+            MemberCategory.Qualities => RSLocalization.GetText(SR.userData_quilitiesGroup),
+            _ => "None",
+        };
     }
     VisualElement iconView;
     public override void RepaintDrawer()
@@ -26,6 +37,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
 
     VisualElement stageContainer;
     PageView<MemberCategory> pageView;
+    MemberCategory currentPage;
     StringDrawer[] stringDrawers = new StringDrawer[13];
     protected override void CreateGUI()
     {
@@ -33,12 +45,12 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         stageContainer.style.flexDirection = FlexDirection.Row;
         stageContainer.style.marginLeft = StyleKeyword.Auto;
         stageContainer.style.marginBottom = RSTheme.Current.IndentStep;
-        Add(stageContainer);
+
         var img = Resources.Load<Texture2D>("Image/banner");
         foreach (var item in typeof(MemberCategory).GetEnumValues())
         {
             var category = (MemberCategory)item;
-            RSTextElement btn = new RSTextElement(category.ToString());
+            RSTextElement btn = new RSTextElement(GetCategoryText(category));
             btn.style.width = 120;
             btn.style.height = 30;
             btn.style.unityTextAlign = TextAnchor.MiddleCenter;
@@ -56,11 +68,12 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         }
         Add(stageContainer);
 
-
+        var orgWidth = RSTheme.Current.LabelWidth;
+        RSTheme.Current.LabelWidth = 125;
         for (int i = 1; i < 13; i++)
         {
             var localIndex = i;
-            stringDrawers[localIndex] = new StringDrawer() { label = UserData.MemberNames[localIndex] };
+            stringDrawers[localIndex] = new StringDrawer() { label = RSLocalization.GetText(UserData.MemberNameKeys[localIndex]) };
             stringDrawers[localIndex].style.marginBottom = RSTheme.Current.VisualMargin;
             stringDrawers[localIndex].OnValueChanged += () =>
             {
@@ -68,6 +81,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
                 InvokeMemberValueChange(stringDrawers[localIndex]);
             };
         }
+        RSTheme.Current.LabelWidth = orgWidth;
         var iconViewContainer = new VisualElement();
         iconView = new VisualElement()
         {
@@ -78,9 +92,9 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
             }
         };
         iconView.style.backgroundColor = Color.white;
-        var selectIconBtn = new RSButton("Select", RSTheme.Current.HintColorSet, () =>
+        var selectIconBtn = new RSButton(RSLocalization.GetText(SR._select), RSTheme.Current.HintColorSet, () =>
         {
-            var pick = StandaloneFileBrowser.OpenFilePanel("Select Icon", "", new ExtensionFilter[] { new ExtensionFilter("Image", "jpg", "jpeg", "png") }, false);
+            var pick = StandaloneFileBrowser.OpenFilePanel(RSLocalization.GetText(SR._select), "", new ExtensionFilter[] { new ExtensionFilter("Image", "jpg", "jpeg", "png") }, false);
             if (pick.Length != 0)
             {
                 var pickedPath = pick[0];
@@ -116,6 +130,37 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         hor.Add(pageView);
         Add(hor);
         pageView.OpenOrCreatePage(MemberCategory.BasicInfo);
+        pageView.style.height = RSTheme.Current.LineHeight * 7f;
+        currentPage = MemberCategory.BasicInfo;
+        Action updatePageState = null;
+        var nextPage = new RSButton(RSLocalization.GetText(SR.userDataEdit_nextPage), RSTheme.Current.SuccessColorSet, () =>
+        {
+            int i = (int)currentPage;
+            currentPage = (MemberCategory)(i + 1);
+            pageView.OpenOrCreatePage(currentPage);
+            updatePageState();
+        });
+        var prevPage = new RSButton(RSLocalization.GetText(SR.userDataEdit_prevPage), RSTheme.Current.SuccessColorSet, () =>
+        {
+            int i = (int)currentPage;
+            currentPage = (MemberCategory)(i - 1);
+            pageView.OpenOrCreatePage(currentPage);
+            updatePageState();
+        });
+        updatePageState = () =>
+        {
+            prevPage.SetEnabled(false);
+            nextPage.SetEnabled(false);
+            if ((int)currentPage != 0)
+                prevPage.SetEnabled(true);
+            if ((int)currentPage != 2)
+                nextPage.SetEnabled(true);
+        };
+        updatePageState();
+        var nextPrevPageHor = new RSHorizontal() { style = { marginLeft = StyleKeyword.Auto} };
+        nextPrevPageHor.Add(prevPage);
+        nextPrevPageHor.Add(nextPage);
+        Add(nextPrevPageHor);
     }
 
 }

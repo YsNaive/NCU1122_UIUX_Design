@@ -51,9 +51,9 @@ namespace NaiveAPI.UITK
         public UnityObjectDrawer()
         {
             objRefPicker = new RSTextElement();
+            RSTheme.Current.ApplyFieldStyle(objRefPicker);
             objRefPicker.style.maxHeight = RSTheme.Current.LineHeight;
             objRefPicker.style.whiteSpace = WhiteSpace.NoWrap;
-            objRefPicker.style.SetRS_Style(RSTheme.Current.FieldStyle);
             objRefPicker.style.paddingRight = 0;
             objRefPicker.style.flexGrow = 1;
             (objRefPicker as INotifyValueChanged<string>).SetValueWithoutNotify("None");

@@ -8,11 +8,13 @@ namespace NaiveAPI.UITK
 {
     public class UIElementExtensionResource : ScriptableObject, ISerializationCallbackReceiver
     {
+        public const string SourceFileName = "UIElementExtensionResource";
+        public const string ResourceFolderGUID = "1d7f381a39e37624483edc51eb1cd3cb";
         public static UIElementExtensionResource Get {
             get
             {
-                if( instance == null)
-                    instance = Resources.Load<UIElementExtensionResource>("UIElementExtensionResource");
+                instance ??= Resources.Load<UIElementExtensionResource>(SourceFileName);
+                instance ??= CreateInstance<UIElementExtensionResource>();
                 return instance;
             }
         }
@@ -20,6 +22,7 @@ namespace NaiveAPI.UITK
 
         public SO_RSTheme DefaultTheme;
         public SO_RSTheme DarkTheme;
+        public SO_RSTheme LightTheme;
 
         public IEnumerable<string> IgnoreAssemblyName => m_IgnoreAssemblyName;
         public Dictionary<Type, DefaultDrawerSettings> DefaultDrawerSettings = new();
@@ -40,11 +43,11 @@ namespace NaiveAPI.UITK
         public IEnumerable<string> LanguageKeys => LanguageInfos.Select(info => info.key);
         public List<SO_RSLocalizationTable> PreloadLangeaueTable = new();
 
-        [SerializeField] List<string> m_IgnoreAssemblyName;
-        [SerializeField] private List<string> s_DefaultDrawerSettings_keys;
-        [SerializeField] private List<DefaultDrawerSettings> s_DefaultDrawerSettings_values;
-        [SerializeField] private string[] s_LanguageTextKeys;
-        [SerializeField] private string[] s_LanguageImageKeys;
+        [SerializeField] List<string> m_IgnoreAssemblyName = new();
+        [SerializeField] private List<string> s_DefaultDrawerSettings_keys = new();
+        [SerializeField] private List<DefaultDrawerSettings> s_DefaultDrawerSettings_values = new();
+        [SerializeField] private string[] s_LanguageTextKeys = new string[0];
+        [SerializeField] private string[] s_LanguageImageKeys = new string[0];
 
         public void OnBeforeSerialize()
         {
@@ -68,7 +71,8 @@ namespace NaiveAPI.UITK
             i = 0;
             foreach (var item in LanguageImageKeys)
                 s_LanguageImageKeys[i++] = item;
-            PreloadLangeaueTable = new HashSet<SO_RSLocalizationTable>(PreloadLangeaueTable).Where(value => value != null).ToList();
+            var set = new HashSet<SO_RSLocalizationTable>(PreloadLangeaueTable);
+            PreloadLangeaueTable = set.Where(m => m != null).ToList();
         }
         public void OnAfterDeserialize()
         {
@@ -84,6 +88,8 @@ namespace NaiveAPI.UITK
                 LanguageImageKeys.Add(item);
             s_LanguageImageKeys = null;
 
+            var set = new HashSet<SO_RSLocalizationTable>(PreloadLangeaueTable);
+            PreloadLangeaueTable = set.Where(m => m != null).ToList();
         }
         private void OnEnable()
         {

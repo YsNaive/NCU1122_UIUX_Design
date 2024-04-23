@@ -25,6 +25,22 @@ public class UserData
         nameof(SpecialExperience),
         nameof(FavoriteClasses),
     };
+    public static readonly string[] MemberNameKeys = new string[]
+    {
+        SR.userData_base64Icon,
+        SR.userData_name,
+        SR.userData_major,
+        SR.userData_career,
+        SR.userData_gender,
+        SR.userData_phoneNumber,
+        SR.userData_researchTopic,
+        SR.userData_contact,
+        SR.userData_skills,
+        SR.userData_hobbies,
+        SR.userData_graduatedSchool,
+        SR.userData_specialExperience,
+        SR.userData_favoriteClasses,
+    };
     public string[] stringValues = new string[13];
     public const int I_Base64Icon        = 0;
     public const int I_Name              = 1;
@@ -231,7 +247,6 @@ public class UserDataHandler
         int i=0;
         foreach (var data in Datas)
         {
-            Debug.Log("Save " + data.Name);
             DataHandler.SaveData(DataHandler.UserDataDir, $"{i++}.json", JsonUtility.ToJson(data));
         }
 #if UNITY_EDITOR

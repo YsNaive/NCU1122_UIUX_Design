@@ -12,7 +12,7 @@ namespace NaiveAPI.UITK
             style.backgroundColor = RSTheme.Current.BackgroundColor;
             style.SetRS_Style(new RSBorder(RSTheme.Current.BackgroundColor, 2));
             contentContainer.style.SetRS_Style(new RSPadding { any = 7 });
-            TabElement.style.SetRS_Style(RSTheme.Current.MainText);
+            RSTheme.Current.ApplyTextStyle(TabElement);
             TabElement.style.backgroundColor = RSTheme.Current.BackgroundColor2;
 
 

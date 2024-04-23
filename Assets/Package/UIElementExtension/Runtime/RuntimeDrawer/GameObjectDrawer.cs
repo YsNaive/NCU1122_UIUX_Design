@@ -28,7 +28,7 @@ namespace NaiveAPI.UITK
                 drawer.SetValue(component);
                 drawer.LayoutExpand();
                 drawer.style.marginTop = 2;
-                drawer.labelElement.style.letterSpacing = RSTheme.Current.MainText.size/4f;
+                drawer.labelElement.style.letterSpacing = RSTheme.Current.TextSize/4f;
                 drawer.contentContainer.style.paddingBottom = RSTheme.Current.LineHeight / 3f;
             }
         }

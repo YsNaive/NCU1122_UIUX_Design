@@ -13,49 +13,10 @@ MonoBehaviour:
   m_Name: DarkTheme
   m_EditorClassIdentifier: 
   Theme:
-    MainText:
-      m_flag: 29
-      m_FontAsset: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
-      m_FontStyle: 0
-      m_Size:
-        mode: 713
-        value: 16
-      m_Color: {r: 0.8862745, g: 0.8862745, b: 0.8862745, a: 1}
-      m_Anchor: 3
-      m_Wrap: 0
-      m_LetterSpacing:
-        mode: 585
-        value: 0
-      m_WordSpacing:
-        mode: 585
-        value: 0
-      m_ParagraphSpacing:
-        mode: 585
-        value: 0
-    LabelText:
-      m_flag: 76
-      m_FontAsset: {fileID: 0}
-      m_FontStyle: 0
-      m_Size:
-        mode: 713
-        value: 16
-      m_Color: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 1}
-      m_Anchor: 0
-      m_Wrap: 0
-      m_LetterSpacing:
-        mode: 585
-        value: 2
-      m_WordSpacing:
-        mode: 585
-        value: 0
-      m_ParagraphSpacing:
-        mode: 585
-        value: 0
-    FieldStyle:
-      m_flag: 1984
-      s_data:
-        s_data: ff0f0000c00700004000000005000000c9030000f4010000c9030000f40100008000000018000000ffffffff030000000001000005000000ff333030ff33303000020000ff000000ff434241ff434241ff434241ff43424164000000640000006400000064000000000400000f000000c9020000f4010000c9020000f4010000c9020000f4010000c9020000f4010000
-        s_objData: []
+    TextFont: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
+    FieldBackground: {fileID: 0}
+    TextSize: 15
+    LabelTextSize: 20
     LineHeight: 20
     LabelWidth: 180
     IndentStep: 12

@@ -44,7 +44,7 @@ namespace NaiveAPI.UITK
         protected override void CreateGUI()
         {
             field = new RSTextElement("-");
-            field.style.SetRS_Style(RSTheme.Current.FieldStyle);
+            RSTheme.Current.ApplyFieldStyle(field);
             field.focusable = false;
             field.style.flexGrow = 1;
             field.style.unityTextAlign = TextAnchor.MiddleLeft;

@@ -57,7 +57,7 @@ namespace NaiveAPI.UITK
                 _updatePickingColor();
             }
         }
-        static Texture2D squarePickingAreaTexture;
+        static Texture2D squarePickingAreaTexture = null;
         public Color pickingColor
         {
             get => m_pickingColor;

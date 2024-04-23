@@ -69,7 +69,8 @@ namespace NaiveAPI.UITK
             toggle = new Toggle();
             toggle.style.ClearMarginPadding();
             toggle.style.minHeight = RSTheme.Current.LineHeight;
-            toggle.style.SetRS_Style(RSTheme.Current.MainText);
+            toggle.style.color = RSTheme.Current.NormalColorSet.TextColor;
+            toggle.style.fontSize = RSTheme.Current.TextSize;
             var checkMark = toggle.Q("unity-checkmark");
             checkMark.style.SetRS_Style(new RSBorder(RSTheme.Current.FrontgroundColor, 1.5f));
             checkMark.style.backgroundColor = RSTheme.Current.BackgroundColor2;
