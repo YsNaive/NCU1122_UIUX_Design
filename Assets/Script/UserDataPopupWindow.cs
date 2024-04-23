@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class UserDataPopupWindow : RuntimeWindow
 {
-    VisualElement dataContainer;
+    VisualElement dataContainer, prevPage, nextPage;
     public UserDataPopupWindow()
     {
         Dragable = false;
@@ -87,14 +87,55 @@ public class UserDataPopupWindow : RuntimeWindow
         RSBorder.op_temp.anyColor = RSTheme.Current.BackgroundColor2;
         RSBorder.op_temp.ApplyOn(icon);
 
-        basicInfoContainer.Add(new RSTextElement($"Major : {data.Major}"));
-        basicInfoContainer.Add(new RSTextElement($"Career : {data.Career}"));
-        basicInfoContainer.Add(new RSTextElement($"Gender : {data.Gender}"));
+        VisualElement infoContainer = new VisualElement();
+
+        basicInfoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_major) + "¡G", data.Major));
+        basicInfoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_career) + "¡G", data.Career));
+        basicInfoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_gender) + "¡G", data.Gender));
+        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_phoneNumber) + "¡G", data.PhoneNumber));
+        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_researchTopic) + "¡G", data.ResearchTopic));
+        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_contact) + "¡G", data.Contact));
+        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_skills) + "¡G", data.Skills));
+        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_hobbies) + "¡G", data.Hobbies));
+        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_graduatedSchool) + "¡G", data.GraduatedSchool));
+        infoContainer.Add(new LabelDrawer(RSLocalization.GetText(SR.userData_favoriteClasses) + "¡G", data.FavoriteClasses));
 
 
         hor.Add(icon);
         hor.Add(basicInfoContainer);
         window.dataContainer.Add(hor);
+        window.dataContainer.Add(infoContainer);
+    }
+}
 
+
+public class LabelDrawer : RuntimeDrawer<string>
+{
+    public string text { get => textElement.text; set => textElement.text = value; }
+    private RSTextElement textElement;
+
+    public LabelDrawer(string label) : base()
+    {
+        this.label = label;
+    }
+
+    public LabelDrawer(string label, string text) : this(label)
+    {
+        textElement.text = text;
+    }
+
+    public override void RepaintDrawer()
+    {
+        textElement.text = value;
+    }
+
+    protected override void CreateGUI()
+    {
+        style.marginTop = 10;
+        style.paddingLeft = 0;
+
+        textElement = new RSTextElement();
+
+        Add(textElement);
     }
 }

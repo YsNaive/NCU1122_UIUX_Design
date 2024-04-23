@@ -22,13 +22,43 @@ MonoBehaviour:
     - page.editUser.editing
     - page.editUser.creating
     - page.editUser
+    - userData.career
+    - userData.name
+    - page.onlineHelp
+    - page.documentation
+    - page.userData
+    - userData.major
+    - userData.gender
+    - userData.phoneNumber
+    - userData.researchTopic
+    - userData.contact
+    - userData.skills
+    - userData.hobbies
+    - userData.graduatedSchool
+    - userData.specialExperience
+    - userData.favoriteClasses
     s_values:
     - "\u4E3B\u9801"
     - "\u7DE8\u8F2F\\n\u4E3B\u984C"
     - "\u4F7F\u7528\u8005\u4ECB\u9762"
     - "\u7DE8\u8F2F\u8CC7\u6599"
     - "\u65B0\u589E\u8CC7\u6599"
+    - "\u7DE8\u8F2F\\n\u8CC7\u6599"
+    - "\u5DE5\u3000\u3000\u4F5C"
+    - "\u59D3\u3000\u3000\u540D"
+    - "\u7DDA\u4E0A\\n\u5E6B\u52A9"
+    - "\u8AAA\u660E"
     - "\u7528\u6236\\n\u8CC7\u6599"
+    - "\u7CFB\u3000\u3000\u7D1A"
+    - "\u6027\u3000\u3000\u5225"
+    - "\u96FB\u8A71\u865F\u78BC"
+    - "\u7814\u7A76\u4E3B\u984C"
+    - "\u9023\u7D61\u65B9\u5F0F"
+    - "\u5C08\u3000\u3000\u9577"
+    - "\u611B\u3000\u3000\u597D"
+    - "\u7562\u696D\u5B78\u6821"
+    - "\u7279\u6B8A\u7D93\u9A57"
+    - "\u559C\u611B\u5C08\u79D1"
   SpriteTable:
     s_keys: []
     s_values: []

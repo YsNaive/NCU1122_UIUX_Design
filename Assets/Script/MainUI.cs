@@ -3,10 +3,11 @@ using SingularityGroup.HotReload;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using Random = UnityEngine.Random;
 
 public class MainUI : MonoBehaviour
@@ -18,6 +19,8 @@ public class MainUI : MonoBehaviour
         EditUser,
         EditTheme,
         ColorPlayground,
+        Documnetation,
+        OnlineHelp
     }
     public static (string text, FontAsset font) GetPageTextInfo(Page page)
     {
@@ -28,8 +31,10 @@ public class MainUI : MonoBehaviour
             Page.EditUser => RSLocalization.GetTextAndFont(SR.page_editUser),
             Page.EditTheme => RSLocalization.GetTextAndFont(SR.page_editTheme),
             Page.ColorPlayground => ("Color\nTest", null),
+            Page.Documnetation => RSLocalization.GetTextAndFont(SR.page_documentation),
+            Page.OnlineHelp => RSLocalization.GetTextAndFont(SR.page_onlineHelp),
             _ => throw new System.NotImplementedException(),
-        };
+        }; ;
     }
 
     VisualElement root;
@@ -60,6 +65,7 @@ public class MainUI : MonoBehaviour
         _InitEditUserPage();
         _InitEditThemePage();
         _InitColorPlayGround();
+        _InitDocumentation();
         _InitPageButton();
 
         root.Add(toolBarContainer);
@@ -151,10 +157,22 @@ public class MainUI : MonoBehaviour
     void _InitUserDataPage()
     {
         pageView.OpenOrCreatePage(Page.ViewUser);
-        SearchView<string, UserData> searchView = new ((searchKey) =>
+        SearchView<string, UserData> searchView = new((searchKey) =>
         {
-            // implement Search
-            return UserDataHandler.Datas;
+            return UserDataHandler.Datas.OrderBy((v) =>
+            {
+                int distance = int.MaxValue;
+
+                foreach (string s in v.stringValues)
+                {
+                    if (!s.Contains(searchKey))
+                    {
+                        distance++;
+                    }
+                }
+
+                return distance;
+            });
         },
         data =>
         {
@@ -168,12 +186,91 @@ public class MainUI : MonoBehaviour
                     backgroundImage = data.IconTexture,
                 }
             };
+            icon.style.marginRight = 20;
+
+            VisualElement simpleInfoVisual = new VisualElement();
+            simpleInfoVisual.style.justifyContent = Justify.SpaceAround;
+            simpleInfoVisual.style.flexGrow = 1;
+
+            RSTextElement nameElement = new RSTextElement(RSLocalization.GetText(SR.userData_name) + "¡G" + data.Name);
+            RSTextElement majorElement = new RSTextElement(RSLocalization.GetText(SR.userData_major) + "¡G" + data.Major);
+            RSTextElement skillsElement = new RSTextElement(RSLocalization.GetText(SR.userData_skills) + "¡G" + data.Skills);
+
+            simpleInfoVisual.Add(nameElement);
+            simpleInfoVisual.Add(majorElement);
+            simpleInfoVisual.Add(skillsElement);
+
             hor.Add(icon);
+            hor.Add(simpleInfoVisual);
+            hor.RegisterCallback<PointerEnterEvent>(evt => hor.style.backgroundColor = RSTheme.Current.BackgroundColor2);
             hor.RegisterCallback<PointerDownEvent>(evt => UserDataPopupWindow.Open(data));
+            hor.RegisterCallback<PointerLeaveEvent>(evt => hor.style.backgroundColor = RSTheme.Current.BackgroundColor);
             return hor;
         });
         searchView.Search("");
         var scrollView = new RSScrollView();
+
+        VisualElement topElement = new VisualElement();
+        topElement.style.flexDirection = FlexDirection.Row;
+
+        VisualElement searchContainer = new VisualElement();
+        searchContainer.style.width = Length.Percent(30);
+        searchContainer.style.flexDirection = FlexDirection.Row;
+        searchContainer.style.backgroundColor = RSTheme.Current.FieldStyle.Background.tintColor;
+        searchContainer.style.alignItems = Align.Center;
+        searchContainer.style.SetRS_Style(RSRadius.Pixel(10));
+        searchContainer.style.left = StyleKeyword.Auto;
+        searchContainer.style.right = 0;
+        searchContainer.style.marginLeft = StyleKeyword.Auto;
+        searchContainer.style.marginRight = 10;
+        searchContainer.style.marginTop = 5;
+        searchContainer.style.marginBottom = 5;
+
+        RSTextField searchField = new RSTextField("", (evt) =>
+        {
+            searchView.Search(evt.newValue);
+        });
+        searchField.value = "·j´M";
+        searchField.style.flexGrow = 1;
+        searchField.style.height = 40;
+        searchField.style.marginLeft = 10;
+        searchField.style.marginRight = 10;
+        searchField[0].style.backgroundImage = null;
+        searchField[0].style.SetRS_Style(new RSBorder(Color.clear, 0));
+        searchField[0].style.fontSize = RSTheme.Current.FieldStyle.Text.size * 1.5f;
+
+        searchField.RegisterCallback<FocusInEvent>((evt) =>
+        {
+            if (searchField.value == "·j´M")
+            {
+                searchField.SetValueWithoutNotify("");
+            }
+        });
+
+        searchField.RegisterCallback<FocusOutEvent>((evt) =>
+        {
+            if (searchField.value == "")
+            {
+                searchField.SetValueWithoutNotify("·j´M");
+            }
+        });
+
+        VisualElement image = new VisualElement();
+
+        image.style.backgroundImage = Resources.Load<Texture2D>("Image/search_white");
+        image.style.width = 30;
+        image.style.height = 30;
+        image.style.marginTop = 5;
+        image.style.marginBottom = 5;
+        image.style.marginLeft = 10;
+
+        searchContainer.Add(image);
+        searchContainer.Add(searchField);
+
+        topElement.Add(searchContainer);
+
+        pageView.Add(topElement);
+
         scrollView.Add(searchView);
         pageView.Add(scrollView);
     }
@@ -380,14 +477,18 @@ public class MainUI : MonoBehaviour
             hor.Add(item);
         pageView.Add(hor);
     }
+    void _InitDocumentation()
+    {
+        pageView.OpenOrCreatePage(Page.Documnetation);
+    }
     void _InitPageButton()
     {
-        foreach(var pair in pageView.pageTable)
+        foreach (var pair in pageView.pageTable)
         {
             var localKey = pair.Key;
             var textInfo = GetPageTextInfo(localKey);
             RSButton button = new RSButton(textInfo.text, () => { pageView.OpenPage(localKey); });
-            if(textInfo.font != null)
+            if (textInfo.font != null)
                 button.style.unityFontDefinition = new FontDefinition() { fontAsset = textInfo.font };
             button.style.unityTextAlign = TextAnchor.MiddleCenter;
             button.style.width = RSTheme.Current.LineHeight * 2f;
@@ -398,5 +499,20 @@ public class MainUI : MonoBehaviour
             button.style.marginRight = margin;
             toolBarContainer.Add(button);
         }
+
+
+        var textAndFont = RSLocalization.GetTextAndFont(SR.page_onlineHelp);
+
+        RSButton btOnlineHelp = new RSButton(textAndFont.text, () => Application.OpenURL("https://ysnaive.github.io/NCU1122_UIUX_Design/"));
+        if (textAndFont.font != null)
+            btOnlineHelp.style.unityFontDefinition = new FontDefinition() { fontAsset = textAndFont.font };
+        btOnlineHelp.style.unityTextAlign = TextAnchor.MiddleCenter;
+        btOnlineHelp.style.width = RSTheme.Current.LineHeight * 2f;
+        btOnlineHelp.style.height = RSTheme.Current.LineHeight * 2f;
+        var margin1 = RSTheme.Current.LineHeight / 3;
+        btOnlineHelp.style.marginLeft = margin1;
+        btOnlineHelp.style.marginTop = margin1;
+        btOnlineHelp.style.marginRight = margin1;
+        toolBarContainer.Add(btOnlineHelp);
     }
 }

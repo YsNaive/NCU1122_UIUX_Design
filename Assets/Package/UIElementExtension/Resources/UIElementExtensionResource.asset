@@ -146,15 +146,31 @@ MonoBehaviour:
     - NextPosition
     - NextSize
   s_LanguageTextKeys:
+  - page.main
+  - page.main.title
+  - page.userData
+  - page.editTheme
+  - page.editUser
+  - page.editUser.editing
+  - page.editUser.creating
+  - userData.name
+  - userData.base64Icon
+  - userData.major
+  - userData.career
+  - userData.gender
+  - userData.phoneNumber
+  - userData.researchTopic
+  - userData.contact
+  - userData.skills
+  - userData.hobbies
+  - userData.graduatedSchool
+  - userData.specialExperience
+  - userData.favoriteClasses
   - naiveapi.name
   - naiveapi.icon
   - naiveapi.label
   - naiveapi.colorPicker
   - naiveapi.cancel
-  - page.main
-  - page.main.title
-  - page.editTheme
-  - page.editUser
-  - page.editUser.editing
-  - page.editUser.creating
+  - page.documentation
+  - page.onlineHelp
   s_LanguageImageKeys: []
