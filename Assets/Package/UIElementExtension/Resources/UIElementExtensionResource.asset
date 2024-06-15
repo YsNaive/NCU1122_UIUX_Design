@@ -71,4 +71,8 @@ MonoBehaviour:
   - naiveapi.label
   - naiveapi.colorPicker
   - naiveapi.cancel
+  - page.aboutUs
+  - theme.setToDefaultBlue
+  - theme.setToDefaultCold
+  - theme.setToDefaultWarm
   s_LanguageImageKeys: []

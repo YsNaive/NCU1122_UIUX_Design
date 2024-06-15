@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b77f1dc13f4b51d46b58acd7cd0f3cab, type: 3}
+  m_Name: ColdTheme
+  m_EditorClassIdentifier: 
+  Theme:
+    TextFont: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
+    FieldBackground: {fileID: 0}
+    TextSize: 15
+    LabelTextSize: 20
+    LineHeight: 20
+    LabelWidth: 180
+    IndentStep: 12
+    VisualMargin: 4
+    NormalColorSet:
+      colors:
+      - {r: 0.76056147, g: 0.7859056, b: 0.84505737, a: 1}
+      - {r: 0.11654504, g: 0.38272825, b: 0.9150943, a: 1}
+      - {r: 0.19704708, g: 0.43312544, b: 0.9063397, a: 1}
+      - {r: 0.27754912, g: 0.4835226, b: 0.89758503, a: 1}
+      - {r: 0.6800594, g: 0.73550844, b: 0.85381204, a: 1}
+      - {r: 0.76056147, g: 0.7859056, b: 0.84505737, a: 1}
+      - {r: 0.8410635, g: 0.83630276, b: 0.83630276, a: 1}
+    SuccessColorSet:
+      colors:
+      - {r: 0.7250548, g: 0.79218835, b: 0.7195102, a: 1}
+      - {r: 0.15335974, g: 0.24528301, b: 0.14022782, a: 1}
+      - {r: 0.21597694, g: 0.30518502, b: 0.20367606, a: 1}
+      - {r: 0.27859414, g: 0.365087, b: 0.2671243, a: 1}
+      - {r: 0.6624376, g: 0.7322863, b: 0.656062, a: 1}
+      - {r: 0.7250548, g: 0.79218835, b: 0.7195102, a: 1}
+      - {r: 0.787672, g: 0.8520903, b: 0.78295845, a: 1}
+    WarningColorSet:
+      colors:
+      - {r: 0.92981684, g: 0.8842259, b: 0.76390284, a: 1}
+      - {r: 0.3056603, g: 0.25401422, b: 0.09169806, a: 1}
+      - {r: 0.36074916, g: 0.30963752, b: 0.15102771, a: 1}
+      - {r: 0.415838, g: 0.3652608, b: 0.21035737, a: 1}
+      - {r: 0.87472796, g: 0.8286027, b: 0.7045732, a: 1}
+      - {r: 0.92981684, g: 0.8842259, b: 0.76390284, a: 1}
+      - {r: 0.98490566, g: 0.9398492, b: 0.8232325, a: 1}
+    DangerColorSet:
+      colors:
+      - {r: 0.9050409, g: 0.79103416, b: 0.7893577, a: 1}
+      - {r: 0.3283019, g: 0.12458635, b: 0.10344606, a: 1}
+      - {r: 0.37797797, g: 0.18198925, b: 0.16252545, a: 1}
+      - {r: 0.427654, g: 0.23939216, b: 0.22160482, a: 1}
+      - {r: 0.8553648, g: 0.7336313, b: 0.7302784, a: 1}
+      - {r: 0.9050409, g: 0.79103416, b: 0.7893577, a: 1}
+      - {r: 0.9547169, g: 0.8484371, b: 0.8484371, a: 1}
+    HintColorSet:
+      colors:
+      - {r: 0.81603587, g: 0.86852723, b: 0.9151594, a: 1}
+      - {r: 0.098718405, g: 0.13522987, b: 0.17735851, a: 1}
+      - {r: 0.15185301, g: 0.18954818, b: 0.2320104, a: 1}
+      - {r: 0.20498762, g: 0.24386647, b: 0.28666228, a: 1}
+      - {r: 0.7629012, g: 0.81420887, b: 0.8605074, a: 1}
+      - {r: 0.81603587, g: 0.86852723, b: 0.9151594, a: 1}
+      - {r: 0.8691705, g: 0.92284554, b: 0.96981126, a: 1}
+    Icon:
+      arrow: {fileID: 21300000, guid: bc998097fd7822e4783d4fd28611ee23, type: 3}
+      earth: {fileID: 1633540971, guid: 570aec0659a87b84ea50893a86e6f025, type: 3}
+      disableEarth: {fileID: 1371351049, guid: 570aec0659a87b84ea50893a86e6f025, type: 3}
+      eyedropper: {fileID: 892143068, guid: 570aec0659a87b84ea50893a86e6f025, type: 3}
+    CSharp:
+      cSharpIcon: {fileID: 1212688963, guid: a2667ae9ac98d834b984c486493bda74, type: 3}
+      classIcon: {fileID: 216286787, guid: a2667ae9ac98d834b984c486493bda74, type: 3}
+      structIcon: {fileID: 1665532346, guid: a2667ae9ac98d834b984c486493bda74, type: 3}
+      interfaceIcon: {fileID: 610410820, guid: a2667ae9ac98d834b984c486493bda74, type: 3}
+      enumIcon: {fileID: 2090278032, guid: a2667ae9ac98d834b984c486493bda74, type: 3}
+      methodIcon: {fileID: 0}
+      fieldIcon: {fileID: -1690756532, guid: a2667ae9ac98d834b984c486493bda74, type: 3}
+      propertyIcon: {fileID: -1488979421, guid: a2667ae9ac98d834b984c486493bda74, type: 3}
+      methodColor: {r: 0.89, g: 0.79, b: 0.35, a: 1}
+      parameterColor: {r: 0.65, g: 0.85, b: 0.95, a: 1}
+      classColor: {r: 0.34090424, g: 0.7169812, b: 0.62188125, a: 1}
+      structColor: {r: 0.5618014, g: 0.8113208, b: 0.57816327, a: 1}
+      prefixColor: {r: 0.4, g: 0.56, b: 0.82, a: 1}
+      strColor: {r: 0.79, g: 0.56, b: 0.36, a: 1}
+      numberColor: {r: 0.6, g: 0.8, b: 0.6, a: 1}
+      controlColor: {r: 0.84, g: 0.45, b: 0.61, a: 1}
+      commentsColor: {r: 0.4, g: 0.6, b: 0.35, a: 1}
+      backgroundColor: {r: 0.08, g: 0.08, b: 0.09, a: 1}
+      textColor: {r: 0.85, g: 0.85, b: 0.85, a: 1}

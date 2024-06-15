@@ -20,6 +20,7 @@ public class SR : RSLocalizationKeyProvider
     public const string page_editUser_edit = "page.editUser.editing";
     public const string page_editUser_create = "page.editUser.creating";
     public const string page_documentation = "page.documentation";
+    public const string page_aboutUs = "page.aboutUs";
     public const string page_onlineHelp = "page.onlineHelp";
 
 
@@ -47,6 +48,8 @@ public class SR : RSLocalizationKeyProvider
 
     public const string theme_setToDefaultDark = "theme.setToDefaultDark";
     public const string theme_setToDefaultLight = "theme.setToDefaultLight";
+    public const string theme_setToDefaultWarm = "theme.setToDefaultWarm";
+    public const string theme_setToDefaultCold = "theme.setToDefaultCold";
     public const string theme_normalColorSet = "theme.normalColorSet";
     public const string theme_successColorSet = "theme.successColorSet";
     public const string theme_dangerColorSet = "theme.dangerColorSet";
@@ -68,6 +71,7 @@ public class SR : RSLocalizationKeyProvider
             yield return page_editUser_edit;
             yield return page_editUser_create;
             yield return page_documentation;
+            yield return page_aboutUs;
             yield return page_onlineHelp;
             yield return userData_basicInfoGroup;
             yield return userData_contactGroup;
@@ -87,6 +91,8 @@ public class SR : RSLocalizationKeyProvider
             yield return userData_favoriteClasses;
             yield return theme_setToDefaultDark;
             yield return theme_setToDefaultLight;
+            yield return theme_setToDefaultWarm;
+            yield return theme_setToDefaultCold;
             yield return theme_normalColorSet;
             yield return theme_successColorSet;
             yield return theme_dangerColorSet;

@@ -276,6 +276,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4007ded6b6f0f4d97d30e00b0a7fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WarmTheme: {fileID: 11400000, guid: 38e65a781efa72042b60f68ecc299573, type: 2}
+  ColdTheme: {fileID: 11400000, guid: 22672a820f164c349bddc95769f0eb29, type: 2}
+  isCreating: 1
+  editUserPageState: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

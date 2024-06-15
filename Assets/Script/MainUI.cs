@@ -12,6 +12,8 @@ using Random = UnityEngine.Random;
 
 public class MainUI : MonoBehaviour
 {
+    public SO_RSTheme WarmTheme, ColdTheme;
+
     public enum Page
     {
         Main,
@@ -20,6 +22,7 @@ public class MainUI : MonoBehaviour
         EditTheme,
         ColorPlayground,
         Documnetation,
+        AboutUs,
         OnlineHelp
     }
     public static string GetPageTextKey(Page page)
@@ -32,6 +35,7 @@ public class MainUI : MonoBehaviour
             Page.EditTheme => SR.page_editTheme,
             Page.ColorPlayground => "Color\nTest",
             Page.Documnetation => SR.page_documentation,
+            Page.AboutUs => SR.page_aboutUs,
             Page.OnlineHelp => SR.page_onlineHelp,
             _ => throw new System.NotImplementedException(),
         }; ;
@@ -64,8 +68,9 @@ public class MainUI : MonoBehaviour
         _InitUserDataPage();
         _InitEditUserPage();
         _InitEditThemePage();
-        _InitColorPlayGround();
+        //_InitColorPlayGround();
         _InitDocumentation();
+        _InitAboutUs();
         _InitPageButton();
 
         root.Add(toolBarContainer);
@@ -364,9 +369,27 @@ public class MainUI : MonoBehaviour
             _InitUI();
             pageView.OpenPage(Page.EditTheme);
         });
+        setToDefaultLight.style.marginRight = 10;
         setToDefaultLight.style.fontSize = RSTheme.Current.LabelTextSize;
+        RSButton setToDefaultWarm = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultWarm), RSTheme.Current.HintColorSet, () =>
+        {
+            RSTheme.Current = WarmTheme.Theme.DeepCopy();
+            _InitUI();
+            pageView.OpenPage(Page.EditTheme);
+        });
+        setToDefaultWarm.style.marginRight = 10;
+        setToDefaultWarm.style.fontSize = RSTheme.Current.LabelTextSize;
+        RSButton setToDefaultCold = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultCold), RSTheme.Current.HintColorSet, () =>
+        {
+            RSTheme.Current = ColdTheme.Theme.DeepCopy();
+            _InitUI();
+            pageView.OpenPage(Page.EditTheme);
+        });
+        setToDefaultCold.style.fontSize = RSTheme.Current.LabelTextSize;
         defaultHor.Add(setToDefaultDark);
         defaultHor.Add(setToDefaultLight);
+        defaultHor.Add(setToDefaultWarm);
+        defaultHor.Add(setToDefaultCold);
         pageView.Add(defaultHor);
 
         var scrollView = new RSScrollView();
@@ -472,6 +495,10 @@ public class MainUI : MonoBehaviour
     {
         pageView.OpenOrCreatePage(Page.Documnetation);
     }
+    void _InitAboutUs()
+    {
+        pageView.OpenOrCreatePage(Page.AboutUs);
+    }
     RSButton _CreatePageButton(string key)
     {
         var textInfo = RSLocalization.GetTextAndFont(key);
@@ -506,6 +533,7 @@ public class MainUI : MonoBehaviour
         var bottomArea = new VisualElement { style = { marginTop = StyleKeyword.Auto } };
         bottomArea.Add(btOnlineHelp);
         bottomArea.Add(toolBarContainer.Q(Page.Documnetation.ToString()));
+        bottomArea.Add(toolBarContainer.Q(Page.AboutUs.ToString()));
         toolBarContainer.Add(bottomArea);
     }
 
