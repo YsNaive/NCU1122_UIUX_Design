@@ -111,9 +111,9 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         pageView.OpenOrCreatePage(MemberCategory.BasicInfo);
         pageView.Add(stringDrawers[UserData.I_Name]);
         pageView.Add(stringDrawers[UserData.I_Major]);
+        pageView.Add(stringDrawers[UserData.I_Career]);
         pageView.Add(stringDrawers[UserData.I_Gender]);
         pageView.Add(stringDrawers[UserData.I_GraduatedSchool]);
-        pageView.Add(stringDrawers[UserData.I_ResearchTopic]);
 
         pageView.OpenOrCreatePage(MemberCategory.Contact);
         pageView.Add(stringDrawers[UserData.I_PhoneNumber]);
@@ -122,6 +122,7 @@ public class UserDataDrawer : RuntimeDrawer<UserData>
         pageView.OpenOrCreatePage(MemberCategory.Qualities);
         pageView.Add(stringDrawers[UserData.I_Hobbies]);
         pageView.Add(stringDrawers[UserData.I_FavoriteClasses]);
+        pageView.Add(stringDrawers[UserData.I_ResearchTopic]);
         pageView.Add(stringDrawers[UserData.I_Skills]);
         pageView.Add(stringDrawers[UserData.I_SpecialExperience]);
 

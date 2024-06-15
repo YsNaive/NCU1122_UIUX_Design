@@ -90,9 +90,10 @@ public class UserDataPopupWindow : RuntimeWindow
 
         VisualElement infoContainer = new VisualElement();
 
+        basicInfoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_name) + "¡G", data.Name));
         basicInfoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_major) + "¡G", data.Major));
-        basicInfoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_career) + "¡G", data.Career));
         basicInfoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_gender) + "¡G", data.Gender));
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_career) + "¡G", data.Career));
         infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_phoneNumber) + "¡G", data.PhoneNumber));
         infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_researchTopic) + "¡G", data.ResearchTopic));
         infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_contact) + "¡G", data.Contact));
@@ -100,7 +101,7 @@ public class UserDataPopupWindow : RuntimeWindow
         infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_hobbies) + "¡G", data.Hobbies));
         infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_graduatedSchool) + "¡G", data.GraduatedSchool));
         infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_favoriteClasses) + "¡G", data.FavoriteClasses));
-
+        infoContainer.Add(new UserDataMemberElement(RSLocalization.GetText(SR.userData_specialExperience) + "¡G", data.SpecialExperience));
 
         hor.Add(icon);
         hor.Add(basicInfoContainer);

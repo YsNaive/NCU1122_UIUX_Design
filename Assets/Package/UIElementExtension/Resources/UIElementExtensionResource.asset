@@ -15,152 +15,34 @@ MonoBehaviour:
   DefaultTheme: {fileID: 11400000, guid: 353b44d16e4cc6f42a676f2c13784341, type: 2}
   DarkTheme: {fileID: 11400000, guid: 353b44d16e4cc6f42a676f2c13784341, type: 2}
   LightTheme: {fileID: 11400000, guid: f8107e741bccaee40a0212764d6baf9a, type: 2}
-  LanguageInfos:
-  - key: en
-    name: English
-    icon: {fileID: 0}
-  - key: zh-CHT
-    name: "\u7E41\u9AD4\u4E2D\u6587"
-    icon: {fileID: 0}
+  LanguageInfos: []
   DefaultLanguage: zh-CHT
   CurrentLanguage: zh-CHT
   PreloadLangeaueTable:
   - {fileID: 11400000, guid: dd25463c532db134b917c97ee4d9bf0a, type: 2}
   - {fileID: 11400000, guid: a735bcb1843c16b49aed9bb89a671560, type: 2}
   - {fileID: 11400000, guid: 0259b2b204fc544429a948ed1e90fdbe, type: 2}
-  m_IgnoreAssemblyName:
-  - asset-store-tools-editor
-  - Bee.BeeDriver
-  - ExCSS.Unity
-  - BeeBuildProgramCommon.Data
-  - log4net
-  - Mono.Posix
-  - Mono.Security
-  - PlayerBuildProgramLibrary.Data
-  - PsdPlugin
-  - ReportGeneratorMerged
-  - ScriptCompilationBuildProgram.Data
-  - Unity.InternalAPIEditorBridge.001
-  - Unity.InternalAPIEditorBridge.005
-  - Unity.InternalAPIEngineBridge.001
-  - Unity.EditorCoroutines.Editor
-  - Unity.CompilationPipeline.Common
-  - Unity.CollabProxy.Editor
-  - Unity.Burst.Unsafe
-  - Unity.Burst.Editor
-  - Unity.Burst.CodeGen
-  - Unity.Burst.Cecil.Rocks
-  - Unity.Burst.Cecil.Pdb
-  - Unity.Burst.Cecil
-  - Unity.Burst.Cecil.Mdb
-  - Unity.Burst
-  - Unity.2D.Tilemap.Extras.Editor
-  - Unity.2D.Tilemap.Extras
-  - Unity.2D.Tilemap.Editor
-  - Unity.2D.SpriteShape.Runtime
-  - Unity.2D.SpriteShape.Editor
-  - Unity.2D.Sprite.Editor
-  - Unity.2D.Psdimporter.Editor
-  - Unity.2D.PixelPerfect.Editor
-  - Unity.2D.PixelPerfect
-  - Unity.VisualStudio.Editor
-  - Unity.VisualScripting.YamlDotNet
-  - Unity.VisualScripting.TextureAssets
-  - Unity.VisualScripting.State.Editor
-  - Unity.VisualScripting.State
-  - Unity.VisualScripting.Shared.Editor
-  - Unity.VisualScripting.SettingsProvider.Editor
-  - Unity.VisualScripting.IonicZip
-  - Unity.VisualScripting.Flow.Editor
-  - Unity.VisualScripting.Flow
-  - Unity.VisualScripting.Core.Editor
-  - Unity.VisualScripting.Core
-  - Unity.VisualScripting.Antlr3.Runtime
-  - Unity.Timeline
-  - Unity.Timeline.Editor
-  - Unity.TextMeshPro.Editor
-  - Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection
-  - Unity.TestTools.CodeCoverage.Editor.OpenCover.Model
-  - Unity.TestTools.CodeCoverage.Editor
-  - Unity.Settings.Editor
-  - Unity.Rider.Editor
-  - Unity.PlasticSCM.Editor
-  - Unity.Plastic.Newtonsoft.Json
-  - Unity.Plastic.Antlr3.Runtime
-  - Unity.Mathematics.Editor
-  - Unity.Performance.Profile-Analyzer.Editor
-  - UnityEngine.CrashReportingModule
-  - UnityEditor.UIBuilderModule
-  - UnityEditor.UnityConnectModule
-  - UnityEngine.AccessibilityModule
-  - UnityEngine.AIModule
-  - UnityEngine.AndroidJNIModule
-  - UnityEngine.PerformanceReportingModule
-  - UnityEngine.NVIDIAModule
-  - UnityEngine.LocalizationModule
-  - UnityEngine.GameCenterModule
-  - UnityEngine.DirectorModule
-  - UnityEngine.DSPGraphModule
-  - UnityEngine.UnityWebRequestWWWModule
-  - UnityEngine.UnityWebRequestTextureModule
-  - UnityEngine.UnityWebRequestModule
-  - UnityEngine.UnityWebRequestAudioModule
-  - UnityEngine.UnityWebRequestAssetBundleModule
-  - unityplastic
-  - UnityEngine.WindModule
-  - UnityEngine.XRModule
-  - UnityEngine.VRModule
-  - UnityEngine.VirtualTexturingModule
-  - UnityEngine.VideoModule
-  - UnityEngine.VFXModule
-  - UnityEngine.VehiclesModule
-  s_DefaultDrawerSettings_keys:
-  - UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-    PublicKeyToken=null
-  - NaiveAPI.UITK.RuntimeWindow, Naive.UIElementExtension.Runtime, Version=0.0.0.0,
-    Culture=neutral, PublicKeyToken=null
-  s_DefaultDrawerSettings_values:
-  - AffectOnDerived: 1
-    Icon: {fileID: 0}
-    HideMember: []
-    ExposeMember:
-    - localPosition
-    - eulerAngles
-    - localScale
-  - AffectOnDerived: 1
-    Icon: {fileID: 0}
-    HideMember:
-    - TabElement
-    ExposeMember:
-    - TabName
-    - EnableTab
-    - EnableContextMenu
-    - LimitInParent
-    - LimitSize
-    - Dragable
-    - Resizable
-    - SnapLayout
-    - SnapBorder
-    - PopupOnClick
-    - MinSize
-    - MaxSize
-    - NextPosition
-    - NextSize
+  m_IgnoreAssemblyName: []
+  s_DefaultDrawerSettings_keys: []
+  s_DefaultDrawerSettings_values: []
   s_LanguageTextKeys:
-  - naiveapi.name
-  - naiveapi.icon
-  - naiveapi.label
-  - naiveapi.colorPicker
-  - naiveapi.cancel
+  - _apply
+  - _delete
+  - _save
+  - _select
+  - _cancel
   - page.main
   - page.main.title
+  - page.userData
   - page.editTheme
   - page.editUser
   - page.editUser.editing
   - page.editUser.creating
-  - page.userData
   - page.documentation
   - page.onlineHelp
+  - userData.basicInfoGroup
+  - userData.contactGroup
+  - userData.quilitiesGroup
   - userData.name
   - userData.base64Icon
   - userData.major
@@ -174,22 +56,19 @@ MonoBehaviour:
   - userData.graduatedSchool
   - userData.specialExperience
   - userData.favoriteClasses
-  - _apply
   - theme.setToDefaultDark
   - theme.setToDefaultLight
   - theme.normalColorSet
   - theme.successColorSet
   - theme.dangerColorSet
   - theme.hintColorSet
-  - _delete
-  - _save
-  - _select
-  - _cancel
-  - userData.basicInfoGroup
-  - userData.contactGroup
-  - userData.quilitiesGroup
   - userDataEdit.title
   - userDataEdit.createNew
   - userDataEdit.nextPage
   - userDataEdit.prevPage
+  - naiveapi.name
+  - naiveapi.icon
+  - naiveapi.label
+  - naiveapi.colorPicker
+  - naiveapi.cancel
   s_LanguageImageKeys: []
