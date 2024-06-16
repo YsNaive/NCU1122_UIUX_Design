@@ -1,9 +1,11 @@
 using NaiveAPI.UITK;
+using SFB;
 using SingularityGroup.HotReload;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -39,11 +41,13 @@ public class MainUI : MonoBehaviour
 
     VisualElement root;
     PageView<Page> pageView;
-    VisualElement toolBarContainer;
+    VisualElement toolBarContainer, backgroundElement;
+    Texture2D backgroundImage;
     private void Start()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
         root.style.flexDirection = FlexDirection.Row;
+        setBackgroundImage(Resources.Load<Texture2D>("Image/dark_background"));
         editDataDrawer = new UserDataDrawer();
         _InitUI();
     }
@@ -51,12 +55,13 @@ public class MainUI : MonoBehaviour
     void _InitUI()
     {
         root.Clear();
-        root.style.backgroundColor = RSTheme.Current.BackgroundColor;
+        //root.style.backgroundColor = RSTheme.Current.BackgroundColor;
         toolBarContainer = new VisualElement();
         toolBarContainer.style.borderRightColor = RSTheme.Current.BackgroundColor3;
         toolBarContainer.style.borderRightWidth = 2f;
         pageView = new PageView<Page>();
         pageView.style.flexGrow = 1;
+        pageView.style.backgroundColor = Color.clear;
         RSPadding.op_temp.any = RSTheme.Current.LineHeight/2f;
         RSPadding.op_temp.ApplyOn(pageView);
 
@@ -64,7 +69,7 @@ public class MainUI : MonoBehaviour
         _InitUserDataPage();
         _InitEditUserPage();
         _InitEditThemePage();
-        _InitColorPlayGround();
+        //_InitColorPlayGround();
         _InitDocumentation();
         _InitPageButton();
 
@@ -147,11 +152,11 @@ public class MainUI : MonoBehaviour
         pageView.Add(previewUser);
 
 
-        Color c1, c2;
-        c1 = RSTheme.Current.BackgroundColor2;
-        c2 = RSTheme.Current.BackgroundColor;
-        pageView.contentContainer.generateVisualContent += (MeshGenerationContext mgc) =>
-        { UIElementExtensionUtils.FillElementMeshGeneration(mgc, c1, c2, c2, c1);};
+        //Color c1, c2;
+        //c1 = RSTheme.Current.BackgroundColor2;
+        //c2 = RSTheme.Current.BackgroundColor;
+        //pageView.contentContainer.generateVisualContent += (MeshGenerationContext mgc) =>
+        //{ UIElementExtensionUtils.FillElementMeshGeneration(mgc, c1, c2, c2, c1);};
 
     }
     void _InitUserDataPage()
@@ -237,8 +242,8 @@ public class MainUI : MonoBehaviour
         root.contentContainer.RegisterCallback<AttachToPanelEvent>(evt =>
         {
             editDataDrawer = new();
-            RSTextElement createOrEditHint = new RSTextElement();
-            createOrEditHint.style.fontSize = 24;
+            editDataDrawer.style.maxHeight = Length.Percent(80);
+            RSTextElement createOrEditHint = new RSTextElement() { style = { fontSize = 24, minHeight = 40 } };
             createOrEditHint.text = RSLocalization.GetText(isCreating ? SR.page_editUser_create : SR.page_editUser_edit);
             PageView<bool> editUserPage = new(false);
             editUserPage.Add(new RSTextElement(RSLocalization.GetText(SR.userDataEdit_title)) { style = { fontSize = 24 } });
@@ -285,7 +290,7 @@ public class MainUI : MonoBehaviour
                 hor.style.paddingBottom = RSTheme.Current.VisualMargin;
                 hor.style.paddingLeft = RSTheme.Current.VisualMargin;
                 hor.RegisterCallback<PointerEnterEvent>(evt => { hor.style.backgroundColor = RSTheme.Current.BackgroundColor2; });
-                hor.RegisterCallback<PointerLeaveEvent>(evt => { hor.style.backgroundColor = RSTheme.Current.BackgroundColor; });
+                hor.RegisterCallback<PointerLeaveEvent>(evt => { hor.style.backgroundColor = Color.clear; });
                 hor.RegisterCallback<PointerDownEvent>(evt =>
                 {
                     hor.style.backgroundColor = RSTheme.Current.BackgroundColor;
@@ -353,6 +358,7 @@ public class MainUI : MonoBehaviour
         RSButton setToDefaultDark = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultDark), RSTheme.Current.HintColorSet, () =>
         {
             RSTheme.Current = UIElementExtensionResource.Get.DarkTheme.Theme.DeepCopy();
+            setBackgroundImage(Resources.Load<Texture2D>("Image/dark_background"));
             _InitUI();
             pageView.OpenPage(Page.EditTheme);
         });
@@ -361,6 +367,7 @@ public class MainUI : MonoBehaviour
         RSButton setToDefaultLight = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultLight), RSTheme.Current.HintColorSet, () =>
         {
             RSTheme.Current = UIElementExtensionResource.Get.LightTheme.Theme.DeepCopy();
+            setBackgroundImage(Resources.Load<Texture2D>("Image/light_background"));
             _InitUI();
             pageView.OpenPage(Page.EditTheme);
         });
@@ -374,6 +381,39 @@ public class MainUI : MonoBehaviour
         scrollView.Add(RuntimeDrawer.Create(RSTheme.Current.SuccessColorSet, RSLocalization.GetText(SR.theme_successColorSet)));
         scrollView.Add(RuntimeDrawer.Create(RSTheme.Current.DangerColorSet, RSLocalization.GetText(SR.theme_dangerColorSet)));
         scrollView.Add(RuntimeDrawer.Create(RSTheme.Current.HintColorSet, RSLocalization.GetText(SR.theme_hintColorSet)));
+        VisualElement horizontal = new VisualElement();
+        horizontal.style.flexDirection = FlexDirection.Row;
+        horizontal.style.backgroundColor = RSTheme.Current.BackgroundColor;
+        horizontal.style.paddingTop = 10;
+        horizontal.style.paddingLeft = 10;
+        horizontal.style.paddingBottom = 10;
+        RSTextElement backgroundText = new RSTextElement(RSLocalization.GetText(SR.theme_backgroundImage));
+        backgroundText.style.unityTextAlign = TextAnchor.MiddleCenter;
+        backgroundText.style.marginRight = 5;
+        backgroundElement = new VisualElement
+        {
+            style =
+            {
+                width = 48,
+                height = 27,
+                backgroundImage = backgroundImage,
+                marginRight = 5,
+            }
+        };
+        RSButton btSelect = new RSButton(RSLocalization.GetText(SR._select), RSTheme.Current.HintColorSet, () =>
+        {
+            var pick = StandaloneFileBrowser.OpenFilePanel(RSLocalization.GetText(SR._select), "", new ExtensionFilter[] { new ExtensionFilter("Image", "jpg", "jpeg", "png") }, false);
+            if (pick.Length != 0)
+            {
+                Texture2D texture = new Texture2D(1, 1);
+                texture.LoadImage(File.ReadAllBytes(pick[0]));
+                setBackgroundImage(texture);
+            }
+        });
+        horizontal.Add(backgroundText);
+        horizontal.Add(backgroundElement);
+        horizontal.Add(btSelect);
+        scrollView.Add(horizontal);
         foreach (var ve in scrollView.Children())
             ve.style.marginBottom = 5;
         pageView.Add(scrollView);
@@ -509,6 +549,16 @@ public class MainUI : MonoBehaviour
         toolBarContainer.Add(bottomArea);
     }
 
+    void setBackgroundImage(Texture2D texture)
+    {
+        backgroundImage = texture;
+        root.style.backgroundImage = texture;
+        if (backgroundElement != null)
+        {
+            backgroundElement.style.backgroundImage = texture;
+        }
+    }
+
     class UserDataSearchView : SearchView<string, UserData>
     {
         protected override VisualElement CreateItemVisual(UserData value)
@@ -544,7 +594,7 @@ public class MainUI : MonoBehaviour
             hor.Add(simpleInfoVisual);
             hor.RegisterCallback<PointerEnterEvent>(evt => hor.style.backgroundColor = RSTheme.Current.BackgroundColor2);
             hor.RegisterCallback<PointerDownEvent>(evt => UserDataPopupWindow.Open(value));
-            hor.RegisterCallback<PointerLeaveEvent>(evt => hor.style.backgroundColor = RSTheme.Current.BackgroundColor);
+            hor.RegisterCallback<PointerLeaveEvent>(evt => hor.style.backgroundColor = Color.clear);
             hor.style.borderBottomColor = RSTheme.Current.BackgroundColor2;
             hor.style.borderBottomWidth = RSTheme.Current.VisualMargin / 2f;
             hor.style.marginBottom = RSTheme.Current.VisualMargin / 2f;

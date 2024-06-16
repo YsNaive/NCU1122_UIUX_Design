@@ -44,6 +44,8 @@ public class SR : RSLocalizationKeyProvider
     public const string userData_graduatedSchool ="userData.graduatedSchool";
     public const string userData_specialExperience ="userData.specialExperience";
     public const string userData_favoriteClasses = "userData.favoriteClasses";
+    public const string userData_fb = "userData.fb";
+    public const string userData_ig = "userData.ig";
 
     public const string theme_setToDefaultDark = "theme.setToDefaultDark";
     public const string theme_setToDefaultLight = "theme.setToDefaultLight";
@@ -51,6 +53,8 @@ public class SR : RSLocalizationKeyProvider
     public const string theme_successColorSet = "theme.successColorSet";
     public const string theme_dangerColorSet = "theme.dangerColorSet";
     public const string theme_hintColorSet = "theme.hintColorSet";
+    public const string theme_backgroundImage = "theme.backgroundImage";
+
     public override IEnumerable<string> TextKeys
     {
         get
@@ -85,12 +89,15 @@ public class SR : RSLocalizationKeyProvider
             yield return userData_graduatedSchool;
             yield return userData_specialExperience;
             yield return userData_favoriteClasses;
+            yield return userData_fb;
+            yield return userData_ig;
             yield return theme_setToDefaultDark;
             yield return theme_setToDefaultLight;
             yield return theme_normalColorSet;
             yield return theme_successColorSet;
             yield return theme_dangerColorSet;
             yield return theme_hintColorSet;
+            yield return theme_backgroundImage;
             yield return userDataEdit_title;
             yield return userDataEdit_createNew;
             yield return userDataEdit_nextPage;

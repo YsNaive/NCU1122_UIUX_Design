@@ -24,6 +24,8 @@ public class UserData
         nameof(GraduatedSchool),
         nameof(SpecialExperience),
         nameof(FavoriteClasses),
+        nameof(FB),
+        nameof(IG)
     };
     public static readonly string[] MemberNameKeys = new string[]
     {
@@ -40,8 +42,11 @@ public class UserData
         SR.userData_graduatedSchool,
         SR.userData_specialExperience,
         SR.userData_favoriteClasses,
+        SR.userData_fb,
+        SR.userData_ig,
     };
-    public string[] stringValues = new string[13];
+    public string[] stringValues = new string[dataNum];
+    public const int dataNum = 15;
     public const int I_Base64Icon        = 0;
     public const int I_Name              = 1;
     public const int I_Major             = 2;
@@ -55,6 +60,8 @@ public class UserData
     public const int I_GraduatedSchool   = 10;
     public const int I_SpecialExperience = 11;
     public const int I_FavoriteClasses   = 12;
+    public const int I_FB   = 13;
+    public const int I_IG   = 14;
     #region getter setter
     public Texture2D IconTexture
     {
@@ -145,6 +152,32 @@ public class UserData
         get => stringValues[I_FavoriteClasses];
         set => stringValues[I_FavoriteClasses] = value;
     }
+    public string FB
+    {
+        get => stringValues.Length > I_FB ? stringValues[I_FB] : "";
+        set 
+        {
+            if (stringValues.Length <= I_FB)
+            {
+                Array.Resize(ref stringValues, dataNum);
+            }
+
+            stringValues[I_FB] = value;
+        }
+    }
+    public string IG
+    {
+        get => stringValues.Length > I_IG ? stringValues[I_IG] : "";
+        set
+        {
+            if (stringValues.Length <= I_IG)
+            {
+                Array.Resize(ref stringValues, dataNum);
+            }
+
+            stringValues[I_IG] = value;
+        }
+    }
     #endregion
     public UserData() {
         for (int i = 0; i < stringValues.Length; i++)
@@ -165,6 +198,17 @@ public class UserData
         GraduatedSchool = data.GraduatedSchool;
         SpecialExperience = data.SpecialExperience;
         FavoriteClasses = data.FavoriteClasses;
+
+        if (data.stringValues.Length == 13)
+        {
+            FB = "";
+            IG = "";
+        }
+        else
+        {
+            FB = data.FB;
+            IG = data.IG;
+        }
     }
 
     public VisualElement CreateUserIconElement()
@@ -177,7 +221,8 @@ public class UserData
 
     public override bool Equals(object obj)
     {
-        return (obj is UserData data) && 
+        return (obj is UserData data) &&
+            data.stringValues.Length == stringValues.Length &&
             data.Base64Icon == Base64Icon &&
             data.Name == Name && 
             data.Major == Major && 
@@ -190,7 +235,9 @@ public class UserData
             data.Hobbies == Hobbies &&
             data.GraduatedSchool == GraduatedSchool &&
             data.SpecialExperience == SpecialExperience &&
-            data.FavoriteClasses == FavoriteClasses;
+            data.FavoriteClasses == FavoriteClasses &&
+            data.FB == FB &&
+            data.IG == IG;
     }
     public override int GetHashCode()
     {
@@ -209,6 +256,8 @@ public class UserData
         hash = hash * 23 + GraduatedSchool.GetHashCode();
         hash = hash * 23 + SpecialExperience.GetHashCode();
         hash = hash * 23 + FavoriteClasses.GetHashCode();
+        hash = hash * 23 + FB.GetHashCode();
+        hash = hash * 23 + IG.GetHashCode();
 
         return hash;
     }
