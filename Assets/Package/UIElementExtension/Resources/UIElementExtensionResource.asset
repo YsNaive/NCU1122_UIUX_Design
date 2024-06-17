@@ -56,12 +56,15 @@ MonoBehaviour:
   - userData.graduatedSchool
   - userData.specialExperience
   - userData.favoriteClasses
+  - userData.fb
+  - userData.ig
   - theme.setToDefaultDark
   - theme.setToDefaultLight
   - theme.normalColorSet
   - theme.successColorSet
   - theme.dangerColorSet
   - theme.hintColorSet
+  - theme.backgroundImage
   - userDataEdit.title
   - userDataEdit.createNew
   - userDataEdit.nextPage
