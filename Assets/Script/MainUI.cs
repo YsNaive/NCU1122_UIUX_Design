@@ -47,7 +47,7 @@ public class MainUI : MonoBehaviour
     {
         root = GetComponent<UIDocument>().rootVisualElement;
         root.style.flexDirection = FlexDirection.Row;
-        setBackgroundImage(Resources.Load<Texture2D>("Image/dark_background"));
+        backgroundImage = Resources.Load<Texture2D>("Image/dark_background");
         editDataDrawer = new UserDataDrawer();
         _InitUI();
     }
@@ -55,7 +55,7 @@ public class MainUI : MonoBehaviour
     void _InitUI()
     {
         root.Clear();
-        //root.style.backgroundColor = RSTheme.Current.BackgroundColor;
+        root.style.backgroundImage = backgroundImage;
         toolBarContainer = new VisualElement();
         toolBarContainer.style.borderRightColor = RSTheme.Current.BackgroundColor3;
         toolBarContainer.style.borderRightWidth = 2f;
@@ -407,7 +407,8 @@ public class MainUI : MonoBehaviour
             {
                 Texture2D texture = new Texture2D(1, 1);
                 texture.LoadImage(File.ReadAllBytes(pick[0]));
-                setBackgroundImage(texture);
+                backgroundImage = texture;
+                backgroundElement.style.backgroundImage = texture;
             }
         });
         horizontal.Add(backgroundText);
@@ -552,7 +553,6 @@ public class MainUI : MonoBehaviour
     void setBackgroundImage(Texture2D texture)
     {
         backgroundImage = texture;
-        root.style.backgroundImage = texture;
         if (backgroundElement != null)
         {
             backgroundElement.style.backgroundImage = texture;
