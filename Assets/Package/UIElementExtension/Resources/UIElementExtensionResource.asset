@@ -37,6 +37,7 @@ MonoBehaviour:
   - page.editUser.editing
   - page.editUser.creating
   - page.documentation
+  - page.aboutUs
   - page.onlineHelp
   - userData.basicInfoGroup
   - userData.contactGroup
@@ -54,15 +55,14 @@ MonoBehaviour:
   - userData.graduatedSchool
   - userData.specialExperience
   - userData.favoriteClasses
-  - userData.fb
-  - userData.ig
   - theme.setToDefaultDark
   - theme.setToDefaultLight
+  - theme.setToDefaultWarm
+  - theme.setToDefaultCold
   - theme.normalColorSet
   - theme.successColorSet
   - theme.dangerColorSet
   - theme.hintColorSet
-  - theme.backgroundImage
   - userDataEdit.title
   - userDataEdit.createNew
   - userDataEdit.nextPage
@@ -72,8 +72,8 @@ MonoBehaviour:
   - naiveapi.label
   - naiveapi.colorPicker
   - naiveapi.cancel
-  - page.aboutUs
-  - theme.setToDefaultWarm
-  - theme.setToDefaultCold
   - theme.setToDefaultGolden
+  - userData.fb
+  - userData.ig
+  - theme.backgroundImage
   s_LanguageImageKeys: []

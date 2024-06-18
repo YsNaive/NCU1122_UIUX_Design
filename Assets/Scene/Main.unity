@@ -281,7 +281,7 @@ MonoBehaviour:
   GoldenTheme: {fileID: 11400000, guid: d0f1262e223869d4d9a35b9cafde33ff, type: 2}
   isCreating: 1
   editUserPageState: 0
-  TeamIcon: {fileID: 0}
+  TeamIcon: {fileID: 21300000, guid: 523a362ffa75824428c5cf9971772e9a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
