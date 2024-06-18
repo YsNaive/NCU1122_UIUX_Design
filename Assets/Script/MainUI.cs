@@ -356,7 +356,7 @@ public class MainUI : MonoBehaviour
         pageView.OpenOrCreatePage(Page.EditTheme);
         var orgTheme = RSTheme.Current;
         RSTheme.Current = UIElementExtensionResource.Get.DarkTheme.Theme;
-        RSButton setToDefaultDark = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultDark), RSTheme.Current.HintColorSet, () =>
+        RSButton setToDefaultDark = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultDark), RSTheme.Current.NormalColorSet, () =>
         {
             RSTheme.Current = UIElementExtensionResource.Get.DarkTheme.Theme.DeepCopy();
             _InitUI();
@@ -365,7 +365,7 @@ public class MainUI : MonoBehaviour
         setToDefaultDark.style.marginRight = 10;
         setToDefaultDark.style.fontSize = RSTheme.Current.LabelTextSize;
         RSTheme.Current = UIElementExtensionResource.Get.LightTheme.Theme;
-        RSButton setToDefaultLight = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultLight), RSTheme.Current.HintColorSet, () =>
+        RSButton setToDefaultLight = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultLight), RSTheme.Current.NormalColorSet, () =>
         {
             RSTheme.Current = UIElementExtensionResource.Get.LightTheme.Theme.DeepCopy();
             _InitUI();
@@ -374,7 +374,7 @@ public class MainUI : MonoBehaviour
         setToDefaultLight.style.marginRight = 10;
         setToDefaultLight.style.fontSize = RSTheme.Current.LabelTextSize;
         RSTheme.Current = WarmTheme.Theme;
-        RSButton setToDefaultWarm = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultWarm), RSTheme.Current.HintColorSet, () =>
+        RSButton setToDefaultWarm = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultWarm), RSTheme.Current.NormalColorSet, () =>
         {
             RSTheme.Current = WarmTheme.Theme.DeepCopy();
             _InitUI();
@@ -383,7 +383,7 @@ public class MainUI : MonoBehaviour
         setToDefaultWarm.style.marginRight = 10;
         setToDefaultWarm.style.fontSize = RSTheme.Current.LabelTextSize;
         RSTheme.Current = ColdTheme.Theme;
-        RSButton setToDefaultCold = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultCold), RSTheme.Current.HintColorSet, () =>
+        RSButton setToDefaultCold = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultCold), RSTheme.Current.NormalColorSet, () =>
         {
             RSTheme.Current = ColdTheme.Theme.DeepCopy();
             _InitUI();
