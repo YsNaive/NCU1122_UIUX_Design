@@ -47,7 +47,7 @@ public class MainUI : MonoBehaviour
     {
         root = GetComponent<UIDocument>().rootVisualElement;
         root.style.flexDirection = FlexDirection.Row;
-        backgroundImage = Resources.Load<Texture2D>("Image/dark_background");
+        backgroundImage = Resources.Load<Texture2D>("Image/light_background");
         editDataDrawer = new UserDataDrawer();
         _InitUI();
     }
@@ -56,6 +56,7 @@ public class MainUI : MonoBehaviour
     {
         root.Clear();
         root.style.backgroundImage = backgroundImage;
+        root.style.backgroundColor = RSTheme.Current.BackgroundColor;
         toolBarContainer = new VisualElement();
         toolBarContainer.style.borderRightColor = RSTheme.Current.BackgroundColor3;
         toolBarContainer.style.borderRightWidth = 2f;

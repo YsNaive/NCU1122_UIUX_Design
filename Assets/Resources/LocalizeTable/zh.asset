@@ -58,8 +58,6 @@ MonoBehaviour:
     - page.aboutUs
     - theme.setToDefaultCold
     - theme.setToDefaultWarm
-    - userData.fb
-    - userData.ig
     - theme.backgroundImage
     s_values:
     - "\u4E3B\u9801"
@@ -104,9 +102,7 @@ MonoBehaviour:
     - "\u95DC\u65BC\\n\u6211\u5011"
     - "\u91CD\u8A2D\u70BA\u51B7\u8272\u4E3B\u984C"
     - "\u91CD\u8A2D\u70BA\u6696\u8272\u4E3B\u984C"
-    - "FB\u3000\u3000\u3000"
-    - "IG\u3000\u3000\u3000"
-    - "\u80CC\u666F\u5716\u50CF"
+    - "\u80CC\u666F\u5716\u7247"
   SpriteTable:
     s_keys: []
     s_values: []

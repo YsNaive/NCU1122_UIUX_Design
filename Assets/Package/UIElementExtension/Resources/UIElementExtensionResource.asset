@@ -12,15 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ca0b2b02b725443bd35ece58e1d8e7, type: 3}
   m_Name: UIElementExtensionResource
   m_EditorClassIdentifier: 
-  DefaultTheme: {fileID: 11400000, guid: 353b44d16e4cc6f42a676f2c13784341, type: 2}
+  DefaultTheme: {fileID: 11400000, guid: f8107e741bccaee40a0212764d6baf9a, type: 2}
   DarkTheme: {fileID: 11400000, guid: 353b44d16e4cc6f42a676f2c13784341, type: 2}
   LightTheme: {fileID: 11400000, guid: f8107e741bccaee40a0212764d6baf9a, type: 2}
   LanguageInfos: []
-  DefaultLanguage: zh-CHT
+  DefaultLanguage: en
   CurrentLanguage: zh-CHT
   PreloadLangeaueTable:
-  - {fileID: 11400000, guid: dd25463c532db134b917c97ee4d9bf0a, type: 2}
-  - {fileID: 11400000, guid: a735bcb1843c16b49aed9bb89a671560, type: 2}
   - {fileID: 11400000, guid: 0259b2b204fc544429a948ed1e90fdbe, type: 2}
   m_IgnoreAssemblyName: []
   s_DefaultDrawerSettings_keys: []
@@ -56,12 +54,15 @@ MonoBehaviour:
   - userData.graduatedSchool
   - userData.specialExperience
   - userData.favoriteClasses
+  - userData.fb
+  - userData.ig
   - theme.setToDefaultDark
   - theme.setToDefaultLight
   - theme.normalColorSet
   - theme.successColorSet
   - theme.dangerColorSet
   - theme.hintColorSet
+  - theme.backgroundImage
   - userDataEdit.title
   - userDataEdit.createNew
   - userDataEdit.nextPage
@@ -71,11 +72,4 @@ MonoBehaviour:
   - naiveapi.label
   - naiveapi.colorPicker
   - naiveapi.cancel
-  - page.aboutUs
-  - theme.setToDefaultBlue
-  - theme.setToDefaultCold
-  - theme.setToDefaultWarm
-  - userData.fb
-  - userData.ig
-  - theme.backgroundImage
   s_LanguageImageKeys: []
