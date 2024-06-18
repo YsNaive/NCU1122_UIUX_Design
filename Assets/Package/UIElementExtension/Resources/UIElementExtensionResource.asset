@@ -75,4 +75,5 @@ MonoBehaviour:
   - page.aboutUs
   - theme.setToDefaultWarm
   - theme.setToDefaultCold
+  - theme.setToDefaultGolden
   s_LanguageImageKeys: []

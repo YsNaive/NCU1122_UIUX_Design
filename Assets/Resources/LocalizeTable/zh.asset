@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: zh
   m_EditorClassIdentifier: 
   LanguageKey: zh-CHT
-  FontAsset: {fileID: 11400000, guid: eb677f9daad56aa409baa7909058edca, type: 2}
+  FontAsset: {fileID: 11400000, guid: 1396eafff59b2674e9fccf3b575567a6, type: 2}
   TextTable:
     s_keys:
     - page.main
@@ -58,6 +58,8 @@ MonoBehaviour:
     - page.aboutUs
     - theme.setToDefaultCold
     - theme.setToDefaultWarm
+    - theme.backgroundImage
+    - theme.setToDefaultGolden
     s_values:
     - "\u4E3B\u9801"
     - "\u7DE8\u8F2F\\n\u4E3B\u984C"
@@ -101,6 +103,8 @@ MonoBehaviour:
     - "\u95DC\u65BC\\n\u6211\u5011"
     - "\u91CD\u8A2D\u70BA\u51B7\u8272\u4E3B\u984C"
     - "\u91CD\u8A2D\u70BA\u6696\u8272\u4E3B\u984C"
+    - "\u80CC\u666F\u5716\u7247"
+    - "\u91CD\u8A2D\u70BA\u6697\u91D1\u4E3B\u984C"
   SpriteTable:
     s_keys: []
     s_values: []

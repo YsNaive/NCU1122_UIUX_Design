@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 public class MainUI : MonoBehaviour
 {
-    public SO_RSTheme WarmTheme, ColdTheme;
+    public SO_RSTheme WarmTheme, ColdTheme, GoldenTheme;
 
     public enum Page
     {
@@ -364,6 +364,15 @@ public class MainUI : MonoBehaviour
         });
         setToDefaultDark.style.marginRight = 10;
         setToDefaultDark.style.fontSize = RSTheme.Current.LabelTextSize;
+        RSTheme.Current = GoldenTheme.Theme;
+        RSButton setToGoldenDark = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultGolden), RSTheme.Current.NormalColorSet, () =>
+        {
+            RSTheme.Current = GoldenTheme.Theme.DeepCopy();
+            _InitUI();
+            pageView.OpenPage(Page.EditTheme);
+        });
+        setToGoldenDark.style.marginRight = 10;
+        setToGoldenDark.style.fontSize = RSTheme.Current.LabelTextSize;
         RSTheme.Current = UIElementExtensionResource.Get.LightTheme.Theme;
         RSButton setToDefaultLight = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultLight), RSTheme.Current.NormalColorSet, () =>
         {
@@ -393,6 +402,7 @@ public class MainUI : MonoBehaviour
         setToDefaultCold.style.fontSize = RSTheme.Current.LabelTextSize;
         RSTheme.Current = orgTheme;
         pageView.Add(setToDefaultDark);
+        pageView.Add(setToGoldenDark);
         pageView.Add(setToDefaultLight);
         pageView.Add(setToDefaultWarm);
         pageView.Add(setToDefaultCold);

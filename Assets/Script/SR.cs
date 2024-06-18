@@ -47,6 +47,7 @@ public class SR : RSLocalizationKeyProvider
     public const string userData_favoriteClasses = "userData.favoriteClasses";
 
     public const string theme_setToDefaultDark = "theme.setToDefaultDark";
+    public const string theme_setToDefaultGolden = "theme.setToDefaultGolden";
     public const string theme_setToDefaultLight = "theme.setToDefaultLight";
     public const string theme_setToDefaultWarm = "theme.setToDefaultWarm";
     public const string theme_setToDefaultCold = "theme.setToDefaultCold";
@@ -90,6 +91,7 @@ public class SR : RSLocalizationKeyProvider
             yield return userData_specialExperience;
             yield return userData_favoriteClasses;
             yield return theme_setToDefaultDark;
+            yield return theme_setToDefaultGolden;
             yield return theme_setToDefaultLight;
             yield return theme_setToDefaultWarm;
             yield return theme_setToDefaultCold;

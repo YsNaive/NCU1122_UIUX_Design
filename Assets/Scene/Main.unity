@@ -278,8 +278,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WarmTheme: {fileID: 11400000, guid: 38e65a781efa72042b60f68ecc299573, type: 2}
   ColdTheme: {fileID: 11400000, guid: 22672a820f164c349bddc95769f0eb29, type: 2}
+  GoldenTheme: {fileID: 11400000, guid: d0f1262e223869d4d9a35b9cafde33ff, type: 2}
   isCreating: 1
   editUserPageState: 0
+  TeamIcon: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
