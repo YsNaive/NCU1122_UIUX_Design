@@ -19,8 +19,6 @@ MonoBehaviour:
   DefaultLanguage: zh-CHT
   CurrentLanguage: zh-CHT
   PreloadLangeaueTable:
-  - {fileID: 11400000, guid: dd25463c532db134b917c97ee4d9bf0a, type: 2}
-  - {fileID: 11400000, guid: a735bcb1843c16b49aed9bb89a671560, type: 2}
   - {fileID: 11400000, guid: 0259b2b204fc544429a948ed1e90fdbe, type: 2}
   m_IgnoreAssemblyName: []
   s_DefaultDrawerSettings_keys: []
@@ -39,6 +37,7 @@ MonoBehaviour:
   - page.editUser.editing
   - page.editUser.creating
   - page.documentation
+  - page.aboutUs
   - page.onlineHelp
   - userData.basicInfoGroup
   - userData.contactGroup
@@ -56,15 +55,14 @@ MonoBehaviour:
   - userData.graduatedSchool
   - userData.specialExperience
   - userData.favoriteClasses
-  - userData.fb
-  - userData.ig
   - theme.setToDefaultDark
   - theme.setToDefaultLight
+  - theme.setToDefaultWarm
+  - theme.setToDefaultCold
   - theme.normalColorSet
   - theme.successColorSet
   - theme.dangerColorSet
   - theme.hintColorSet
-  - theme.backgroundImage
   - userDataEdit.title
   - userDataEdit.createNew
   - userDataEdit.nextPage
@@ -74,8 +72,4 @@ MonoBehaviour:
   - naiveapi.label
   - naiveapi.colorPicker
   - naiveapi.cancel
-  - page.aboutUs
-  - theme.setToDefaultBlue
-  - theme.setToDefaultCold
-  - theme.setToDefaultWarm
   s_LanguageImageKeys: []

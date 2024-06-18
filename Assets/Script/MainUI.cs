@@ -354,7 +354,8 @@ public class MainUI : MonoBehaviour
     void _InitEditThemePage()
     {
         pageView.OpenOrCreatePage(Page.EditTheme);
-        RSHorizontal defaultHor = new RSHorizontal() { style = { marginBottom = 10 } };
+        var orgTheme = RSTheme.Current;
+        RSTheme.Current = UIElementExtensionResource.Get.DarkTheme.Theme;
         RSButton setToDefaultDark = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultDark), RSTheme.Current.HintColorSet, () =>
         {
             RSTheme.Current = UIElementExtensionResource.Get.DarkTheme.Theme.DeepCopy();
@@ -363,6 +364,7 @@ public class MainUI : MonoBehaviour
         });
         setToDefaultDark.style.marginRight = 10;
         setToDefaultDark.style.fontSize = RSTheme.Current.LabelTextSize;
+        RSTheme.Current = UIElementExtensionResource.Get.LightTheme.Theme;
         RSButton setToDefaultLight = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultLight), RSTheme.Current.HintColorSet, () =>
         {
             RSTheme.Current = UIElementExtensionResource.Get.LightTheme.Theme.DeepCopy();
@@ -371,6 +373,7 @@ public class MainUI : MonoBehaviour
         });
         setToDefaultLight.style.marginRight = 10;
         setToDefaultLight.style.fontSize = RSTheme.Current.LabelTextSize;
+        RSTheme.Current = WarmTheme.Theme;
         RSButton setToDefaultWarm = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultWarm), RSTheme.Current.HintColorSet, () =>
         {
             RSTheme.Current = WarmTheme.Theme.DeepCopy();
@@ -379,32 +382,20 @@ public class MainUI : MonoBehaviour
         });
         setToDefaultWarm.style.marginRight = 10;
         setToDefaultWarm.style.fontSize = RSTheme.Current.LabelTextSize;
+        RSTheme.Current = ColdTheme.Theme;
         RSButton setToDefaultCold = new RSButton(RSLocalization.GetText(SR.theme_setToDefaultCold), RSTheme.Current.HintColorSet, () =>
         {
             RSTheme.Current = ColdTheme.Theme.DeepCopy();
             _InitUI();
             pageView.OpenPage(Page.EditTheme);
         });
+        setToDefaultCold.style.marginRight = 10;
         setToDefaultCold.style.fontSize = RSTheme.Current.LabelTextSize;
-        defaultHor.Add(setToDefaultDark);
-        defaultHor.Add(setToDefaultLight);
-        defaultHor.Add(setToDefaultWarm);
-        defaultHor.Add(setToDefaultCold);
-        pageView.Add(defaultHor);
-
-        var scrollView = new RSScrollView();
-        scrollView.Add(RuntimeDrawer.Create(RSTheme.Current.NormalColorSet, RSLocalization.GetText(SR.theme_normalColorSet)));
-        scrollView.Add(RuntimeDrawer.Create(RSTheme.Current.SuccessColorSet, RSLocalization.GetText(SR.theme_successColorSet)));
-        scrollView.Add(RuntimeDrawer.Create(RSTheme.Current.DangerColorSet, RSLocalization.GetText(SR.theme_dangerColorSet)));
-        scrollView.Add(RuntimeDrawer.Create(RSTheme.Current.HintColorSet, RSLocalization.GetText(SR.theme_hintColorSet)));
-        foreach (var ve in scrollView.Children())
-            ve.style.marginBottom = 5;
-        pageView.Add(scrollView);
-        var applyBtn = new RSButton(RSLocalization.GetText(SR._apply), RSTheme.Current.SuccessColorSet);
-        applyBtn.clicked += _InitUI;
-        applyBtn.style.marginTop = StyleKeyword.Auto;
-        pageView.contentContainer.style.flexGrow = 1;
-        pageView.Add(applyBtn);
+        RSTheme.Current = orgTheme;
+        pageView.Add(setToDefaultDark);
+        pageView.Add(setToDefaultLight);
+        pageView.Add(setToDefaultWarm);
+        pageView.Add(setToDefaultCold);
     }
     void _InitColorPlayGround()
     {
@@ -495,9 +486,24 @@ public class MainUI : MonoBehaviour
     {
         pageView.OpenOrCreatePage(Page.Documnetation);
     }
+    public Sprite TeamIcon;
     void _InitAboutUs()
     {
         pageView.OpenOrCreatePage(Page.AboutUs);
+        VisualElement icon = new VisualElement();
+        icon.style.width = 120;
+        icon.style.height = 120;
+        icon.style.backgroundImage = Background.FromSprite(TeamIcon);
+        pageView.Add(icon);
+        pageView.Add(new RSTextElement("　　我們的團隊專注於使用者界面和體驗(UI/UX)設計，致力於創造美觀且易於操作的產品介面，提升用戶滿意度和品牌價值。團隊以用戶為中心，通過深入研究和數據分析，精心設計每一個互動環節。我們的目標是將複雜的技術轉化為直觀且愉悅的用戶體驗，為客戶提供高效且創新的解決方案。"));
+        pageView.Add(new RSTextElement("聯絡我們！") { style = {marginTop = 30}});
+        pageView.Add(new RSTextElement("  xxxx@gmail.com"));
+        pageView.Add(new RSTextElement("  xx-xxxx-xxxx"));
+        foreach (var te in pageView.ChildrenRecursive<RSTextElement>())
+        {
+            te.style.marginLeft = 30;
+            te.style.marginRight = 30;
+        }
     }
     RSButton _CreatePageButton(string key)
     {
