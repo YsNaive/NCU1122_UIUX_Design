@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LightTheme
   m_EditorClassIdentifier: 
   Theme:
-    TextFont: {fileID: 11400000, guid: 1396eafff59b2674e9fccf3b575567a6, type: 2}
+    TextFont: {fileID: 11400000, guid: 3025e9649b63c3347ba2cc3b6287d8a1, type: 2}
     FieldBackground: {fileID: 0}
     TextSize: 15
     LabelTextSize: 20
